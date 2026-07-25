@@ -12,7 +12,6 @@ Reports, for one leave-one-animal-out fold:
 from __future__ import annotations
 
 import argparse
-import copy
 import json
 from pathlib import Path
 

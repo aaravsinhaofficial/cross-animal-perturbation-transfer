@@ -23,7 +23,7 @@ from pathlib import Path
 import numpy as np
 
 from cadence import metrics as M
-from cadence.baselines import condition_descriptors, measured_delta_set
+from cadence.baselines import measured_delta_set
 
 
 def rows_for(s, max_depth=1900.0):

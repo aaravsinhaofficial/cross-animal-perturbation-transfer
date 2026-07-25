@@ -19,19 +19,20 @@ import numpy as np
 import torch
 
 from cadence.eval.identifiability import direction_recovery, latent_recovery
-from cadence.experiment import ExperimentConfig, _jsonable, print_summary, run_loao
+from cadence.experiment import ExperimentConfig, _jsonable, run_loao
 from cadence.holdout import InterventionHoldout
-from cadence.teacher import INTERV_TYPES, SyntheticConfig, build_synthetic_dataset
-from cadence.training import TrainConfig, build_config, feature_tensors, pack, predicted_delta
 from cadence.model import Cadence
+from cadence.teacher import INTERV_TYPES, SyntheticConfig, build_synthetic_dataset
+from cadence.training import TrainConfig, build_config, feature_tensors, pack
 
 
 def identifiability_report(ds, truth, cfg: ExperimentConfig, held_out: str, seed: int = 0) -> dict:
     """Re-run one fold and, in addition, measure ground-truth recovery."""
+    import copy
+
+    from cadence.data.icms import stable_seed
     from cadence.experiment import evaluate_fold  # noqa: F401  (kept for parity)
     from cadence.training import calibrate_animal, fit, reset_animal
-    from cadence.data.icms import stable_seed
-    import copy
 
     train_sets = [s for s in ds.sets if s.animal != held_out]
     test_sets = [s for s in ds.sets if s.animal == held_out]

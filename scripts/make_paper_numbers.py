@@ -18,10 +18,13 @@ def fmt(x, nd=3):
 
 
 def pval(p):
+    """Render a p-value as LaTeX math. Note that the paired permutation test is
+    floored at 2^-(n-1), so for n = 48 the smallest reportable value is
+    7.1 x 10^-15; the paper states this explicitly where it matters."""
     if p is None or not np.isfinite(p):
         return "--"
-    if p < 1e-12:
-        return r"<10^{-12}"
+    if p >= 0.01:
+        return f"{p:.3f}"
     e = int(np.floor(np.log10(p)))
     m = p / 10**e
     return rf"{m:.1f}\times 10^{{{e}}}"

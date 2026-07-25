@@ -49,7 +49,7 @@ def describe(path: Path) -> dict:
         if "intervals/trials" in f:
             t = f["intervals/trials"]
             cur = t["current_uA"][:]
-            out["n_trials"] = int(len(cur))
+            out["n_trials"] = len(cur)
             out["trial_currents"] = sorted(np.unique(cur).tolist())
             out["n_catch"] = int(np.sum(cur == 0))
             out["trial_channels"] = sorted(np.unique(t["stim_channel"][:]).tolist())
@@ -72,7 +72,7 @@ def describe(path: Path) -> dict:
         # ---- stimulation table ----
         if "intervals/electrical_stimulation" in f:
             s = f["intervals/electrical_stimulation"]
-            out["n_stim_events"] = int(len(s["current_uA"]))
+            out["n_stim_events"] = len(s["current_uA"])
             out["stim_currents"] = sorted(np.unique(s["current_uA"][:]).tolist())
             out["stim_freqs"] = sorted(np.unique(s["frequency_hz"][:]).tolist())
             out["stim_pulse_counts"] = sorted(np.unique(s["pulse_count"][:]).tolist())
@@ -97,7 +97,7 @@ def describe(path: Path) -> dict:
         # ---- units ----
         if "units" in f:
             u = f["units"]
-            out["n_units"] = int(len(u["id"]))
+            out["n_units"] = len(u["id"])
             if "accepted" in u:
                 out["n_units_accepted"] = int(u["accepted"][:].sum())
             if "cell_type" in u:
@@ -107,7 +107,7 @@ def describe(path: Path) -> dict:
             out["unit_cols"] = sorted(u.keys())
             st = u["spike_times"][:]
             out["spike_time_range"] = [float(st.min()), float(st.max())] if len(st) else None
-            out["n_spikes"] = int(len(st))
+            out["n_spikes"] = len(st)
 
         # ---- ophys ----
         if "processing/ophys/DfOverF" in f:
@@ -141,7 +141,7 @@ def describe(path: Path) -> dict:
         # ---- electrodes ----
         if "general/extracellular_ephys/electrodes" in f:
             e = f["general/extracellular_ephys/electrodes"]
-            out["n_electrodes"] = int(len(e["id"]))
+            out["n_electrodes"] = len(e["id"])
             locs = [x.decode() if isinstance(x, bytes) else x for x in e["location"][:]]
             out["electrode_locations"] = sorted(set(locs))
             out["electrode_xyz_ranges"] = {

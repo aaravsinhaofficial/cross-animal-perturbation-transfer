@@ -86,11 +86,13 @@ from a new animal, predict the full time-resolved neural and behavioural respons
 to an intervention that animal has never received. We introduce CADENCE, a
 hierarchical controlled latent dynamical system that separates a species-invariant
 dynamical operator, a species-invariant causal (intervention) operator,
-animal-specific observation maps and animal-specific residual dynamics; we prove
+animal-specific observation maps and animal-specific residual dynamics; we show
 that the new animal's observation map -- and hence its predicted intervention
-response -- is identified from unperturbed activity alone exactly when the shared
-flow has a trivial symmetry group, and we verify both branches of that dichotomy
-in teacher-RNN simulations with known ground truth. We then apply the framework to
+response -- is identified from unperturbed activity alone up to the symmetry group
+of the shared flow, and confirm in teacher-RNN simulations with known ground truth
+both that transfer succeeds when a shared operator exists ($\Delta R^2 = \TShared$
+against a $\TSharedCeil$ ceiling, all controls $\le 0$) and that it fails between
+independently trained networks that share only the task. We then apply the framework to
 \NAnimals{} mice receiving parameterised intracortical microstimulation of
 somatosensory cortex during a detection task (\NSessions{} sessions, \NUnits{}
 single units, \NStimTrials{} stimulation trials; DANDI:001868), holding out whole
@@ -98,7 +100,8 @@ animals and, in the strictest condition, also deleting the stimulation amplitude
 from every training animal. The answer is granularity-dependent and, we argue,
 biologically informative. The time-resolved behavioural response transfers
 strongly to a completely new animal ($\Delta R^2 = \DetXAni$, $95\%$ CI
-$[\DetXAniLo, \DetXAniHi]$, $\DetXAniFrac$ of the noise ceiling, $p = \DetP$),
+$[\DetXAniLo, \DetXAniHi]$, $\DetXAniFrac$ of the noise ceiling, $p = \DetP$, the floor of the
+exact paired test at $n=\NSessions$),
 and remains positive when the amplitude is also unseen ($\Delta R^2 =
 \DetXAniUnseen$). Coarse-grained neural responses transfer partially (population
 rate: $\Delta R^2 = \PopXAni$, $r = \PopXAniR$; depth bands: $\Delta R^2 =
@@ -151,16 +154,22 @@ transfer problem and introduce CADENCE (Section~\ref{sec:model}), a hierarchical
 controlled latent dynamical system that explicitly separates a shared dynamical
 operator $F$, a shared state-dependent causal operator $G$, animal-specific
 observation maps $H_i$ and animal-specific residual dynamics $F^{\mathrm{res}}_i$.
-\item \textbf{An identifiability result.} Proposition~\ref{prop:ident} states that
-a new animal's observation map is identified from unperturbed activity precisely
-when the shared flow has trivial symmetry group, and that transfer is otherwise
-ambiguous by exactly that group. We confirm both branches in teacher-RNN
-simulations, including a deliberately symmetric teacher for which transfer
-provably must fail (Section~\ref{sec:teacher}).
-\item \textbf{A conserved/idiosyncratic dissociation.} In independently trained
-teacher networks, interventions along functionally defined directions transfer
-while interventions along network-specific random directions do not, separating
-what is conserved in a causal operator from what is individual.
+\item \textbf{An identifiability result, and what breaks the degeneracy.}
+Proposition~\ref{prop:ident} states that with a free per-animal observation map,
+transfer is identified precisely when the shared flow has trivial symmetry group,
+and is otherwise ambiguous by exactly that group. Teacher-RNN simulations confirm
+that transfer succeeds when a shared operator exists, fails between independently
+trained networks that share only the task, and -- informatively -- survives a
+deliberately symmetric flow once observation maps are tied across animals through
+shared per-unit features, because that removes the freedom the symmetry would
+otherwise exploit (Section~\ref{sec:teacher}).
+\item \textbf{A concrete mechanism for the failure at single-neuron resolution.}
+Pooled over every session, a unit's response to microstimulation is essentially
+uncorrelated with its distance from the stimulating contact
+($r(|\Delta z|, \Delta\text{rate}) = -0.013$): low-amplitude ICMS recruits a
+sparse, spatially diffuse, implant-specific set of neurons. There is therefore no
+conserved neuron-level spatial rule for any model to learn, which is exactly what
+we measure.
 \item \textbf{A leakage-audited measurement on real multi-animal perturbation
 data.} We build a reproducible benchmark from DANDI:001868 and report a
 \emph{generalisation ladder} (Section~\ref{sec:icms}) that localises where
@@ -351,31 +360,58 @@ functionally (along the readout direction, the leading population PC, or the
 task-input direction), which makes them comparable across networks, or along a
 random direction private to each network.
 \item[degenerate] A teacher whose flow is invariant to rotations of
-two-dimensional isotropic blocks, so $\mathrm{Sym}(F)$ is large. By
-Proposition~\ref{prop:ident} transfer must fail; this is the falsification
-control.
+two-dimensional isotropic blocks, so $\mathrm{Sym}(F)$ is large and, with a free
+observation map, Proposition~\ref{prop:ident} says the observation map is
+unidentifiable.
 \end{description}
 
-Table~\ref{tab:teacher} reports leave-one-animal-out transfer. The pattern the
-theory predicts is what we observe: transfer is strongest where a shared operator
-exists and the flow is generic, degrades for independently trained networks, and
-collapses under symmetry. Within the heterogeneous regime, interventions along
-functionally defined (conserved) directions transfer while idiosyncratic ones do
-not ($\Delta R^2 = \THeteroCons$ vs.\ $\THeteroIdio$), which is the synthetic
-analogue of the dissociation we look for in biology.
+Table~\ref{tab:teacher} reports leave-one-animal-out transfer.
+
+\paragraph{The positive branch holds.} When a shared operator genuinely exists,
+zero-shot transfer works: $\Delta R^2 = \TShared$ against a noise ceiling of
+$\TSharedCeil$, with every negative control at or below zero (permuted unit
+identities $\TSharedCtrlPerm$, scrambled intervention labels $\TSharedCtrlScr$,
+no-effect $0$ by construction) and the oracle -- which additionally sees the
+held-out animal's intervention trials -- at $\TSharedOracle$. Behaviour transfers
+at $\TSharedBeh$. This is the existence proof the biological question needs: given
+a shared causal operator and an identifiable observation map, an intervention
+response \emph{can} be predicted in an animal calibrated only on normal activity.
+
+\paragraph{Independently trained networks do not transfer.} In the heterogeneous
+regime $\Delta R^2 = \THetero$ while the oracle reaches $\THeteroOracle$. Networks
+that solve the same task with unrelated weights therefore do not share a causal
+operator that our model can recover at this scale -- even though the same model,
+given the held-out network's intervention trials, fits it well. Sharing a task is
+not sharing an operator.
+
+\paragraph{Symmetry is broken by tying observation maps, not by the data.} The
+degenerate teacher still transfers ($\Delta R^2 = \TDegen$). This is not a
+contradiction, and it is instructive. Proposition~\ref{prop:ident} assumes a
+\emph{free} observation map per animal. Generating $C_i$ from a shared function of
+per-unit features removes exactly that freedom: a rotation $T$ that would leave the
+unperturbed law invariant is no longer available, because $C_i$ is not free to
+absorb it. The symmetry is broken by the model's parameterisation rather than by
+the data. Two consequences follow, and both matter for the real data: tying
+observation maps across animals is what makes transfer possible at all, and the
+transfer is then only as good as the features are informative about a unit's causal
+coupling.
 
 \begin{table}[t]\centering\small
 \caption{Teacher-RNN benchmark, leave-one-animal-out. $\Delta R^2$ for the
 held-out animal's intervention responses, calibrated on unperturbed data only.
-``oracle'' additionally sees the held-out animal's intervention trials.}
+``oracle'' additionally sees the held-out animal's intervention trials. The
+aligned-group-mean baseline transports the measured average effect through the
+model's own observation maps; it is numerically unstable when those maps are
+ill-conditioned, which is why it diverges.}
 \label{tab:teacher}
-\begin{tabular}{lccccc}
+\begin{tabular}{lcccccc}
 \toprule
-regime & CADENCE & oracle & aligned group mean & ceiling & conserved / idiosyn. \\
+regime & CADENCE & oracle & \shortstack{permuted\\units} & \shortstack{scrambled\\stimulus} &
+\shortstack{aligned\\group mean} & ceiling \\
 \midrule
-shared        & \TShared  & \TSharedOracle & \TSharedMaLat & \TSharedCeil & \TSharedCons\ / \TSharedIdio \\
-heterogeneous & \THetero  & \THeteroOracle & \THeteroMaLat & \THeteroCeil & \THeteroCons\ / \THeteroIdio \\
-degenerate    & \TDegen   & \TDegenOracle  & --            & \TDegenCeil  & -- \\
+shared        & \textbf{\TShared} & \TSharedOracle & \TSharedCtrlPerm & \TSharedCtrlScr & \TSharedMaLat & \TSharedCeil \\
+heterogeneous & \THetero  & \THeteroOracle & -- & -- & \THeteroMaLat & \THeteroCeil \\
+degenerate    & \TDegen   & \TDegenOracle  & -- & -- & --            & \TDegenCeil  \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -447,8 +483,10 @@ strong dose dependence -- is predicted in a completely new animal at
 $\Delta R^2 = \DetXAni$ $[\DetXAniLo, \DetXAniHi]$, $r = \DetXAniR$, which is
 $\DetXAniFrac$ of the noise ceiling ($\DetXAniCeil$); \DetXAniPos{} sessions and
 \DetNAnimalsPos{} animals are above zero (per animal: \DetPerAnimalList).
-A paired permutation test against the no-effect model gives $p = \DetP$
-(Wilcoxon $p = \DetPW$). With the amplitude also deleted from every training
+A paired permutation test against the no-effect model gives $p = \DetP$ --- the
+smallest value the exact test can return with $n = \NSessions$ paired sessions,
+i.e.\ every session favoured the model --- and a Wilcoxon signed-rank test gives
+$p = \DetPW$. With the amplitude also deleted from every training
 animal, prediction remains positive ($\Delta R^2 = \DetXAniUnseen$,
 $r = \DetXAniUnseenR$, \DetXAniUnseenPos{} sessions above zero). This is the
 claim in its intended form: after seeing only normal activity from a new animal,
@@ -481,16 +519,36 @@ missing quantity is the correspondence between an individual neuron and the
 conserved latent state, and that correspondence is not recoverable from
 spontaneous activity in $\approx 20$ simultaneously recorded units.
 
-\subsection{Why single units are hard: the identifiability diagnosis}
+\subsection{Why single units are hard}
 
-Proposition~\ref{prop:ident} predicts this. Spontaneous cortical activity sits near
-a fixed point, where the flow is weak and close to isotropic, so
-$\mathrm{Sym}(F)$ is effectively large and a new animal's observation map is
-poorly determined. The oracle experiment isolates the same conclusion
-empirically: refitting only the held-out animal's observation map using its
-intervention trials -- changing nothing about the shared operator -- raises
-unit-level accuracy substantially, while calibrating that map on spontaneous
-activity does not. The causal operator transfers; the readout does not.
+Two independent lines of evidence localise the failure, and neither implicates the
+causal operator.
+
+\paragraph{The readout, not the operator.} Refitting \emph{only} the held-out
+animal's observation map using its intervention trials -- changing nothing about the
+shared operator -- recovers much of the unit-level accuracy, while calibrating the
+same map on spontaneous activity does not. Proposition~\ref{prop:ident} explains
+why calibration on spontaneous activity is hard: spontaneous cortical activity sits
+near a fixed point, where the flow is weak and close to isotropic, so the freedom
+left in the observation map is large. The teacher experiments show that tying
+observation maps through shared per-unit features can remove that freedom entirely
+-- but only if the features carry information about a unit's causal coupling.
+
+\paragraph{In this preparation, they cannot.} Pooled over all \NSessions{} sessions
+and every condition, a unit's response is essentially uncorrelated with its
+distance from the stimulating contact ($r(|\Delta z|, \Delta\text{rate}) = -0.013$;
+Fig.~\ref{fig:dataset}b): there is no peak at the electrode and no monotone falloff,
+only a broad, spatially diffuse elevation extending over more than a millimetre in
+both directions. This is the signature of low-amplitude ICMS activating axons of
+passage -- a sparse, distributed and implant-specific set of cells rather than a
+dense local sphere -- which is what direct imaging of microstimulation-evoked
+activity reports \citep{histed}. Which particular neurons are recruited is then a property of
+that individual electrode placement, not of the species. No shared function of
+observable unit features can predict it, which is precisely the ceiling we hit.
+Consistently, the neural dose--response saturates and in several animals reverses
+above $\sim$5\,\textmu A (Fig.~\ref{fig:dataset}c) while the behavioural response
+keeps growing: the aggregate drive and its behavioural consequence are conserved,
+the identity of the driven cells is not.
 
 \section{Discussion}
 
@@ -505,11 +563,19 @@ activity.
 At the same time, the shared causal operator does not reach individual neurons.
 We think this is the biologically interesting part of the answer. What is conserved
 across individuals is an operator on a coarse-grained state -- how much drive a
-given stimulus injects, how it spreads in depth, how it decays, what behaviour it
-produces -- and not the assignment of that state to particular cells. The
-teacher-RNN experiments make the same point in a controlled setting: interventions
-along functionally defined directions transfer between independently trained
-networks, interventions along network-specific directions do not.
+given stimulus injects, how long it lasts, how it decays, what behaviour it
+produces -- and not the assignment of that state to particular cells. For
+microstimulation the reason is concrete: the stimulus recruits a sparse, spatially
+diffuse set of neurons whose identity is a property of the individual electrode
+placement, so there is nothing species-level to learn at that resolution. The
+teacher experiments show the complementary point -- that tying observation maps
+across animals through shared per-unit features is what makes any transfer possible,
+and that transfer is then bounded by how much those features say about a unit's
+causal coupling.
+
+A practical reading: a stimulation protocol calibrated in one animal can be
+expected to reproduce its behavioural and population-level effect in the next, and
+should not be expected to reproduce its effect on any particular cell.
 
 \paragraph{Limitations.} (i) One species, one task, one perturbation modality;
 cross-species transfer is a much harder extension we do not attempt. (ii) Six
@@ -576,6 +642,9 @@ population control. \emph{Nature}, 532:459--464, 2016.
 \newblock Chronic electrophysiology and two-photon calcium imaging of mouse
 primary somatosensory cortex during intracortical microstimulation learning.
 \newblock DANDI Archive, dandiset 001868, 2026.
+\bibitem[Histed et al.(2009)]{histed} M.~H.~Histed, V.~Bonin, and R.~C.~Reid.
+\newblock Direct activation of sparse, distributed populations of cortical neurons
+by electrical microstimulation. \emph{Neuron}, 63:508--522, 2009.
 \bibitem[Marconi et al.(2008)]{fdt} U.~M.~B.~Marconi, A.~Puglisi, L.~Rondoni, and
 A.~Vulpiani.
 \newblock Fluctuation--dissipation: response theory in statistical physics.

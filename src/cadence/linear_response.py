@@ -129,7 +129,7 @@ def design_for_set(
             # causal convolution of the basis with the impulse response
             for b in range(n_b):
                 acc = np.zeros((T, s.n_obs))
-                for k in range(0, min(cfg.max_lag, T - 1) + 1):
+                for k in range(min(cfg.max_lag, T - 1) + 1):
                     w = B[b, : T - k]
                     if not np.any(w):
                         continue

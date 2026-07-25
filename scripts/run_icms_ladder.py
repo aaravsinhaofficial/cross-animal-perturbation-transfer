@@ -40,7 +40,6 @@ from cadence.linear_response import (
     fit_propagator,
     fit_shared_from_blocks,
     precompute_blocks,
-    predict_delta,
 )
 
 MAX_D = 1900.0
@@ -97,7 +96,7 @@ def cond_params(s, c):
 # ---------------------------------------------------------------------------
 # the low-dimensional shared operator (population / behaviour readouts)
 # ---------------------------------------------------------------------------
-from cadence.dose import dose_design, ridge_solve  # noqa: E402
+from cadence.dose import dose_design, ridge_solve
 
 
 def dose_rows(s, level, conds):
@@ -247,15 +246,15 @@ def main() -> int:
                     elif gen == "cross_animal":
                         ev = all_conds[s.key]
                         train = [t for t in use if t.animal != s.animal]
-                        tr_conds = lambda t: all_conds[t.key]  # noqa: E731
+                        tr_conds = lambda t: all_conds[t.key]
                     elif gen == "cross_session":
                         ev = all_conds[s.key]
                         train = [t for t in use if t.animal == s.animal and t.key != s.key]
-                        tr_conds = lambda t: all_conds[t.key]  # noqa: E731
+                        tr_conds = lambda t: all_conds[t.key]
                     else:
                         ev = all_conds[s.key]
                         train = [s]
-                        tr_conds = lambda t: all_conds[t.key]  # noqa: E731
+                        tr_conds = lambda t: all_conds[t.key]
                     if not ev or not train:
                         continue
                     if method == "no_effect":

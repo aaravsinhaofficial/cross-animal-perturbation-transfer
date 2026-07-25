@@ -6,7 +6,7 @@ import argparse
 import pickle
 from pathlib import Path
 
-from cadence.experiment import ExperimentConfig, evaluate_fold, print_summary, run_loao, summarise
+from cadence.experiment import ExperimentConfig, run_loao
 from cadence.holdout import InterventionHoldout
 from cadence.training import TrainConfig
 

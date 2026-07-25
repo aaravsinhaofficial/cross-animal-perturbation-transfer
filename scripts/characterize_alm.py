@@ -63,7 +63,7 @@ def describe(path: Path) -> dict:
     with h5py.File(path, "r") as f:
         r["genotype"] = dec(f["general/subject/genotype"][()]) if "general/subject/genotype" in f else None
         t = f["intervals/trials"]
-        r["n_trials"] = int(len(t["id"]))
+        r["n_trials"] = len(t["id"])
         r["trial_cols"] = sorted(t.keys())
         for col in ("outcome", "trial_instruction", "early_lick", "task"):
             if col in t:
@@ -71,13 +71,13 @@ def describe(path: Path) -> dict:
         if "task_protocol" in t:
             r["task_protocol"] = sorted({int(x) for x in t["task_protocol"][:]})
         u = f["units"]
-        r["n_units"] = int(len(u["id"]))
+        r["n_units"] = len(u["id"])
         if "quality" in u:
             r["unit_quality"] = dict(Counter(dec(x) for x in u["quality"][:]))
         if "cell_type" in u:
             r["cell_type"] = dict(Counter(dec(x) for x in u["cell_type"][:]))
         st = u["spike_times"][:]
-        r["n_spikes"] = int(len(st))
+        r["n_spikes"] = len(st)
         r["session_dur_s"] = float(st.max() - st.min()) if len(st) else None
         if "general/extracellular_ephys/electrodes/location" in f:
             r["electrode_locations"] = sorted(
@@ -87,7 +87,7 @@ def describe(path: Path) -> dict:
         ev = {}
         if "acquisition/BehavioralEvents" in f:
             for k in f["acquisition/BehavioralEvents"].keys():
-                ev[k] = int(len(f["acquisition/BehavioralEvents"][k]["data"]))
+                ev[k] = len(f["acquisition/BehavioralEvents"][k]["data"])
         r["behavioral_events"] = ev
         if "acquisition/BehavioralTimeSeries" in f:
             bts = {}

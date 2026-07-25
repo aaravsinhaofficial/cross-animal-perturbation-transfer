@@ -11,8 +11,8 @@ import matplotlib as mpl
 import numpy as np
 
 mpl.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch  # noqa: E402
+import matplotlib.pyplot as plt
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 # ---------------------------------------------------------------------------
 # house style
@@ -179,88 +179,101 @@ def _method_series(summary, key="neural.delta_r2"):
 
 
 def fig_teacher(paths: dict[str, Path], out: Path, ident: dict[str, Path] | None = None):
+    """Teacher-RNN benchmark: transfer vs regime, controls, and behaviour."""
     use_style()
     loaded = {}
     for regime, p in paths.items():
         if p.exists():
-            loaded[regime] = json.loads(p.read_text())
+            d = json.loads(p.read_text())
+            if d.get("summary"):
+                loaded[regime] = d
     if not loaded:
         print("  (no teacher results yet, skipping fig2)")
         return
-    ncol = 3
-    fig, axes = plt.subplots(1, ncol, figsize=(7.2, 2.5))
-
-    # panel a: transfer per regime
-    ax = axes[0]
-    panel_label(ax, "a")
     order = [r for r in ("shared", "heterogeneous", "degenerate") if r in loaded]
-    labels, vals, los, his, ceils = [], [], [], [], []
-    for r in order:
-        s = loaded[r]["summary"]
-        d = s["methods"].get("cadence", {}).get("neural.delta_r2")
-        c = s["methods"].get("cadence", {}).get("ceiling.delta_r2_ceiling")
-        if d is None:
-            continue
-        labels.append(r.replace("heterogeneous", "hetero."))
-        vals.append(d["mean"]); los.append(d["mean"] - d["ci_lo"]); his.append(d["ci_hi"] - d["mean"])
-        ceils.append(c["mean"] if c else np.nan)
-    x = np.arange(len(labels))
-    ax.bar(x, vals, yerr=[los, his], color=C["cadence"], width=0.6, capsize=2.5,
-           error_kw=dict(lw=0.8))
-    for i, c in enumerate(ceils):
-        if np.isfinite(c):
-            ax.hlines(c, i - 0.34, i + 0.34, color=C["ceiling"], ls=(0, (2, 1.5)), lw=1.0)
-    ax.axhline(0, color="#999999", lw=0.7)
-    ax.set_xticks(x); ax.set_xticklabels(labels)
+    short = {"shared": "shared", "heterogeneous": "hetero.", "degenerate": "degenerate"}
+
+    def get(regime, method, key="neural.delta_r2"):
+        v = loaded[regime]["summary"]["methods"].get(method, {}).get(key)
+        return None if v is None else (v["mean"], v["ci_lo"], v["ci_hi"])
+
+    fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.6))
+
+    # ---- a: zero-shot vs oracle, per regime ----
+    ax = axes[0]; panel_label(ax, "a")
+    w = 0.36
+    x = np.arange(len(order))
+    for k, (meth, col, lab) in enumerate([("cadence", C["cadence"], "zero-shot"),
+                                          ("oracle", C["oracle"], "oracle")]):
+        m, lo, hi = [], [], []
+        for r in order:
+            v = get(r, meth)
+            if v is None:
+                m.append(np.nan); lo.append(0); hi.append(0); continue
+            m.append(v[0]); lo.append(v[0] - v[1]); hi.append(v[2] - v[0])
+        ax.bar(x + (k - 0.5) * w, m, w, yerr=[lo, hi], capsize=2, color=col, label=lab,
+               error_kw=dict(lw=0.7))
+    for i, r in enumerate(order):
+        c = get(r, "cadence", "ceiling.delta_r2_ceiling")
+        if c:
+            ax.hlines(c[0], i - 0.45, i + 0.45, color=C["ceiling"], ls=(0, (2, 1.5)), lw=1.0)
+    ax.axhline(0, color="#777777", lw=0.8)
+    ax.set_xticks(x); ax.set_xticklabels([short[r] for r in order])
     ax.set_ylabel("$\\Delta R^2$ (held-out animal)")
-    ax.set_title("Transfer depends on the regime", loc="left")
-    ax.text(0.02, 0.94, "dashed = noise ceiling", transform=ax.transAxes, fontsize=6.5,
+    ax.set_title("Transfer depends on the regime", loc="left", fontsize=8)
+    ax.legend(fontsize=6, loc="lower left", bbox_to_anchor=(0.0, 0.02))
+    ax.text(0.30, 0.03, "dashed = ceiling", transform=ax.transAxes, fontsize=6,
             color=C["ceiling"])
 
-    # panel b: methods within the shared regime
-    ax = axes[1]
-    panel_label(ax, "b")
-    ref = loaded.get("shared") or loaded[order[0]]
-    ser = _method_series(ref["summary"])
-    pretty = {"cadence": "CADENCE", "oracle": "oracle", "ma_latent": "aligned\ngroup mean",
-              "ma_cca": "manifold\nalignment", "unit_ridge": "unit\nencoding",
-              "no_effect": "no effect", "ctrl_permuted_obs": "permuted\nunits",
-              "ctrl_scrambled_interv": "scrambled\nstimulus"}
-    keys = [k for k in ["cadence", "oracle", "ma_latent", "ma_cca", "unit_ridge",
-                        "no_effect", "ctrl_permuted_obs", "ctrl_scrambled_interv"] if k in ser]
+    # ---- b: baselines and controls in the shared regime ----
+    ax = axes[1]; panel_label(ax, "b")
+    ref = "shared" if "shared" in loaded else order[0]
+    keys = ["cadence", "oracle", "no_effect", "ctrl_permuted_obs",
+            "ctrl_scrambled_interv", "ma_latent"]
+    pretty = {"cadence": "zero-shot", "oracle": "oracle", "no_effect": "no effect",
+              "ctrl_permuted_obs": "permuted\nunits",
+              "ctrl_scrambled_interv": "scrambled\nstimulus",
+              "ma_latent": "aligned\ngroup mean"}
     cols = {"cadence": C["cadence"], "oracle": C["oracle"], "no_effect": C["null"],
-            "ma_latent": C["ma"], "ma_cca": C["ma"], "unit_ridge": C["ridge"],
-            "ctrl_permuted_obs": C["ctrl"], "ctrl_scrambled_interv": C["ctrl"]}
-    x = np.arange(len(keys))
-    m = [ser[k][0] for k in keys]
-    lo = [ser[k][0] - ser[k][1] for k in keys]
-    hi = [ser[k][2] - ser[k][0] for k in keys]
-    ax.bar(x, m, yerr=[lo, hi], color=[cols[k] for k in keys], width=0.65, capsize=2,
-           error_kw=dict(lw=0.7))
-    ax.axhline(0, color="#999999", lw=0.7)
-    ax.set_xticks(x)
-    ax.set_xticklabels([pretty.get(k, k) for k in keys], rotation=42, ha="right", fontsize=6)
+            "ctrl_permuted_obs": C["ctrl"], "ctrl_scrambled_interv": C["ctrl"],
+            "ma_latent": C["ma"]}
+    keys = [k for k in keys if get(ref, k) is not None]
+    vals = [get(ref, k) for k in keys]
+    # clip the diverging alignment baseline so the informative bars stay readable
+    finite = [v[0] for k, v in zip(keys, vals) if k != "ma_latent"]
+    floor = min(min(finite) - 0.25, -0.6)
+    xs = np.arange(len(keys))
+    for i, (k, v) in enumerate(zip(keys, vals)):
+        h = max(v[0], floor)
+        ax.bar(i, h, 0.62, color=cols[k])
+        if v[0] < floor:
+            ax.annotate(f"{v[0]:.0f}", xy=(i, floor), xytext=(i, floor + 0.12),
+                        ha="center", fontsize=6, color=C["ma"],
+                        arrowprops=dict(arrowstyle="-|>", color=C["ma"], lw=0.8))
+        else:
+            ax.errorbar(i, v[0], yerr=[[v[0] - v[1]], [v[2] - v[0]]], fmt="none",
+                        ecolor="#333333", lw=0.7, capsize=2)
+    ax.axhline(0, color="#777777", lw=0.8)
+    ax.set_ylim(floor, None)
+    ax.set_xticks(xs)
+    ax.set_xticklabels([pretty[k] for k in keys], rotation=40, ha="right", fontsize=6)
     ax.set_ylabel("$\\Delta R^2$")
-    ax.set_title("Baselines and controls", loc="left")
+    ax.set_title(f"Controls ({short[ref]} regime)", loc="left", fontsize=8)
 
-    # panel c: conserved vs idiosyncratic directions
-    ax = axes[2]
-    panel_label(ax, "c")
-    width = 0.36
-    for j, r in enumerate(order):
-        g = loaded[r]["summary"]["methods"].get("cadence", {})
-        cons = g.get("group.group:conserved", {}).get("mean", np.nan)
-        idio = g.get("group.group:idiosyncratic", {}).get("mean", np.nan)
-        ax.bar(j - width / 2, cons, width, color=C["oracle"],
-               label="conserved directions" if j == 0 else None)
-        ax.bar(j + width / 2, idio, width, color=C["ctrl"],
-               label="idiosyncratic" if j == 0 else None)
-    ax.axhline(0, color="#999999", lw=0.7)
-    ax.set_xticks(np.arange(len(order)))
-    ax.set_xticklabels([r.replace("heterogeneous", "hetero.") for r in order])
-    ax.set_ylabel("$\\Delta R^2$")
-    ax.set_title("Only conserved directions transfer", loc="left")
-    ax.legend(loc="best")
+    # ---- c: behaviour ----
+    ax = axes[2]; panel_label(ax, "c")
+    for k, (meth, col, lab) in enumerate([("cadence", C["cadence"], "zero-shot"),
+                                          ("oracle", C["oracle"], "oracle")]):
+        m = []
+        for r in order:
+            v = get(r, meth, "behavior.delta_r2")
+            m.append(np.nan if v is None else v[0])
+        ax.bar(x + (k - 0.5) * w, m, w, color=col, label=lab)
+    ax.axhline(0, color="#777777", lw=0.8)
+    ax.set_xticks(x); ax.set_xticklabels([short[r] for r in order])
+    ax.set_ylabel("$\\Delta R^2$ (behaviour)")
+    ax.set_title("Behavioural transfer", loc="left", fontsize=8)
+    ax.legend(fontsize=6)
 
     fig.tight_layout()
     save(fig, out, "fig2_teacher")

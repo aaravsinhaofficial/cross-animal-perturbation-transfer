@@ -40,7 +40,6 @@ from .eval.breakdown import (
 from .holdout import InterventionHoldout, eval_conditions, strip_training_conditions
 from .model import Cadence
 from .training import (
-    TensorSet,
     TrainConfig,
     build_config,
     calibrate_animal,

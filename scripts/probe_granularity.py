@@ -23,7 +23,6 @@ from pathlib import Path
 import numpy as np
 
 from cadence import metrics as M
-from cadence.baselines import measured_delta_set
 
 MAX_D = 1900.0
 BANDS = [(0, 300), (300, 600), (600, 900), (900, 1200), (1200, 1500), (1500, 1900)]
