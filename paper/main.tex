@@ -42,8 +42,16 @@ average of the other mice, which is the strongest simple thing to do, a differen
 $\AlmOpModelVsStereoDiff$ at $p = \AlmOpModelVsStereoP$ over \AlmOpModelN{} animals. On
 the best measured mice it reaches $0.6$.
 
-There is a catch in that number, and chasing it down is most of this paper. A
-perturbation moves a population in a broadly stereotyped way, that stereotyped part
+The rule it exploits turns out to be simple enough to state without a model, and we
+state it as a measurement rather than an interpretation. Across \RuleSelN{} mice, how
+strongly a neuron distinguishes the two choices predicts how much the light will
+suppress it, in \RuleSelNeg{} of them ($r = \RuleSelR$, $p = \RuleSelP$), as does how
+fast it fires ($r = \RuleRateR$, \RuleRateNeg{}/\RuleRateN, $p = \RuleRateP$). How much
+it ramps predicts nothing, which is a negative control inside the same analysis. The
+light takes most from the cells that have most, by the same rule in nearly every animal.
+
+The score on the whole response has a catch in it, though, and chasing that down is
+most of this paper. A perturbation moves a population in a broadly stereotyped way, that stereotyped part
 dominates any score on the whole response, and a model can score well on it while
 knowing nothing about individual neurons. So we split the measured effect into the part
 every recorded neuron shares and the part specific to a single neuron, and scored
@@ -68,11 +76,14 @@ how much transfers in an animal tracks how well that animal's individual respons
 be measured at all, at a rank correlation of $\AlmIndQualRho$
 ($p = \AlmIndQualP$).
 
-A simulated cortex where the mechanism is a knob says the difference between the two
-cohorts is about what the perturbation grabs. So a shared causal rule does reach single
-cells, when the perturbation engages structure the animals have in common, and how far
-it reaches is currently set by how many animals and how many neurons anyone has
-measured.
+The contrast between the two cohorts is not a mystery once the rule is measured. Under
+current, how fast a neuron fires says nothing about how much it moves ($\RuleIcmsRateR$,
+\RuleIcmsRateNeg{}/\RuleIcmsRateN, $p = \RuleIcmsRateP$), so there is no rule of that kind
+to share, which is exactly the condition our simulated cortex says would break transfer.
+
+So a shared causal rule does reach single cells, when the perturbation engages structure
+the animals have in common, and how far it reaches is currently set by how many animals
+and how many neurons anyone has measured.
 \end{abstract}
 
 \section{The question}
@@ -101,14 +112,22 @@ numbers chosen by the experimenter, so that an unseen intervention has a meaning
 model can be given.
 
 \paragraph{Light in frontal cortex.}
-\AlmAnimals{} mice performed a delayed response task while anterior lateral motor
-cortex was silenced with light on a subset of trials \citep{alm_svoboda}. The
-perturbation is described by its power, from \AlmPowerMin{} to \AlmPowerMax\,mW, and
-by where the galvanometers pointed the beam. We kept \AlmSessions{} sessions,
-\AlmUnits{} neurons, \AlmStimTrials{} light trials and \AlmCtrlTrials{} control
-trials, binned at \AlmBinMs\,ms and aligned to the moment the light came on. This is
-the larger cohort and it carries the statistics: with \AlmAnimals{} animals an exact
-test can reach $p = \AlmPFloor$.
+\AllAnimals{} mice performed a delayed response task while anterior lateral motor
+cortex was silenced with light on a subset of trials
+\citep{alm_svoboda, alm_wide_a, alm_wide_b}. The perturbation is described by its
+power, from \AlmPowerMin{} to \AlmPowerMax\,mW, and by where the light was aimed. We
+kept \AllSessions{} sessions, \AllUnits{} neurons, \AllStimTrials{} light trials and
+\AllCtrlTrials{} control trials, binned at \AlmBinMs\,ms and aligned to the moment the
+light came on.
+
+The cohort comes from three releases of the same experiment. The first describes the
+light with per trial columns; the other two do not, and instead carry the laser power
+as a continuous trace with onset and offset events, so a trial counts as perturbed when
+an onset falls inside it, its dose is the power recorded at that onset, and its site is
+whichever laser trace covers that moment. Sessions that silenced the pontine nuclei
+rather than cortex are dropped, because pooling them would pollute a stereotype built
+over dose. This is the cohort that carries the statistics: with \AllAnimals{} animals
+an exact test can reach $p = \AllPFloor$.
 
 \paragraph{Current in somatosensory cortex.}
 \NAnimals{} mice learned to report a stimulus delivered
@@ -330,6 +349,107 @@ That contrast is the result. The same decomposition, the same operator, the same
 protocol, applied to two ways of pushing on a cortex, and individuality transfers in
 one and not the other.
 
+\paragraph{How much transfers is set by how well the animal was measured.}
+The size of the effect under light varies enormously between animals, from essentially
+nothing to a third of everything measurable, and that variation is not random. It tracks
+the ceiling, which is fixed by trial counts and firing rates before any model is fitted,
+at a rank correlation of $\AllIndQualRho$ ($p = \AllIndQualP$ over \AllAnimals{}
+animals). Animals whose individual response cannot be resolved contribute nothing, and
+animals where it can contribute a lot.
+
+Two things follow from that. Averaging a per animal score over the whole cohort
+understates what the operator does, because the score is a ratio and animals with almost
+no measurable effect divide by almost nothing; pooling the errors instead, which is the
+usual way to combine and weights each animal by how much effect it actually has, gives
+$\AllIndPooledShared$ for the shared operator against $\AllIndPooledNull$ for the null.
+And the modest average is a statement about the recordings available today rather than
+about brains: the same analysis on recordings with hundreds of simultaneous neurons
+should recover a larger share.
+
+\section{What the shared rule is}
+\label{sec:rule}
+
+The operator transfers, so something about a neuron's ordinary activity must say how a
+perturbation will move it, and that something must hold in every animal. It is worth
+asking what it is, in a form that fits in a sentence and that does not depend on any
+model we fitted.
+
+So we fitted nothing. Inside each recording we correlated the individual part of each
+neuron's measured response with three properties read off its control trials: how fast
+it fires, how much its firing grows across the delay, and how strongly it distinguishes
+the two trial types. Each animal contributes one number and the animals are combined
+with an exact sign test. The control trials supplying the properties are disjoint from
+the ones defining the response, and the whole thing is repeated with the perturbed
+trials replaced by control trials as a null.
+
+Two of the three carry, and one does not (Fig.~\ref{fig:rule}).
+
+\begin{center}\small
+\begin{tabular}{lcccc}
+\toprule
+property of the neuron & correlation & animals negative & $p$ & null \\
+\midrule
+how fast it fires & $\RuleRateR$ & \RuleRateNeg{}/\RuleRateN & \RuleRateP & \RuleRateNull \\
+how choice selective it is & $\RuleSelR$ & \RuleSelNeg{}/\RuleSelN & \RuleSelP & \RuleSelNull \\
+how much it ramps & $\RuleRampR$ & \RuleRampNeg{}/\RuleRampN & \RuleRampP & \RuleRampNull \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The light takes most from the cells that have most: the fastest firing ones, and the
+ones that most sharply distinguish the two choices. The ramp on its own carries nothing,
+which is a useful negative control inside the same analysis, since an artefact of
+measurement would not know the difference between a ramp and a selectivity.
+
+Now put the microstimulation cohort through the same analysis. There, how fast a neuron
+fires says nothing about how much the current moves it: $\RuleIcmsRateR$, negative in
+\RuleIcmsRateNeg{} of \RuleIcmsRateN{} animals, $p = \RuleIcmsRateP$. That cohort has no
+two-alternative choice, so selectivity is not defined for it and only the rate is
+comparable.
+
+This is the whole paper in one comparison. A shared operator can only carry
+individuality if a neuron's ordinary activity reports how much a perturbation will move
+it. Under light it does, by a rule that holds in \RuleSelNeg{} of \RuleSelN{} animals.
+Under current it does not, which is what our simulated cortex said would have to be true
+for the transfer to fail there, and we can now check it directly rather than infer it.
+
+\section{From a predicted effect on neurons to a predicted change of mind}
+
+Silencing frontal cortex during the delay changes what the animal does next. If the
+operator has really captured the causal effect of the light, then the behavioural
+consequence should follow from the neural one, in an animal whose perturbation trials
+were never read. That is a chain we can build explicitly rather than assert.
+
+For a held out animal the operator predicts, neuron by neuron, how the light will move
+activity. We project that predicted movement onto the animal's own choice axis, which
+is measured from control trials as the difference between the two trial types, and read
+off how far the light is predicted to push the population toward one choice. A single
+shared coefficient, fitted on the other animals, turns that displacement into a
+predicted change in the probability of licking right. Nothing in the chain reads a
+perturbation trial from the held out animal.
+
+The stereotype, meaning the average behavioural change of the other animals at the same
+dose and side, already does well: a median $\BehStereoMed$ across animals, positive in
+\BehStereoPos{} of \BehStereoN. Adding the neural chain changes that by
+$\BehChainDiff$ at $p = \BehChainDiffP$, which is nothing.
+
+We expected the chain to help and it does not, and the reason is the same one the rest
+of the paper is about. Behaviour is a population level readout. What the light does to
+a population is stereotyped enough across animals that the other animals already
+predict it, so the animal's own neurons have nothing left to add. Individuality lives
+below that level, in which neuron is moved and by how much, and a behavioural readout
+integrates precisely that away. A model can therefore predict an animal's change of
+mind without knowing anything about that animal, which is worth stating clearly for
+anyone who would take behavioural transfer as evidence that a model has captured an
+individual.
+
+One caveat about which animals this is measured in. The second and third releases of
+the cohort use brief unilateral inhibition of the kind their authors introduced to show
+that premotor dynamics recover from it \citep{alm_wide_b}, and in those recordings the
+light barely moves behaviour at all, so there is no behavioural effect to predict. The
+numbers above are from the first release, where silencing costs the animal
+\AlmBehDrop{} in the fraction of correct trials.
+
 \section{How many animals an operator needs}
 
 If what carries between animals really is one operator, fitting it on more animals
@@ -337,17 +457,26 @@ should make it better on a new one. We fitted the shared operator on random subs
 the training animals, at every size from one upwards, and scored it on the individual
 part of the held out animal's response.
 
-The curve is orderly and it starts badly. One animal gives $\CohortMinVal$, which is
-far worse than predicting nothing at all, because a single animal's idiosyncrasies get
-mistaken for a rule. Five animals still sit below zero. The operator first becomes
-useful at around eight, and by \CohortMaxN{} it reaches $\CohortMaxVal$, positive in
-\AlmIndSharedPos{} of \AlmIndSharedN{} mice. Across the range the score tracks the
-logarithm of the cohort size at $r = \CohortCorr$, and it has not flattened.
+The curve is orderly and it starts badly. One animal gives $\CohortAllMinVal$, which is
+not merely useless but far worse than predicting nothing at all, because a single
+animal's idiosyncrasies get mistaken for a rule and then applied confidently to
+somebody else. Five animals are still deeply negative. The curve crosses zero at around
+\CohortAllCross{} animals, and at \CohortAllMaxN{} it reaches $\CohortAllMaxVal$,
+positive in \CohortAllMaxPos{} of \CohortAllMaxN2{} mice ($p = \CohortAllMaxP$). Across
+the range the score tracks the logarithm of the cohort size at $r = \CohortAllCorr$, and
+it has not flattened.
 
-So small cohorts cannot answer this question. A study with five
-animals would have concluded that nothing transfers. And the returns are still there to
-be collected, which is an argument for cohorts rather than for deeper recordings in a
-handful of animals.
+This is the clearest practical statement in the paper. A study with five animals would
+not have found this effect and would have reported, with a straight face, that nothing
+transfers. The returns are still being collected at \CohortAllMaxN{} animals, which is
+an argument for cohorts rather than for deeper recordings in a handful of animals.
+
+The same holds for the trained network, which cannot be refitted for every subset but
+can be compared between two runs that differ only in how many animals it had to learn
+from. Holding out the same \GrowModelN{} animals and scoring them identically, the
+network trained on \GrowLargeCohort{} other animals scores $\GrowModelLarge$ against
+$\GrowModelSmall$ for the one trained on \GrowSmallCohort{}, better in
+\GrowModelBetter{} of \GrowModelN{} of them ($p = \GrowModelP$).
 
 \section{Where the failure comes from}
 
@@ -636,6 +765,13 @@ Robust neuronal dynamics in premotor cortex during experimental population contr
 \bibitem[Histed et al.(2009)]{histed} M.~H.~Histed, V.~Bonin, and R.~C.~Reid.
 Direct activation of sparse, distributed populations of cortical neurons by electrical
 microstimulation. \emph{Neuron}, 63:508--522, 2009.
+\bibitem[Guo et al.(2014)]{alm_wide_a} Z.~V.~Guo, N.~Li, D.~Huber, E.~Ophir,
+D.~Gutnisky, J.~T.~Ting, G.~Feng, and K.~Svoboda. Flow of cortical activity underlying
+a tactile decision in mice. \emph{Neuron} 81:179--194, 2014. DANDI Archive,
+dandiset 000010.
+\bibitem[Li et al.(2016)]{alm_wide_b} N.~Li, K.~Daie, K.~Svoboda, and S.~Druckmann.
+Robust neuronal dynamics in premotor cortex during motor planning. \emph{Nature}
+532:459--464, 2016. DANDI Archive, dandiset 000011.
 \bibitem[Li et al.(2015)]{alm_svoboda} N.~Li, T.-W.~Chen, Z.~V.~Guo, C.~R.~Gerfen,
 and K.~Svoboda. A motor cortex circuit for motor planning and movement.
 \emph{Nature} 519:51--56, 2015. DANDI Archive, dandiset 000009.
@@ -725,6 +861,19 @@ do, and the vertical axis is the shared operator. Points above the dashed line a
 animals where the operator wins. Left, light in frontal cortex. Right, current in
 somatosensory cortex.}
 \label{fig:zeroshot}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=0.72\textwidth]{figures/fig11_rule.png}
+\caption{\textbf{The shared rule, measured rather than fitted.} Each dot is one animal:
+the correlation, computed inside that animal's recordings, between the individual part
+of a neuron's response and a property read off its control trials. Thick bars are
+medians. The light suppresses the cells that most sharply distinguish the two choices
+and the cells that fire fastest, in nearly every animal. How much a cell ramps predicts
+nothing, which is a negative control inside the same analysis. Under microstimulation
+(orange) there is no such relationship, which is why nothing individual transfers
+there.}
+\label{fig:rule}
 \end{figure}
 
 \begin{figure}[h]\centering

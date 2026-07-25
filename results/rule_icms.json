@@ -1,0 +1,43 @@
+{
+ "firing rate": {
+  "mean_r": -0.014678037811840476,
+  "n": 6,
+  "n_negative": 4,
+  "p": 0.6875,
+  "null_mean_r": -0.1310732422555252,
+  "null_negative": 4,
+  "per_animal": {
+   "sub-ICMS100": -0.5770513717518034,
+   "sub-ICMS101": 0.23764497493130587,
+   "sub-ICMS83": 0.6006906797775677,
+   "sub-ICMS92": -0.15032063242150023,
+   "sub-ICMS93": -0.11865880904118609,
+   "sub-ICMS98": -0.08037306836542672
+  }
+ },
+ "preparatory ramp": {
+  "mean_r": 0.11836086360170829,
+  "n": 6,
+  "n_negative": 2,
+  "p": 0.6875,
+  "null_mean_r": -0.0986869401252561,
+  "null_negative": 3,
+  "per_animal": {
+   "sub-ICMS100": -0.4896306977826986,
+   "sub-ICMS101": 0.3443294694664272,
+   "sub-ICMS83": 0.5309392067841064,
+   "sub-ICMS92": -0.04084930743176322,
+   "sub-ICMS93": 0.23741535710707928,
+   "sub-ICMS98": 0.12796115346709871
+  }
+ },
+ "selectivity": {
+  "mean_r": NaN,
+  "n": 0,
+  "n_negative": 0,
+  "p": NaN,
+  "null_mean_r": NaN,
+  "null_negative": 0,
+  "per_animal": {}
+ }
+}

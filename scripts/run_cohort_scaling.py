@@ -46,7 +46,8 @@ def main() -> int:
     print(f"{len(sets)} sessions, {len(animals)} animals, {op.K} shared parameters")
 
     rng = np.random.default_rng(args.seed)
-    sizes = [k for k in (1, 2, 3, 5, 8, 12, 16, 19) if k <= len(animals) - 1]
+    sizes = [k for k in (1, 2, 3, 5, 8, 12, 16, 19, 25, 30, 38)
+             if k <= len(animals) - 1]
     curve = []
     print(f"\n{'n animals':>10s} {'dR2 on delta':>13s} {'sem':>7s} {'positive':>9s}")
     print("-" * 44)

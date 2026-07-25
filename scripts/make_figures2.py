@@ -135,6 +135,43 @@ def panel_sweep(ax, rows, title, real=None):
     ax.legend(fontsize=6, loc="best")
 
 
+def panel_rule(ax, rule, rule_icms, title):
+    """What predicts how much a perturbation moves a neuron, one dot per animal."""
+    names = [("selectivity", "how choice\nselective it is"),
+             ("firing rate", "how fast\nit fires"),
+             ("preparatory ramp", "how much\nit ramps")]
+    names = [(k, lab) for k, lab in names if k in rule]
+    for i, (k, lab) in enumerate(names):
+        v = np.array(list(rule[k]["per_animal"].values()), float)
+        v = v[np.isfinite(v)]
+        jit = (np.arange(len(v)) % 5 - 2) * 0.05
+        col = BLUE if rule[k]["p"] < 0.05 else GREY
+        ax.scatter(v, np.full(len(v), i) + jit, s=11, color=col, alpha=0.75,
+                   zorder=3, linewidths=0)
+        m = float(np.median(v))
+        ax.plot([m, m], [i - 0.3, i + 0.3], color=col, lw=2.2, zorder=4)
+        ax.text(0.985, i + 0.33, f"{rule[k]['n_negative']}/{rule[k]['n']}, "
+                f"p = {rule[k]['p']:.1g}", transform=ax.get_yaxis_transform(),
+                ha="right", va="center", fontsize=6, color=col)
+    if rule_icms and "firing rate" in rule_icms:
+        v = np.array(list(rule_icms["firing rate"]["per_animal"].values()), float)
+        ax.scatter(v, np.full(len(v), len(names)), s=13, color=ORANGE, zorder=3,
+                   linewidths=0)
+        m = float(np.median(v))
+        ax.plot([m, m], [len(names) - 0.3, len(names) + 0.3], color=ORANGE, lw=2.2)
+        ax.text(0.985, len(names) + 0.33,
+                f"{rule_icms['firing rate']['n_negative']}/"
+                f"{rule_icms['firing rate']['n']}", transform=ax.get_yaxis_transform(),
+                ha="right", va="center", fontsize=6, color=ORANGE)
+        names = names + [("icms", "how fast it fires\n(under current)")]
+    ax.axvline(0, color="k", lw=0.7)
+    ax.set_yticks(range(len(names)))
+    ax.set_yticklabels([lab for _, lab in names], fontsize=7)
+    ax.set_ylim(-0.6, len(names) - 0.4)
+    ax.set_xlabel("correlation with how much the perturbation moves the neuron")
+    ax.set_title(title, fontsize=8)
+
+
 def panel_quality(ax, detail, title):
     """Does what transfers track how well the animal was measured?"""
     # the shared operator, so the figure and the number quoted in the text are the
@@ -206,6 +243,17 @@ def main() -> int:
         save(fig, args.out, "fig9_decomposition")
         plt.close(fig)
         print("wrote fig9_decomposition.png")
+
+    # ---- what the shared rule is ----------------------------------------------
+    rule = load(R / "rule_almall.json")
+    if rule:
+        fig, ax = plt.subplots(figsize=(4.4, 2.7))
+        panel_rule(ax, rule, load(R / "rule_icms.json"),
+                   "what predicts how much a perturbation moves a neuron")
+        fig.tight_layout()
+        save(fig, args.out, "fig11_rule")
+        plt.close(fig)
+        print("wrote fig11_rule.png")
 
     # ---- the simulation -------------------------------------------------------
     sw = load(R / "decomposition_sweep.json")

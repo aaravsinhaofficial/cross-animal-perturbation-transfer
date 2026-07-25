@@ -10,9 +10,14 @@ between them is the result.
 
 ## Two ways of pushing on a cortex
 
-**Light in frontal cortex.** 20 mice, 109 sessions, anterior lateral motor cortex
-silenced with light during the delay period of a decision task
-([DANDI:000009](https://dandiarchive.org/dandiset/000009)).
+**Light in frontal cortex.** 39 mice, 193 sessions, 3,004 neurons, anterior lateral
+motor cortex silenced with light during the delay period of a decision task
+([DANDI:000009](https://dandiarchive.org/dandiset/000009),
+[000010](https://dandiarchive.org/dandiset/000010),
+[000011](https://dandiarchive.org/dandiset/000011)). The last two describe the light as
+a continuous laser trace with onset events rather than per-trial columns, so
+`src/cadence/data/alm_wide.py` reconstructs the dose, the site and the epoch from
+that.
 
 **Current in somatosensory cortex.** 6 mice, 48 sessions, a chronically implanted probe
 delivering microstimulation the animal has learned to report
@@ -20,6 +25,24 @@ delivering microstimulation the animal has learned to report
 
 Both perturbations are described by numbers the experimenter chose, so an unseen
 intervention has a meaning the model can be handed.
+
+## What the shared rule is
+
+The operator transfers, so something about a neuron's ordinary activity must say how a
+perturbation will move it, and the same something must hold in every animal. We asked
+what it is without fitting anything: inside each recording, correlate the individual
+part of each neuron's response with properties read off its control trials.
+
+| property of the neuron | correlation | animals negative | p |
+|---|---|---|---|
+| how choice selective it is | −0.171 | 32/38 | 2.4e-5 |
+| how fast it fires | −0.221 | 28/38 | 0.005 |
+| how much it ramps | −0.003 | 19/38 | 1.00 |
+| how fast it fires, **under current** | −0.015 | 4/6 | 0.69 |
+
+**The light takes most from the cells that have most**, by the same rule in nearly every
+animal. The ramp is a negative control inside the same analysis. Under current no such
+rule exists, which is exactly why nothing individual transfers there.
 
 ## Why the second number is the interesting one
 
@@ -68,12 +91,25 @@ trials, where the answer is known to be zero, returns zero.
 ## How many animals an operator needs
 
 Fitting the shared operator on random subsets of the training animals gives an orderly
-curve. One animal scores −1.09, which is far worse than predicting nothing, because a
-single animal's idiosyncrasies get mistaken for a rule. Five animals still sit below
-zero. It first becomes useful at around eight, and by nineteen it reaches +0.05, still
-rising, tracking the log of the cohort size at r = +0.86.
+curve. One animal is not merely useless but far worse than predicting nothing, because a
+single animal's idiosyncrasies get mistaken for a rule and then applied confidently to
+somebody else. Five animals are still deeply negative. The curve crosses zero at around
+25 animals and is still rising at 38, positive in 28 of 39 mice (p = 0.0095), tracking
+the log of the cohort size at r = +0.80.
 
-A study with five animals would have concluded that nothing transfers.
+A study with five animals would not have found this and would have reported that
+nothing transfers.
+
+## What behaviour does and does not tell you
+
+The behavioural consequence of the light transfers well: the average of the other mice
+predicts a held-out mouse's change in choice with a median ΔR² of 0.51. But adding what
+the model knows about that mouse's own neurons does not improve it at all.
+
+That is the thesis from the other side. Behaviour is a population-level readout, and
+population-level effects are stereotyped enough across animals that the individual adds
+nothing. So predicting an animal's change of mind is no evidence that a model has
+captured that animal.
 
 ## A simulated cortex
 

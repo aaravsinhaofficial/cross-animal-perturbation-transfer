@@ -35,12 +35,15 @@ warnings.filterwarnings("ignore")
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--cache", type=Path, default=Path("data/proc/alm.pkl"))
-    ap.add_argument("--preds", type=Path, default=None)
+    ap.add_argument("--cache", type=Path, nargs="+",
+                    default=[Path("data/proc/alm.pkl")])
+    ap.add_argument("--preds", type=Path, nargs="*", default=None)
     ap.add_argument("--tag", default="alm")
     args = ap.parse_args()
 
-    ds = pickle.load(args.cache.open("rb"))["dataset"]
+    ds = pickle.load(args.cache[0].open("rb"))["dataset"]
+    for c in args.cache[1:]:
+        ds.sets = list(ds.sets) + list(pickle.load(c.open("rb"))["dataset"].sets)
     print(f"{len(ds.sets)} sessions, {len(ds.animals)} animals")
 
     # --- the shared linear operator, leave one animal out -------------------
@@ -67,8 +70,10 @@ def main() -> int:
 
     # --- the learned operator, from its saved per-neuron predictions ---------
     learned: dict[str, list] = {}
-    if args.preds is not None and args.preds.exists():
-        z = np.load(args.preds, allow_pickle=True)
+    for pth in (args.preds or []):
+        if not pth.exists():
+            continue
+        z = np.load(pth, allow_pickle=True)
         for k in sorted({f.split("|")[0] for f in z.files}):
             if f"{k}|A" not in z.files:
                 continue
@@ -105,6 +110,35 @@ def main() -> int:
               f"[{r['ci_lo']:+.2f},{r['ci_hi']:+.2f}]".rjust(17) +
               f" {r['sign_test']['n_positive']:>4d}/{r['sign_test']['n']:<4d} "
               f"{r['sign_test']['p']:8.3f} {r['permutation']['p']:9.3f}")
+
+    # The per-animal score is a ratio, and averaging ratios lets an animal whose
+    # effect is barely present dominate. Pooling the errors instead is the usual way
+    # to combine, and it weights each animal by how much effect it actually has.
+    pooled = {}
+    if all("sse" in v for v in shared.values()):
+        for name, tab in (("shared_operator", shared), ("no effect present", null)):
+            sse = sum(tab[a]["sse"] for a in animals)
+            sst = sum(tab[a]["sst"] for a in animals)
+            pooled[name] = 1.0 - sse / sst if sst > 0 else float("nan")
+    if learned:
+        num = den = 0.0
+        for pth in (args.preds or []):
+            if not pth.exists():
+                continue
+            z = np.load(pth, allow_pickle=True)
+            for k in sorted({f.split("|")[0] for f in z.files}):
+                if f"{k}|A" not in z.files:
+                    continue
+                A, B = I.centre(z[f"{k}|A"]), I.centre(z[f"{k}|B"])
+                num += float(np.nansum((A - B) ** 2))
+                den += float(np.nansum(A ** 2))
+        if den > 0:
+            pooled["learned_operator"] = 1.0 - num / den
+    if pooled:
+        rep["pooled"] = pooled
+        print("\npooling errors across animals instead of averaging their ratios:")
+        for k, v in pooled.items():
+            print(f"  {k:22s} {v:+.3f}")
 
     ce = M.animal_level_report(ceil_rows, ceil_groups)
     rep["ceiling"] = ce

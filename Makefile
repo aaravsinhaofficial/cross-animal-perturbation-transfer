@@ -17,11 +17,14 @@ env:
 data:
 	$(PY) scripts/download_dandi.py --out data/raw/dandi001868
 	$(PY) scripts/download_dandiset.py --dandiset 000009 --out data/raw/dandi000009
+	$(PY) scripts/download_dandiset.py --dandiset 000010 --out data/raw/dandi000010
+	$(PY) scripts/download_dandiset.py --dandiset 000011 --out data/raw/dandi000011
 
 # analysis tensors + the leakage / covariate-matching audit
 cache: data
 	$(PY) scripts/build_icms_cache.py
 	$(PY) scripts/build_alm_cache.py
+	$(PY) scripts/build_alm_wide_cache.py
 
 # the results table, with animal-level statistics
 analysis:
@@ -33,6 +36,9 @@ analysis:
 operator:
 	$(PY) scripts/train_operator2.py --cache data/proc/alm.pkl  --tag alm5  --seeds 0 1 2 3 4
 	$(PY) scripts/train_operator2.py --cache data/proc/icms.pkl --tag icms5 --seeds 0 1 2 3 4
+	$(PY) scripts/train_operator2.py --cache data/proc/alm.pkl data/proc/alm_wide.pkl \
+	  --tag almall --seeds 0 1 2
+	$(PY) scripts/compare_cohort_size.py
 
 # the split into what the population shares and what belongs to one neuron
 individual:
@@ -40,10 +46,16 @@ individual:
 	  --preds results/preds_alm5.npz
 	$(PY) scripts/analyse_individuality.py --cache data/proc/icms.pkl --tag icms \
 	  --preds results/preds_icms5.npz
+	$(PY) scripts/analyse_individuality.py --cache data/proc/alm.pkl data/proc/alm_wide.pkl \
+	  --tag almall --preds results/preds_almall.npz
+	$(PY) scripts/run_behaviour_transfer.py --cache data/proc/alm.pkl \
+	  --preds results/preds_alm5.npz --tag alm
 
 # how the operator improves as animals are added
 cohort:
 	$(PY) scripts/run_cohort_scaling.py --cache data/proc/alm.pkl  --tag alm
+	$(PY) scripts/run_cohort_scaling.py --cache data/proc/alm.pkl data/proc/alm_wide.pkl \
+	  --tag almall --draws 8
 	$(PY) scripts/run_cohort_scaling.py --cache data/proc/icms.pkl --tag icms --draws 8
 
 # the simulated cortex: does private recruitment explain the failure?

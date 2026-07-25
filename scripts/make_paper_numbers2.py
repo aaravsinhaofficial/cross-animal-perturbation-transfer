@@ -182,7 +182,25 @@ def main() -> int:
         M["AlmPowerMin"], M["AlmPowerMax"] = f"{min(pw):g}", f"{max(pw):g}"
         M["AlmPFloor"] = f"{2.0 ** -(len(al.animals) - 1):.1e}"
 
-    for tag, pre in (("alm5", "AlmOp"), ("icms5", "IcmsOp")):
+    wide = Path("data/proc/alm_wide.pkl")
+    if alm_cache.exists() and wide.exists():
+        with alm_cache.open("rb") as fh:
+            a1 = pickle.load(fh)["dataset"]
+        with wide.open("rb") as fh:
+            a2 = pickle.load(fh)["dataset"]
+        sets = list(a1.sets) + list(a2.sets)
+        an = sorted({s.animal for s in sets})
+        M["AllAnimals"] = str(len(an))
+        M["AllSessions"] = str(len(sets))
+        M["AllUnits"] = f"{sum(s.n_obs for s in sets):,}"
+        M["AllStimTrials"] = f"{sum(int(s.perturbed.sum()) for s in sets):,}"
+        M["AllCtrlTrials"] = f"{sum(int((~s.perturbed).sum()) for s in sets):,}"
+        M["AllPFloor"] = f"{2.0 ** -(len(an) - 1):.1e}"
+        M["WideAnimals"] = str(len(a2.animals))
+        M["WideSessions"] = str(len(a2.sets))
+
+    for tag, pre in (("alm5", "AlmOp"), ("icms5", "IcmsOp"),
+                     ("almall", "AllOp")):
         p = Path(f"results/operator_{tag}.json")
         if not p.exists():
             continue
@@ -200,7 +218,8 @@ def main() -> int:
                 M[f"{pre}{suf}Diff"] = f3(r[k]["mean_diff"])
                 M[f"{pre}{suf}P"] = pv(r[k]["p"])
 
-    for tag, pre in (("alm", "AlmInd"), ("icms", "IcmsInd")):
+    for tag, pre in (("alm", "AlmInd"), ("icms", "IcmsInd"),
+                     ("almall", "AllInd")):
         p = Path(f"results/individuality_{tag}.json")
         if not p.exists():
             continue
@@ -224,9 +243,90 @@ def main() -> int:
             key = f"{k}_fraction_of_ceiling"
             if key in r:
                 M[f"{pre}{suf}"] = f"{100*r[key]:.0f}"
+        for k, suf in (("shared_operator", "PooledShared"),
+                       ("no effect present", "PooledNull"),
+                       ("learned_operator", "PooledNet")):
+            v = r.get("pooled", {}).get(k)
+            if v is not None:
+                M[f"{pre}{suf}"] = f3(v)
         if "ceiling_vs_transfer" in r:
             M[f"{pre}QualRho"] = f"{r['ceiling_vs_transfer']['rho']:+.2f}"
             M[f"{pre}QualP"] = pv(r["ceiling_vs_transfer"]["p"])
+
+    ce = Path("results/cohort_size_effect_alm.json")
+    if ce.exists():
+        r = json.loads(ce.read_text())
+        for k in ("model", "network"):
+            if k in r:
+                pre = "Grow" + k.title()
+                M[pre + "Small"] = f3(r[k]["small"])
+                M[pre + "Large"] = f3(r[k]["large"])
+                M[pre + "Diff"] = f3(r[k]["diff"])
+                M[pre + "P"] = pv(r[k]["p"])
+                M[pre + "Better"] = str(r[k]["n_better"])
+                M[pre + "N"] = str(r[k]["n"])
+        M["GrowSmallCohort"] = str(r.get("n_animals_small", 0) - 1)
+        M["GrowLargeCohort"] = str(r.get("n_animals_large", 0) - 1)
+
+    be = Path("results/behaviour_effect_alm.json")
+    if be.exists():
+        r = json.loads(be.read_text())
+        M["AlmBehDrop"] = f"{abs(r['correct_rate_change'])*100:.1f} percentage points"
+        M["AlmBehDropFrac"] = f"{100*r['frac_down']:.0f}"
+
+    bt = Path("results/behaviour_transfer_alm.json")
+    if bt.exists():
+        r = json.loads(bt.read_text())
+        for k, suf in (("stereotype", "Stereo"), ("stereotype_plus_neural", "Chain")):
+            if k in r:
+                M[f"Beh{suf}"] = f3(r[k]["animal_mean"])
+                M[f"Beh{suf}Med"] = f3(r[k].get("median"))
+                M[f"Beh{suf}Pos"] = str(r[k]["sign_test"]["n_positive"])
+                M[f"Beh{suf}N"] = str(r[k]["sign_test"]["n"])
+                M[f"Beh{suf}P"] = pv(r[k]["sign_test"]["p"])
+        if "test_chain_vs_stereotype" in r:
+            M["BehChainDiff"] = f3(r["test_chain_vs_stereotype"]["mean_diff"])
+            M["BehChainDiffP"] = pv(r["test_chain_vs_stereotype"]["p"])
+
+    for tg, pre in (("alm", "Cohort"), ("almall", "CohortAll")):
+        sc = Path(f"results/cohort_scaling_{tg}.json")
+        if not sc.exists():
+            continue
+        cur = json.loads(sc.read_text())
+        M[pre + "MinN"] = str(cur[0]["n_animals"])
+        M[pre + "MaxN"] = str(cur[-1]["n_animals"])
+        M[pre + "MinVal"] = f3(cur[0]["delta_r2"])
+        M[pre + "MaxVal"] = f3(cur[-1]["delta_r2"])
+        M[pre + "MaxPos"] = str(cur[-1]["n_positive"])
+        x = np.log([c["n_animals"] for c in cur]); y = np.array([c["delta_r2"] for c in cur])
+        M[pre + "Corr"] = f"{np.corrcoef(x, y)[0, 1]:+.2f}"
+        cross = next((c["n_animals"] for c in cur if c["delta_r2"] > 0), None)
+        if cross:
+            M[pre + "Cross"] = str(cross)
+        last = cur[-1]
+        n_tot = len(last.get("per_animal", [])) or last["n_positive"]
+        if n_tot:
+            from scipy.stats import binomtest
+            M[pre + "MaxN2"] = str(n_tot)
+            M[pre + "MaxP"] = pv(binomtest(last["n_positive"], n_tot, 0.5).pvalue)
+
+    from scipy.stats import binomtest as _bt
+    for tg, pre in (("almall", "Rule"), ("icms", "RuleIcms")):
+        rl = Path(f"results/rule_{tg}.json")
+        if not rl.exists():
+            continue
+        r = json.loads(rl.read_text())
+        for k, suf in (("firing rate", "Rate"), ("selectivity", "Sel"),
+                       ("preparatory ramp", "Ramp")):
+            v = r.get(k)
+            if not v or not np.isfinite(v.get("mean_r", np.nan)):
+                continue
+            M[f"{pre}{suf}R"] = f3(v["mean_r"])
+            M[f"{pre}{suf}Neg"] = str(v["n_negative"])
+            M[f"{pre}{suf}N"] = str(v["n"])
+            M[f"{pre}{suf}P"] = pv(float(_bt(v["n_negative"], v["n"], 0.5).pvalue))
+            M[f"{pre}{suf}Null"] = (f'{f3(v["null_mean_r"])}, '
+                                    f'{v["null_negative"]}/{v["n"]}')
 
     sc = Path("results/cohort_scaling_alm.json")
     if sc.exists():

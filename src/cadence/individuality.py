@@ -114,6 +114,12 @@ class SharedOperatorConfig:
     depth_bumps: tuple[float, ...] = (0.15, 0.4, 0.65, 0.9)
     depth_width: float = 0.22
     use_selectivity: bool = True
+    # Two variants we tried and did not keep. Dividing each recording by its own
+    # activity scale makes the shared coefficients dimensionless, which is tidier, and
+    # letting the effect depend on how fast a cell fires is an obvious thing to try.
+    # Neither improved transfer, so both are off and reported as ablations.
+    normalise: bool = False
+    use_rate_feature: bool = False
     smooth: int = 3
     min_trials: int = 6
     min_type_trials: int = 8
@@ -178,6 +184,10 @@ class SharedOperator:
         cfg = self.cfg
         Y = s.y[:, s.t0 :]
         feat_idx, base_idx = control_split(s)
+        scale = 1.0
+        if cfg.normalise:
+            yc = Y[feat_idx].reshape(-1, Y.shape[-1])
+            scale = max(float(np.nanstd(yc, axis=0).mean()), 1e-3)
         if null:
             # split at random rather than in time order. Splitting a sorted list puts
             # every early trial on one side and every late trial on the other, so any
@@ -189,6 +199,10 @@ class SharedOperator:
             pseudo_stim, base_idx = np.sort(shuffled[:h]), np.sort(shuffled[h:])
         base = np.nanmean(Y[base_idx], 0)
         P = self._channels(s, feat_idx)
+        # the constant channel stays at one; the measured ones become dimensionless
+        if cfg.normalise:
+            P = P.copy()
+            P[..., 1:] /= scale
         T = Y.shape[1]
         B = raised_cosine(T, cfg.n_time_basis)
         raw_d = np.asarray(s.meta["unit_y_um"], float)
@@ -200,7 +214,7 @@ class SharedOperator:
             if idx.sum() < cfg.min_trials:
                 continue
             src = pseudo_stim if null else np.flatnonzero(idx)
-            y = centre(np.nanmean(Y[src], 0) - base)
+            y = centre(np.nanmean(Y[src], 0) - base) / scale
             p = float(s.meta["cond_amp"][c]) / max(amp_scale, 1e-9)
             pf = np.array([1.0 if q == 0.0 else p ** q for q in cfg.dose_powers])
             if cfg.use_depth:
@@ -210,6 +224,11 @@ class SharedOperator:
                 # position relative to where this condition delivered the perturbation
                 gy = float(depth_of.get(int(c), depth_of.get(str(int(c)), 0.0))) / dscale
                 cols += [np.exp(-(((d - gy) / w) ** 2)) for w in (0.1, 0.3)]
+                if cfg.use_rate_feature:
+                    # how fast this cell fires relative to the others recorded with it
+                    r = np.nanmean(np.nanmean(Y[feat_idx], 0), 0)
+                    r = np.nan_to_num(r / (np.nanmean(r) + 1e-9))
+                    cols += [np.log1p(r), np.clip(r, 0, 4)]
                 uf = np.stack(cols, 1)
             else:
                 uf = np.ones((len(d), 1))
@@ -314,6 +333,9 @@ class SharedOperator:
                 preds[(e["key"], e["cond"])] = p
                 n += float(np.nansum((e["y"] - p) ** 2))
                 de += float(np.nansum(e["y"] ** 2))
-            out[a] = dict(delta_r2=1.0 - n / de if de > 0 else np.nan, ridge=best_lam)
+            # the residual and total sums are kept so that animals can also be
+            # combined the usual way, by pooling errors rather than averaging ratios
+            out[a] = dict(delta_r2=1.0 - n / de if de > 0 else np.nan,
+                          sse=n, sst=de, ridge=best_lam)
         self.preds = preds
         return out

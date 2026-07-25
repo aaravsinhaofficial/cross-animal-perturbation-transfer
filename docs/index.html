@@ -65,9 +65,11 @@ footer{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 64px;
   animal doing nothing in particular. From that ordinary activity alone, what can it
   say about a perturbation the animal has never received?</p>
   <div class="badges">
-    <span class="badge">26 mice, two ways of perturbing</span>
+    <span class="badge">45 mice, two ways of perturbing</span>
     <span class="badge">one mouse held out at a time</span>
     <span class="badge"><a href="https://dandiarchive.org/dandiset/000009">DANDI:000009</a></span>
+    <span class="badge"><a href="https://dandiarchive.org/dandiset/000010">000010</a></span>
+    <span class="badge"><a href="https://dandiarchive.org/dandiset/000011">000011</a></span>
     <span class="badge"><a href="https://dandiarchive.org/dandiset/001868">DANDI:001868</a></span>
   </div>
 </div></header>
@@ -79,8 +81,8 @@ between them is the result.</p>
 
 <div class="three">
   <div class="item yes"><b>Light in frontal cortex</b>
-    <span>20 mice, 109 sessions. Anterior lateral motor cortex silenced with light
-    during the delay of a decision task.</span></div>
+    <span>39 mice, 193 sessions, 3,004 neurons. Anterior lateral motor cortex silenced
+    with light during the delay of a decision task.</span></div>
   <div class="item no"><b>Current in somatosensory cortex</b>
     <span>6 mice, 48 sessions. A chronic probe delivering microstimulation the animal
     has learned to report.</span></div>
@@ -96,6 +98,26 @@ between them is the result.</p>
   line are mice where the operator wins: 17 of 20 under light, and 4 of 6 under
   current.</figcaption>
 </figure>
+
+<h2>What the shared rule is</h2>
+
+<p>The operator transfers, so something about a neuron's ordinary activity must say how
+a perturbation will move it, and the same something must hold in every animal. We asked
+what it is without fitting anything: inside each recording, correlate the individual
+part of each neuron's response with properties read off its control trials.</p>
+
+<figure>
+  <img src="fig11_rule.png" alt="What predicts how much a perturbation moves a neuron">
+  <figcaption>Each dot is one animal. The light suppresses the cells that most sharply
+  distinguish the two choices (32 of 38 mice, <i>p</i> = 2&times;10<sup>&minus;5</sup>)
+  and the cells that fire fastest (28 of 38, <i>p</i> = 0.005). How much a cell ramps
+  predicts nothing, a negative control inside the same analysis. Under microstimulation
+  there is no such relationship.</figcaption>
+</figure>
+
+<p><b>The light takes most from the cells that have most</b>, by the same rule in nearly
+every animal. Under current, no such rule exists, and that is exactly why nothing
+individual transfers there.</p>
 
 <h2>A score on the whole response flatters everybody</h2>
 
@@ -150,12 +172,26 @@ the perturbed trials replaced by a second group of control trials returns zero.
 <h2>How many animals an operator needs</h2>
 
 <p>Fitting the shared operator on random subsets of the training animals gives an
-orderly curve. One animal scores &minus;1.09, far worse than predicting nothing,
-because a single animal's idiosyncrasies get mistaken for a rule. Five animals still sit
-below zero. It first becomes useful at around eight, and by nineteen it reaches +0.05,
-still rising, tracking the log of the cohort size at <i>r</i> = +0.86.</p>
+orderly curve. One animal is not merely useless but far worse than predicting nothing,
+because a single animal's idiosyncrasies get mistaken for a rule and then applied
+confidently to somebody else. Five animals are still deeply negative. The curve crosses
+zero at around 25 animals and is still rising at 38, positive in 28 of 39 mice
+(<i>p</i> = 0.0095), tracking the log of the cohort size at <i>r</i> = +0.80.</p>
 
-<p>A study with five animals would have concluded that nothing transfers.</p>
+<p>A study with five animals would not have found this and would have reported that
+nothing transfers.</p>
+
+<h2>What behaviour does and does not tell you</h2>
+
+<p>The behavioural consequence of the light transfers well: the average of the other
+mice predicts a held-out mouse's change in choice with a median &Delta;R&sup2; of 0.51.
+Adding what the model knows about that mouse's own neurons does not improve it at
+all.</p>
+
+<p>That is the thesis from the other side. Behaviour is a population-level readout, and
+population-level effects are stereotyped enough across animals that the individual adds
+nothing. Predicting an animal's change of mind is therefore no evidence that a model has
+captured that animal.</p>
 
 <h2>Why single neurons fail under current</h2>
 
