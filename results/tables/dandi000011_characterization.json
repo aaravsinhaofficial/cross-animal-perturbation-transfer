@@ -1,0 +1,7510 @@
+[
+ {
+  "path": "sub-255200_ses-20140910_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255200",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 288,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 34,
+   "hit": 183,
+   "miss": 65,
+   "ignore": 6
+  },
+  "trial_instruction_counts": {
+   "non-performing": 34,
+   "left": 137,
+   "right": 117
+  },
+  "early_lick_counts": {
+   "no early": 256,
+   "early": 32
+  },
+  "task_counts": {
+   "audio delay": 288
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 15,
+  "unit_quality": {
+   "good": 15
+  },
+  "cell_type": {
+   "Pyr": 14,
+   "FS": 1
+  },
+  "n_spikes": 117243,
+  "session_dur_s": 2702.6648096956997,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-761.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 254,
+   "go": 254,
+   "sample": 254
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14200000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-255200_ses-20140911_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255200",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 340,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 40,
+   "hit": 220,
+   "miss": 79,
+   "ignore": 1
+  },
+  "trial_instruction_counts": {
+   "non-performing": 40,
+   "right": 148,
+   "left": 152
+  },
+  "early_lick_counts": {
+   "no early": 320,
+   "early": 20
+  },
+  "task_counts": {
+   "audio delay": 340
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 13,
+  "unit_quality": {
+   "good": 13
+  },
+  "cell_type": {
+   "Pyr": 13
+  },
+  "n_spikes": 46607,
+  "session_dur_s": 3054.3643521466993,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-209.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 300,
+   "go": 300,
+   "sample": 300
+  },
+  "behavior_timeseries": {
+   "lick_trace": 16900000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-255200_ses-20140912_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255200",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 336,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 60,
+   "hit": 215,
+   "miss": 59,
+   "ignore": 2
+  },
+  "trial_instruction_counts": {
+   "non-performing": 60,
+   "right": 142,
+   "left": 134
+  },
+  "early_lick_counts": {
+   "no early": 310,
+   "early": 26
+  },
+  "task_counts": {
+   "audio delay": 336
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 19,
+  "unit_quality": {
+   "good": 19
+  },
+  "cell_type": {
+   "Pyr": 17,
+   "FS": 2
+  },
+  "n_spikes": 91889,
+  "session_dur_s": 3104.5175210555444,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-835.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 276,
+   "go": 276,
+   "sample": 276
+  },
+  "behavior_timeseries": {
+   "lick_trace": 16700000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-255200_ses-20140913_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255200",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 413,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 26,
+   "hit": 293,
+   "miss": 94
+  },
+  "trial_instruction_counts": {
+   "non-performing": 26,
+   "left": 169,
+   "right": 218
+  },
+  "early_lick_counts": {
+   "no early": 376,
+   "early": 37
+  },
+  "task_counts": {
+   "audio delay": 413
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 11,
+  "unit_quality": {
+   "good": 11
+  },
+  "cell_type": {
+   "Pyr": 9,
+   "FS": 2
+  },
+  "n_spikes": 48295,
+  "session_dur_s": 4660.210459921856,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-261.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 388,
+   "go": 388,
+   "photostim_start_time": 157,
+   "photostim_stop_time": 157,
+   "sample": 388
+  },
+  "behavior_timeseries": {
+   "lick_trace": 20450000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 152
+  },
+  "photostim_dur_s": [
+   -4687.1129,
+   0.4621999999999389,
+   0.4622999999996864
+  ],
+  "photostim_peak_power_mW": [
+   4.154929446570165,
+   4.163753967810619,
+   4.170376088655247
+  ],
+  "photostim_trial_epoch": {
+   "other": 152
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.077600000000075,
+   2.4508999999998196,
+   3181.2520999999997
+  ],
+  "n_photostim_total": 152
+ },
+ {
+  "path": "sub-255200_ses-20140914_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255200",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 404,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 20,
+   "hit": 316,
+   "miss": 68
+  },
+  "trial_instruction_counts": {
+   "non-performing": 20,
+   "right": 205,
+   "left": 179
+  },
+  "early_lick_counts": {
+   "no early": 365,
+   "early": 39
+  },
+  "task_counts": {
+   "audio delay": 404
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 10,
+  "unit_quality": {
+   "good": 10
+  },
+  "cell_type": {
+   "FS": 2,
+   "Pyr": 8
+  },
+  "n_spikes": 66970,
+  "session_dur_s": 3773.496384204461,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-872.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 384,
+   "go": 384,
+   "photostim_start_time": 151,
+   "photostim_stop_time": 151,
+   "sample": 384
+  },
+  "behavior_timeseries": {
+   "lick_trace": 20100000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 148
+  },
+  "photostim_dur_s": [
+   0.03929999999991196,
+   0.4621999999999389,
+   0.46230000000014115
+  ],
+  "photostim_peak_power_mW": [
+   4.128490394639306,
+   4.161547303307854,
+   4.170376088655247
+  ],
+  "photostim_trial_epoch": {
+   "other": 148
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0774000000001251,
+   1.8784999999998035,
+   4.956900000000132
+  ],
+  "n_photostim_total": 148
+ },
+ {
+  "path": "sub-255200_ses-20140915_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255200",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 279,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 16,
+   "hit": 214,
+   "miss": 49
+  },
+  "trial_instruction_counts": {
+   "non-performing": 16,
+   "left": 126,
+   "right": 137
+  },
+  "early_lick_counts": {
+   "no early": 254,
+   "early": 25
+  },
+  "task_counts": {
+   "audio delay": 279
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 11,
+  "unit_quality": {
+   "good": 11
+  },
+  "cell_type": {
+   "Pyr": 11
+  },
+  "n_spikes": 47786,
+  "session_dur_s": 2583.959536092645,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-934.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 263,
+   "go": 263,
+   "photostim_start_time": 100,
+   "photostim_stop_time": 100,
+   "sample": 263
+  },
+  "behavior_timeseries": {
+   "lick_trace": 13850000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 97
+  },
+  "photostim_dur_s": [
+   0.4620999999997366,
+   0.4621999999999389,
+   0.46220000000039363
+  ],
+  "photostim_peak_power_mW": [
+   4.154929446570165,
+   4.163753967810619,
+   4.17479260192651
+  ],
+  "photostim_trial_epoch": {
+   "other": 97
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0772999999999229,
+   1.8784999999998035,
+   2.964100000000144
+  ],
+  "n_photostim_total": 97
+ },
+ {
+  "path": "sub-255200_ses-20140916_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255200",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 354,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 20,
+   "hit": 244,
+   "miss": 54,
+   "ignore": 36
+  },
+  "trial_instruction_counts": {
+   "non-performing": 20,
+   "left": 163,
+   "right": 171
+  },
+  "early_lick_counts": {
+   "no early": 309,
+   "early": 45
+  },
+  "task_counts": {
+   "audio delay": 354
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 2,
+  "unit_quality": {
+   "good": 2
+  },
+  "cell_type": {
+   "Pyr": 2
+  },
+  "n_spikes": 10750,
+  "session_dur_s": 3289.776199105632,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-977.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 334,
+   "go": 334,
+   "photostim_start_time": 154,
+   "photostim_stop_time": 154,
+   "sample": 334
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17600000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 149
+  },
+  "photostim_dur_s": [
+   0.4620999999997366,
+   0.4621999999999389,
+   0.4622000000008484
+  ],
+  "photostim_peak_power_mW": [
+   4.150519329459311,
+   4.159340994484271,
+   4.165960987318691
+  ],
+  "photostim_trial_epoch": {
+   "other": 149
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0774000000001251,
+   1.878700000000208,
+   3.3338000000003376
+  ],
+  "n_photostim_total": 149
+ },
+ {
+  "path": "sub-255201_ses-20141120_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255201",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 351,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 47,
+   "hit": 241,
+   "miss": 63
+  },
+  "trial_instruction_counts": {
+   "non-performing": 47,
+   "left": 159,
+   "right": 145
+  },
+  "early_lick_counts": {
+   "no early": 328,
+   "early": 23
+  },
+  "task_counts": {
+   "audio delay": 351
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 15,
+  "unit_quality": {
+   "good": 15
+  },
+  "cell_type": {
+   "Pyr": 13,
+   "FS": 2
+  },
+  "n_spikes": 102446,
+  "session_dur_s": 3276.190473162255,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-878.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 304,
+   "go": 304,
+   "photostim_start_time": 140,
+   "photostim_stop_time": 140,
+   "sample": 304
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17450000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 129
+  },
+  "photostim_dur_s": [
+   0.4621999999999389,
+   0.4621999999999389,
+   0.4622000000008484
+  ],
+  "photostim_peak_power_mW": [
+   4.095863584147962,
+   4.115688480622104,
+   4.123626894013599
+  ],
+  "photostim_trial_epoch": {
+   "other": 129
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0774000000001251,
+   1.878700000000208,
+   4.151499999999942
+  ],
+  "n_photostim_total": 129
+ },
+ {
+  "path": "sub-255201_ses-20141121_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255201",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 270,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 24,
+   "hit": 192,
+   "miss": 54
+  },
+  "trial_instruction_counts": {
+   "non-performing": 24,
+   "right": 131,
+   "left": 115
+  },
+  "early_lick_counts": {
+   "no early": 257,
+   "early": 13
+  },
+  "task_counts": {
+   "audio delay": 270
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 17,
+  "unit_quality": {
+   "good": 17
+  },
+  "cell_type": {
+   "Pyr": 16,
+   "FS": 1
+  },
+  "n_spikes": 101613,
+  "session_dur_s": 2627.550006327395,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-310.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 246,
+   "go": 246,
+   "photostim_start_time": 92,
+   "photostim_stop_time": 92,
+   "sample": 246
+  },
+  "behavior_timeseries": {
+   "lick_trace": 13450000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 27,
+   "left ALM_laser_power": 37,
+   "right ALM_laser_power": 27
+  },
+  "photostim_dur_s": [
+   0.7613999999998668,
+   0.7619000000004235,
+   22.184099999999944
+  ],
+  "photostim_peak_power_mW": [
+   4.19927593680909,
+   4.487691614644718,
+   13.422432802793015
+  ],
+  "photostim_trial_epoch": {
+   "other": 91
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8726999999998952,
+   1.8786000000000058,
+   4.945600000000013
+  ],
+  "n_photostim_total": 91
+ },
+ {
+  "path": "sub-255201_ses-20141122_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255201",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 317,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 26,
+   "miss": 39,
+   "hit": 252
+  },
+  "trial_instruction_counts": {
+   "non-performing": 26,
+   "left": 149,
+   "right": 142
+  },
+  "early_lick_counts": {
+   "no early": 298,
+   "early": 19
+  },
+  "task_counts": {
+   "audio delay": 317
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 22,
+  "unit_quality": {
+   "good": 22
+  },
+  "cell_type": {
+   "Pyr": 21,
+   "FS": 1
+  },
+  "n_spikes": 115438,
+  "session_dur_s": 2770.204573576721,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-860.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 291,
+   "go": 291,
+   "photostim_start_time": 136,
+   "photostim_stop_time": 136,
+   "sample": 291
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15750000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 132
+  },
+  "photostim_dur_s": [
+   0.4618000000000393,
+   0.46210000000019136,
+   0.4623999999998887
+  ],
+  "photostim_peak_power_mW": [
+   4.167372828728386,
+   4.191293356299391,
+   4.225250119166276
+  ],
+  "photostim_trial_epoch": {
+   "other": 132
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0775999999996202,
+   1.8787500000000819,
+   3.045900000000074
+  ],
+  "n_photostim_total": 132
+ },
+ {
+  "path": "sub-255201_ses-20141123_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255201",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 253,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 44,
+   "hit": 171,
+   "miss": 38
+  },
+  "trial_instruction_counts": {
+   "non-performing": 44,
+   "right": 112,
+   "left": 97
+  },
+  "early_lick_counts": {
+   "no early": 234,
+   "early": 19
+  },
+  "task_counts": {
+   "audio delay": 253
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 28,
+  "unit_quality": {
+   "good": 28
+  },
+  "cell_type": {
+   "FS": 6,
+   "Pyr": 22
+  },
+  "n_spikes": 134622,
+  "session_dur_s": 2203.299373847158,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-348.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 209,
+   "go": 209,
+   "photostim_start_time": 80,
+   "photostim_stop_time": 80,
+   "sample": 209
+  },
+  "behavior_timeseries": {
+   "lick_trace": 12550000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 39,
+   "left ALM_laser_power": 21,
+   "right ALM_laser_power": 16
+  },
+  "photostim_dur_s": [
+   0.7618999999999687,
+   0.7679500000000417,
+   0.7696000000000822
+  ],
+  "photostim_peak_power_mW": [
+   4.185309381852567,
+   12.892807145446366,
+   12.930774008674947
+  ],
+  "photostim_trial_epoch": {
+   "other": 76
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8726999999998952,
+   1.878150000000005,
+   3.396099999999933
+  ],
+  "n_photostim_total": 76
+ },
+ {
+  "path": "sub-255201_ses-20141124_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255201",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 319,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 48,
+   "hit": 249,
+   "miss": 22
+  },
+  "trial_instruction_counts": {
+   "non-performing": 48,
+   "right": 135,
+   "left": 136
+  },
+  "early_lick_counts": {
+   "no early": 294,
+   "early": 25
+  },
+  "task_counts": {
+   "audio delay": 319
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 12,
+  "unit_quality": {
+   "good": 12
+  },
+  "cell_type": {
+   "FS": 2,
+   "Pyr": 10
+  },
+  "n_spikes": 74157,
+  "session_dur_s": 2709.686759517339,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-958.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 271,
+   "go": 271,
+   "photostim_start_time": 119,
+   "photostim_stop_time": 119,
+   "sample": 271
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15850000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 110
+  },
+  "photostim_dur_s": [
+   0.46179999999958454,
+   0.46210000000019136,
+   0.46230000000014115
+  ],
+  "photostim_peak_power_mW": [
+   4.159408496448724,
+   4.189298415331665,
+   4.21325622053669
+  ],
+  "photostim_trial_epoch": {
+   "other": 110
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.077600000000075,
+   1.8787999999999556,
+   3.181300000000192
+  ],
+  "n_photostim_total": 110
+ },
+ {
+  "path": "sub-255201_ses-20141125_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255201",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 230,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 40,
+   "hit": 153,
+   "miss": 37
+  },
+  "trial_instruction_counts": {
+   "non-performing": 40,
+   "left": 77,
+   "right": 113
+  },
+  "early_lick_counts": {
+   "no early": 209,
+   "early": 21
+  },
+  "task_counts": {
+   "audio delay": 230
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 16,
+  "unit_quality": {
+   "good": 16
+  },
+  "cell_type": {
+   "Pyr": 15,
+   "FS": 1
+  },
+  "n_spikes": 88508,
+  "session_dur_s": 2082.4479609587024,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-967.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 190,
+   "go": 190,
+   "photostim_start_time": 74,
+   "photostim_stop_time": 74,
+   "sample": 190
+  },
+  "behavior_timeseries": {
+   "lick_trace": 11450000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 70
+  },
+  "photostim_dur_s": [
+   0.4618000000000393,
+   0.4620999999997366,
+   0.4622999999999138
+  ],
+  "photostim_peak_power_mW": [
+   4.195284084216402,
+   4.233251533076075,
+   4.261290516228826
+  ],
+  "photostim_trial_epoch": {
+   "other": 70
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0772999999999229,
+   1.878500000000031,
+   2.957499999999982
+  ],
+  "n_photostim_total": 70
+ },
+ {
+  "path": "sub-255203_ses-20141112_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255203",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 211,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 73,
+   "hit": 94,
+   "miss": 42,
+   "ignore": 2
+  },
+  "trial_instruction_counts": {
+   "non-performing": 73,
+   "right": 69,
+   "left": 69
+  },
+  "early_lick_counts": {
+   "no early": 171,
+   "early": 40
+  },
+  "task_counts": {
+   "audio delay": 211
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 32,
+  "unit_quality": {
+   "good": 32
+  },
+  "cell_type": {
+   "Pyr": 30,
+   "FS": 2
+  },
+  "n_spikes": 111299,
+  "session_dur_s": 2312.1975122267345,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-761.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 138,
+   "go": 138,
+   "photostim_start_time": 65,
+   "photostim_stop_time": 65,
+   "sample": 138
+  },
+  "behavior_timeseries": {
+   "lick_trace": 10400000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 53
+  },
+  "photostim_dur_s": [
+   0.4619999999999891,
+   0.4621999999999389,
+   0.46230000000014115
+  ],
+  "photostim_peak_power_mW": [
+   4.1454821020254435,
+   4.153438291327582,
+   4.161399145638758
+  ],
+  "photostim_trial_epoch": {
+   "other": 53
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0772999999999229,
+   1.878700000000208,
+   4.313299999999799
+  ],
+  "n_photostim_total": 53
+ },
+ {
+  "path": "sub-255203_ses-20141113_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255203",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 233,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 175,
+   "hit": 41,
+   "miss": 16,
+   "ignore": 1
+  },
+  "trial_instruction_counts": {
+   "non-performing": 175,
+   "right": 33,
+   "left": 25
+  },
+  "early_lick_counts": {
+   "no early": 223,
+   "early": 10
+  },
+  "task_counts": {
+   "audio delay": 233
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 23,
+  "unit_quality": {
+   "good": 23
+  },
+  "cell_type": {
+   "Pyr": 21,
+   "FS": 2
+  },
+  "n_spikes": 20513,
+  "session_dur_s": 2496.7978471299957,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-297.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 58,
+   "go": 58,
+   "photostim_start_time": 48,
+   "photostim_stop_time": 48,
+   "sample": 58
+  },
+  "behavior_timeseries": {
+   "lick_trace": 11550000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 30
+  },
+  "photostim_dur_s": [
+   0.46200000000044383,
+   0.4621999999999389,
+   0.4622999999996864
+  ],
+  "photostim_peak_power_mW": [
+   4.1315700912043445,
+   4.139518040516949,
+   4.151448805420053
+  ],
+  "photostim_trial_epoch": {
+   "other": 30
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0772999999999229,
+   2.128600000000006,
+   3.0189000000000306
+  ],
+  "n_photostim_total": 30
+ },
+ {
+  "path": "sub-255203_ses-20141114_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255203",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 306,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 60,
+   "hit": 163,
+   "miss": 83
+  },
+  "trial_instruction_counts": {
+   "non-performing": 60,
+   "left": 138,
+   "right": 108
+  },
+  "early_lick_counts": {
+   "no early": 230,
+   "early": 76
+  },
+  "task_counts": {
+   "audio delay": 306
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 21,
+  "unit_quality": {
+   "good": 21
+  },
+  "cell_type": {
+   "Pyr": 19,
+   "FS": 2
+  },
+  "n_spikes": 89704,
+  "session_dur_s": 3656.5159409290145,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-846.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 246,
+   "go": 246,
+   "photostim_start_time": 118,
+   "photostim_stop_time": 118,
+   "sample": 246
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15150000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 99
+  },
+  "photostim_dur_s": [
+   0.4619999999999891,
+   0.4621999999999389,
+   0.4624000000003434
+  ],
+  "photostim_peak_power_mW": [
+   4.125612246067503,
+   4.135543473825251,
+   4.1454821020254435
+  ],
+  "photostim_trial_epoch": {
+   "other": 99
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0775999999996202,
+   1.878700000000208,
+   4.332899999999881
+  ],
+  "n_photostim_total": 99
+ },
+ {
+  "path": "sub-255203_ses-20141115_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255203",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 347,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 174,
+   "hit": 126,
+   "miss": 43,
+   "ignore": 4
+  },
+  "trial_instruction_counts": {
+   "non-performing": 174,
+   "right": 76,
+   "left": 97
+  },
+  "early_lick_counts": {
+   "no early": 301,
+   "early": 46
+  },
+  "task_counts": {
+   "audio delay": 347
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 7,
+  "unit_quality": {
+   "good": 7
+  },
+  "cell_type": {
+   "Pyr": 7
+  },
+  "n_spikes": 10932,
+  "session_dur_s": 4198.834543481514,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-319.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 173,
+   "go": 173,
+   "photostim_start_time": 104,
+   "photostim_stop_time": 104,
+   "sample": 173
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17200000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 72
+  },
+  "photostim_dur_s": [
+   0.4620999999997366,
+   0.4621999999999389,
+   47.193099999999504
+  ],
+  "photostim_peak_power_mW": [
+   4.1295838451578355,
+   4.13753060940973,
+   4.147470710274025
+  ],
+  "photostim_trial_epoch": {
+   "other": 72
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0778000000000247,
+   1.879149999999754,
+   4.699700000000121
+  ],
+  "n_photostim_total": 72
+ },
+ {
+  "path": "sub-255203_ses-20141116_behavior+ecephys+ogen.nwb",
+  "subject": "sub-255203",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 304,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 55,
+   "hit": 183,
+   "miss": 64,
+   "ignore": 2
+  },
+  "trial_instruction_counts": {
+   "non-performing": 55,
+   "right": 117,
+   "left": 132
+  },
+  "early_lick_counts": {
+   "no early": 234,
+   "early": 70
+  },
+  "task_counts": {
+   "audio delay": 304
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 14,
+  "unit_quality": {
+   "good": 14
+  },
+  "cell_type": {
+   "Pyr": 13,
+   "FS": 1
+  },
+  "n_spikes": 67344,
+  "session_dur_s": 3173.32316898606,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-931.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 249,
+   "go": 249,
+   "photostim_start_time": 117,
+   "photostim_stop_time": 117,
+   "sample": 249
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15100000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 103
+  },
+  "photostim_dur_s": [
+   0.4621999999999389,
+   0.4621999999999389,
+   0.4622000000008484
+  ],
+  "photostim_peak_power_mW": [
+   4.101807863483588,
+   4.107754882707253,
+   4.115688480622104
+  ],
+  "photostim_trial_epoch": {
+   "other": 103
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0774000000001251,
+   1.8784999999998035,
+   4.048800000000028
+  ],
+  "n_photostim_total": 103
+ },
+ {
+  "path": "sub-257636_ses-20150330_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257636",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 249,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 90,
+   "hit": 111,
+   "miss": 40,
+   "ignore": 8
+  },
+  "trial_instruction_counts": {
+   "non-performing": 90,
+   "right": 84,
+   "left": 75
+  },
+  "early_lick_counts": {
+   "no early": 239,
+   "early": 10
+  },
+  "task_counts": {
+   "audio delay": 249
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 9,
+  "unit_quality": {
+   "good": 9
+  },
+  "cell_type": {
+   "Pyr": 9
+  },
+  "n_spikes": 11875,
+  "session_dur_s": 2672.618951765503,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-809.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 159,
+   "go": 159,
+   "photostim_start_time": 89,
+   "photostim_stop_time": 89,
+   "sample": 159
+  },
+  "behavior_timeseries": {
+   "lick_trace": 12400000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 21,
+   "left ALM_laser_power": 24,
+   "right ALM_laser_power": 27
+  },
+  "photostim_dur_s": [
+   0.761199999999917,
+   0.7618999999999687,
+   0.7818999999999505
+  ],
+  "photostim_peak_power_mW": [
+   3.7648633798690367,
+   4.612232502779649,
+   4.727859040016529
+  ],
+  "photostim_trial_epoch": {
+   "other": 72
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8726000000001477,
+   1.878500000000031,
+   1.8795000000000073
+  ],
+  "n_photostim_total": 72
+ },
+ {
+  "path": "sub-257636_ses-20150331_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257636",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 293,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 31,
+   "hit": 183,
+   "miss": 75,
+   "ignore": 4
+  },
+  "trial_instruction_counts": {
+   "non-performing": 31,
+   "left": 132,
+   "right": 130
+  },
+  "early_lick_counts": {
+   "no early": 291,
+   "early": 2
+  },
+  "task_counts": {
+   "audio delay": 293
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 6,
+  "unit_quality": {
+   "good": 6
+  },
+  "cell_type": {
+   "Pyr": 6
+  },
+  "n_spikes": 12027,
+  "session_dur_s": 2961.2543142426794,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-880.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 262,
+   "go": 262,
+   "photostim_start_time": 97,
+   "photostim_stop_time": 97,
+   "sample": 262
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14600000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 28,
+   "left ALM_laser_power": 36,
+   "right ALM_laser_power": 31
+  },
+  "photostim_dur_s": [
+   0.7700999999997293,
+   0.7709999999999582,
+   0.7726000000000113
+  ],
+  "photostim_peak_power_mW": [
+   3.362476140596314,
+   6.2912122568348785,
+   6.306175599053554
+  ],
+  "photostim_trial_epoch": {
+   "other": 95
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8722999999999956,
+   1.8730999999997948,
+   1.8739999999997963
+  ],
+  "n_photostim_total": 95
+ },
+ {
+  "path": "sub-257636_ses-20150401_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257636",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 228,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 32,
+   "hit": 150,
+   "miss": 45,
+   "ignore": 1
+  },
+  "trial_instruction_counts": {
+   "non-performing": 32,
+   "left": 101,
+   "right": 95
+  },
+  "early_lick_counts": {
+   "no early": 225,
+   "early": 3
+  },
+  "task_counts": {
+   "audio delay": 228
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 10,
+  "unit_quality": {
+   "good": 10
+  },
+  "cell_type": {
+   "Pyr": 9,
+   "FS": 1
+  },
+  "n_spikes": 16011,
+  "session_dur_s": 2118.145983270435,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-910.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 196,
+   "go": 196,
+   "photostim_start_time": 82,
+   "photostim_stop_time": 82,
+   "sample": 196
+  },
+  "behavior_timeseries": {
+   "lick_trace": 11350000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 27,
+   "left ALM_laser_power": 27,
+   "right ALM_laser_power": 22
+  },
+  "photostim_dur_s": [
+   0.7617000000000189,
+   0.7620999999999185,
+   0.7729999999996835
+  ],
+  "photostim_peak_power_mW": [
+   3.39603132883289,
+   4.331579888480284,
+   4.357878149800711
+  ],
+  "photostim_trial_epoch": {
+   "other": 76
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8725999999999203,
+   1.8782999999999674,
+   1.8791999999998552
+  ],
+  "n_photostim_total": 76
+ },
+ {
+  "path": "sub-257636_ses-20150403_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257636",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 279,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 20,
+   "hit": 194,
+   "miss": 61,
+   "ignore": 4
+  },
+  "trial_instruction_counts": {
+   "non-performing": 20,
+   "right": 128,
+   "left": 131
+  },
+  "early_lick_counts": {
+   "no early": 275,
+   "early": 4
+  },
+  "task_counts": {
+   "audio delay": 279
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 10,
+  "unit_quality": {
+   "good": 10
+  },
+  "cell_type": {
+   "FS": 2,
+   "Pyr": 8
+  },
+  "n_spikes": 23526,
+  "session_dur_s": 2856.1709739809858,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-958.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 259,
+   "go": 259,
+   "photostim_start_time": 110,
+   "photostim_stop_time": 110,
+   "sample": 259
+  },
+  "behavior_timeseries": {
+   "lick_trace": 13900000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 41,
+   "left ALM_laser_power": 38,
+   "right ALM_laser_power": 28
+  },
+  "photostim_dur_s": [
+   0.7700999999999567,
+   0.7710999999999331,
+   0.7721999999998843
+  ],
+  "photostim_peak_power_mW": [
+   3.375870843448538,
+   6.309921019880527,
+   6.336190091278727
+  ],
+  "photostim_trial_epoch": {
+   "other": 107
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8721000000000458,
+   1.8730999999997948,
+   2.7757000000001426
+  ],
+  "n_photostim_total": 107
+ },
+ {
+  "path": "sub-257636_ses-20150404_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257636",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 285,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 45,
+   "hit": 176,
+   "miss": 62,
+   "ignore": 2
+  },
+  "trial_instruction_counts": {
+   "non-performing": 45,
+   "left": 131,
+   "right": 109
+  },
+  "early_lick_counts": {
+   "no early": 282,
+   "early": 3
+  },
+  "task_counts": {
+   "audio delay": 285
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 8,
+  "unit_quality": {
+   "good": 8
+  },
+  "cell_type": {
+   "Pyr": 6,
+   "FS": 2
+  },
+  "n_spikes": 40430,
+  "session_dur_s": 2892.7225064332583,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-993.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 240,
+   "go": 240,
+   "photostim_start_time": 105,
+   "photostim_stop_time": 105,
+   "sample": 240
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14200000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 30,
+   "left ALM_laser_power": 38,
+   "right ALM_laser_power": 29
+  },
+  "photostim_dur_s": [
+   0.7617000000000189,
+   0.7620999999999185,
+   0.772899999999936
+  ],
+  "photostim_peak_power_mW": [
+   3.4027686686152414,
+   4.326932799852378,
+   4.373320205208163
+  ],
+  "photostim_trial_epoch": {
+   "other": 97
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8722999999999956,
+   1.878400000000056,
+   1.9011000000000422
+  ],
+  "n_photostim_total": 97
+ },
+ {
+  "path": "sub-257637_ses-20141222_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257637",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 290,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 36,
+   "hit": 184,
+   "miss": 69,
+   "ignore": 1
+  },
+  "trial_instruction_counts": {
+   "non-performing": 36,
+   "left": 130,
+   "right": 124
+  },
+  "early_lick_counts": {
+   "no early": 210,
+   "early": 80
+  },
+  "task_counts": {
+   "audio delay": 290
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 19,
+  "unit_quality": {
+   "good": 19
+  },
+  "cell_type": {
+   "Pyr": 19
+  },
+  "n_spikes": 49457,
+  "session_dur_s": 2872.278426582029,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-295.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 254,
+   "go": 254,
+   "photostim_start_time": 106,
+   "photostim_stop_time": 106,
+   "sample": 254
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14450000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 33,
+   "left ALM_laser_power": 28,
+   "right ALM_laser_power": 37
+  },
+  "photostim_dur_s": [
+   0.7613999999998668,
+   0.7620999999999185,
+   173.00260000000026
+  ],
+  "photostim_peak_power_mW": [
+   4.447169803966013,
+   4.507545260442776,
+   13.270370507778042
+  ],
+  "photostim_trial_epoch": {
+   "other": 98
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8726000000001477,
+   1.8784999999998035,
+   4.390699999999924
+  ],
+  "n_photostim_total": 98
+ },
+ {
+  "path": "sub-257637_ses-20141223_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257637",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 244,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 62,
+   "hit": 118,
+   "miss": 64
+  },
+  "trial_instruction_counts": {
+   "non-performing": 62,
+   "right": 91,
+   "left": 91
+  },
+  "early_lick_counts": {
+   "no early": 218,
+   "early": 26
+  },
+  "task_counts": {
+   "audio delay": 244
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 16,
+  "unit_quality": {
+   "good": 16
+  },
+  "cell_type": {
+   "FS": 2,
+   "Pyr": 14
+  },
+  "n_spikes": 52672,
+  "session_dur_s": 2320.948863440231,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-355.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 182,
+   "go": 182,
+   "photostim_start_time": 75,
+   "photostim_stop_time": 75,
+   "sample": 182
+  },
+  "behavior_timeseries": {
+   "lick_trace": 12150000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 32,
+   "left ALM_laser_power": 18,
+   "right ALM_laser_power": 19
+  },
+  "photostim_dur_s": [
+   0.7617000000000189,
+   0.7620999999999185,
+   0.7708999999999833
+  ],
+  "photostim_peak_power_mW": [
+   4.257941256456488,
+   4.274104134637938,
+   12.790824314687333
+  ],
+  "photostim_trial_epoch": {
+   "other": 69
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8723999999999705,
+   1.878099999999904,
+   2.334100000000035
+  ],
+  "n_photostim_total": 69
+ },
+ {
+  "path": "sub-257637_ses-20141224_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257637",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 309,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 25,
+   "hit": 214,
+   "miss": 70
+  },
+  "trial_instruction_counts": {
+   "non-performing": 25,
+   "left": 164,
+   "right": 120
+  },
+  "early_lick_counts": {
+   "no early": 267,
+   "early": 42
+  },
+  "task_counts": {
+   "audio delay": 309
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 16,
+  "unit_quality": {
+   "good": 16
+  },
+  "cell_type": {
+   "FS": 2,
+   "Pyr": 14
+  },
+  "n_spikes": 68753,
+  "session_dur_s": 3041.1640098317926,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-350.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 284,
+   "go": 284,
+   "photostim_start_time": 116,
+   "photostim_stop_time": 116,
+   "sample": 284
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15350000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 65,
+   "left ALM_laser_power": 29,
+   "right ALM_laser_power": 18
+  },
+  "photostim_dur_s": [
+   0.7617000000000189,
+   0.7699999999999818,
+   12.960900000000038
+  ],
+  "photostim_peak_power_mW": [
+   4.219037036066853,
+   12.70045574834919,
+   12.732340589155193
+  ],
+  "photostim_trial_epoch": {
+   "other": 112
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8674000000000888,
+   1.8736999999999853,
+   4.402399999999943
+  ],
+  "n_photostim_total": 112
+ },
+ {
+  "path": "sub-257772_ses-20141120_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257772",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 381,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 44,
+   "hit": 241,
+   "miss": 77,
+   "ignore": 19
+  },
+  "trial_instruction_counts": {
+   "non-performing": 44,
+   "right": 170,
+   "left": 167
+  },
+  "early_lick_counts": {
+   "no early": 276,
+   "early": 105
+  },
+  "task_counts": {
+   "audio delay": 381
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 22,
+  "unit_quality": {
+   "good": 22
+  },
+  "cell_type": {
+   "Pyr": 22
+  },
+  "n_spikes": 130288,
+  "session_dur_s": 3443.5443984876633,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-831.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 337,
+   "go": 337,
+   "photostim_start_time": 135,
+   "photostim_stop_time": 135,
+   "sample": 337
+  },
+  "behavior_timeseries": {
+   "lick_trace": 18900000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 126
+  },
+  "photostim_dur_s": [
+   0.4620999999997366,
+   0.4621999999999389,
+   0.46230000000014115
+  ],
+  "photostim_peak_power_mW": [
+   4.115688480622104,
+   4.127597896613902,
+   4.139518040516949
+  ],
+  "photostim_trial_epoch": {
+   "other": 126
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0774000000001251,
+   1.8787500000000819,
+   4.323199999999815
+  ],
+  "n_photostim_total": 126
+ },
+ {
+  "path": "sub-257772_ses-20141121_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257772",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 388,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 50,
+   "hit": 241,
+   "ignore": 13,
+   "miss": 84
+  },
+  "trial_instruction_counts": {
+   "non-performing": 50,
+   "left": 179,
+   "right": 159
+  },
+  "early_lick_counts": {
+   "no early": 324,
+   "early": 64
+  },
+  "task_counts": {
+   "audio delay": 388
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 28,
+  "unit_quality": {
+   "good": 28
+  },
+  "cell_type": {
+   "Pyr": 25,
+   "FS": 3
+  },
+  "n_spikes": 195879,
+  "session_dur_s": 3482.341626144569,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-340.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 338,
+   "go": 338,
+   "photostim_start_time": 140,
+   "photostim_stop_time": 140,
+   "sample": 338
+  },
+  "behavior_timeseries": {
+   "lick_trace": 19350000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 42,
+   "left ALM_laser_power": 41,
+   "right ALM_laser_power": 51
+  },
+  "photostim_dur_s": [
+   0.7617999999993117,
+   0.7622000000001208,
+   17.65560000000005
+  ],
+  "photostim_peak_power_mW": [
+   4.207263000182813,
+   4.243259411456727,
+   12.952423181984582
+  ],
+  "photostim_trial_epoch": {
+   "other": 134
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8728000000000975,
+   1.8784999999998035,
+   4.592200000000048
+  ],
+  "n_photostim_total": 134
+ },
+ {
+  "path": "sub-257772_ses-20141122_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257772",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 363,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 78,
+   "hit": 206,
+   "miss": 66,
+   "ignore": 13
+  },
+  "trial_instruction_counts": {
+   "non-performing": 78,
+   "left": 137,
+   "right": 148
+  },
+  "early_lick_counts": {
+   "no early": 300,
+   "early": 63
+  },
+  "task_counts": {
+   "audio delay": 363
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 22,
+  "unit_quality": {
+   "good": 22
+  },
+  "cell_type": {
+   "FS": 3,
+   "Pyr": 19
+  },
+  "n_spikes": 163608,
+  "session_dur_s": 3364.9089290866787,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-938.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 285,
+   "go": 285,
+   "photostim_start_time": 138,
+   "photostim_stop_time": 138,
+   "sample": 285
+  },
+  "behavior_timeseries": {
+   "lick_trace": 18050000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 122
+  },
+  "photostim_dur_s": [
+   0.461699999999837,
+   0.4620999999997366,
+   0.4624000000003434
+  ],
+  "photostim_peak_power_mW": [
+   4.175341770581646,
+   4.243259411456727,
+   4.269311247737056
+  ],
+  "photostim_trial_epoch": {
+   "other": 122
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0775999999996202,
+   1.878700000000208,
+   3.6275000000000546
+  ],
+  "n_photostim_total": 122
+ },
+ {
+  "path": "sub-257772_ses-20141123_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257772",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 341,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 27,
+   "hit": 226,
+   "miss": 84,
+   "ignore": 4
+  },
+  "trial_instruction_counts": {
+   "non-performing": 27,
+   "left": 144,
+   "right": 170
+  },
+  "early_lick_counts": {
+   "no early": 282,
+   "early": 59
+  },
+  "task_counts": {
+   "audio delay": 341
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 12,
+  "unit_quality": {
+   "good": 12
+  },
+  "cell_type": {
+   "Pyr": 10,
+   "FS": 2
+  },
+  "n_spikes": 97911,
+  "session_dur_s": 3477.5248238495815,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-349.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 314,
+   "go": 314,
+   "photostim_start_time": 144,
+   "photostim_stop_time": 144,
+   "sample": 314
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17000000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 64,
+   "left ALM_laser_power": 29,
+   "right ALM_laser_power": 42
+  },
+  "photostim_dur_s": [
+   0.2141999999998916,
+   0.762300000000323,
+   7.629500000000007
+  ],
+  "photostim_peak_power_mW": [
+   4.187303757017738,
+   4.241257295220965,
+   12.936189485072163
+  ],
+  "photostim_trial_epoch": {
+   "other": 135
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8724999999999454,
+   1.8783000000000811,
+   4.783300000000054
+  ],
+  "n_photostim_total": 135
+ },
+ {
+  "path": "sub-257772_ses-20141124_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257772",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 349,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 53,
+   "miss": 54,
+   "hit": 239,
+   "ignore": 3
+  },
+  "trial_instruction_counts": {
+   "non-performing": 53,
+   "right": 155,
+   "left": 141
+  },
+  "early_lick_counts": {
+   "no early": 264,
+   "early": 85
+  },
+  "task_counts": {
+   "audio delay": 349
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 14,
+  "unit_quality": {
+   "good": 14
+  },
+  "cell_type": {
+   "Pyr": 12,
+   "FS": 2
+  },
+  "n_spikes": 92320,
+  "session_dur_s": 3170.7252974248477,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-959.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 296,
+   "go": 296,
+   "photostim_start_time": 109,
+   "photostim_stop_time": 109,
+   "sample": 296
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17300000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 101
+  },
+  "photostim_dur_s": [
+   0.11419999999998254,
+   0.46190000000024156,
+   0.46229999999923166
+  ],
+  "photostim_peak_power_mW": [
+   4.231250770714185,
+   4.295407506584294,
+   4.398193384642796
+  ],
+  "photostim_trial_epoch": {
+   "other": 101
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0774000000001251,
+   1.8787999999999556,
+   4.8814000000002125
+  ],
+  "n_photostim_total": 101
+ },
+ {
+  "path": "sub-257772_ses-20141125_behavior+ecephys+ogen.nwb",
+  "subject": "sub-257772",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 290,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 35,
+   "hit": 198,
+   "miss": 54,
+   "ignore": 3
+  },
+  "trial_instruction_counts": {
+   "non-performing": 35,
+   "left": 121,
+   "right": 134
+  },
+  "early_lick_counts": {
+   "no early": 232,
+   "early": 58
+  },
+  "task_counts": {
+   "audio delay": 290
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 19,
+  "unit_quality": {
+   "good": 19
+  },
+  "cell_type": {
+   "Pyr": 16,
+   "FS": 3
+  },
+  "n_spikes": 158578,
+  "session_dur_s": 2790.8547218967633,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-979.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 255,
+   "go": 255,
+   "photostim_start_time": 120,
+   "photostim_stop_time": 120,
+   "sample": 255
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14400000
+  },
+  "ogen_sites": [
+   "left ALM"
+  ],
+  "stim_presentation": [
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "left ALM_laser_power": 111
+  },
+  "photostim_dur_s": [
+   0.461699999999837,
+   0.4619999999999891,
+   0.46230000000014115
+  ],
+  "photostim_peak_power_mW": [
+   4.2112582030444985,
+   4.245261796982388,
+   4.281350220762976
+  ],
+  "photostim_trial_epoch": {
+   "other": 111
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.0775999999996202,
+   1.8787999999999556,
+   4.07549999999992
+  ],
+  "n_photostim_total": 111
+ },
+ {
+  "path": "sub-258250_ses-20141201_behavior+ecephys+ogen.nwb",
+  "subject": "sub-258250",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 322,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 59,
+   "hit": 173,
+   "miss": 89,
+   "ignore": 1
+  },
+  "trial_instruction_counts": {
+   "non-performing": 59,
+   "right": 150,
+   "left": 113
+  },
+  "early_lick_counts": {
+   "no early": 254,
+   "early": 68
+  },
+  "task_counts": {
+   "audio delay": 322
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 21,
+  "unit_quality": {
+   "good": 21
+  },
+  "cell_type": {
+   "Pyr": 19,
+   "FS": 2
+  },
+  "n_spikes": 80615,
+  "session_dur_s": 3656.8531145324955,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-268.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 263,
+   "go": 263,
+   "photostim_start_time": 120,
+   "photostim_stop_time": 120,
+   "sample": 263
+  },
+  "behavior_timeseries": {
+   "lick_trace": 16050000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 39,
+   "left ALM_laser_power": 35,
+   "right ALM_laser_power": 30
+  },
+  "photostim_dur_s": [
+   0.21420000000034634,
+   0.7620999999999185,
+   0.7706000000007407
+  ],
+  "photostim_peak_power_mW": [
+   4.2092848863462535,
+   4.222285379381481,
+   12.69514270559853
+  ],
+  "photostim_trial_epoch": {
+   "other": 104
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8726999999998952,
+   1.8784999999998035,
+   4.777000000000044
+  ],
+  "n_photostim_total": 104
+ },
+ {
+  "path": "sub-258250_ses-20141202_behavior+ecephys+ogen.nwb",
+  "subject": "sub-258250",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 261,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 22,
+   "hit": 174,
+   "miss": 62,
+   "ignore": 3
+  },
+  "trial_instruction_counts": {
+   "non-performing": 22,
+   "right": 136,
+   "left": 103
+  },
+  "early_lick_counts": {
+   "no early": 216,
+   "early": 45
+  },
+  "task_counts": {
+   "audio delay": 261
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 18,
+  "unit_quality": {
+   "good": 18
+  },
+  "cell_type": {
+   "Pyr": 16,
+   "FS": 2
+  },
+  "n_spikes": 60591,
+  "session_dur_s": 1421.3703042509228,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-332.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 214,
+   "go": 214,
+   "photostim_start_time": 101,
+   "photostim_stop_time": 101,
+   "sample": 214
+  },
+  "behavior_timeseries": {
+   "lick_trace": 11850000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 20,
+   "left ALM_laser_power": 31,
+   "right ALM_laser_power": 30
+  },
+  "photostim_dur_s": [
+   -1206.34,
+   0.7620999999999185,
+   0.7708000000000084
+  ],
+  "photostim_peak_power_mW": [
+   4.212536796876989,
+   4.222285379381481,
+   12.705769108000391
+  ],
+  "photostim_trial_epoch": {
+   "other": 81
+  },
+  "photostim_rel_to_trial_start_s": [
+   0.7794000000000096,
+   1.8786999999999807,
+   21.795499999999947
+  ],
+  "n_photostim_total": 81
+ },
+ {
+  "path": "sub-258250_ses-20141203_behavior+ecephys+ogen.nwb",
+  "subject": "sub-258250",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 290,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 32,
+   "miss": 77,
+   "hit": 176,
+   "ignore": 5
+  },
+  "trial_instruction_counts": {
+   "non-performing": 32,
+   "right": 142,
+   "left": 116
+  },
+  "early_lick_counts": {
+   "no early": 218,
+   "early": 72
+  },
+  "task_counts": {
+   "audio delay": 290
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 14,
+  "unit_quality": {
+   "good": 14
+  },
+  "cell_type": {
+   "Pyr": 13,
+   "FS": 1
+  },
+  "n_spikes": 52169,
+  "session_dur_s": 3326.3599147463465,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-926.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 258,
+   "go": 258,
+   "photostim_start_time": 110,
+   "photostim_stop_time": 110,
+   "sample": 258
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14450000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 42,
+   "left ALM_laser_power": 26,
+   "right ALM_laser_power": 27
+  },
+  "photostim_dur_s": [
+   0.7618999999999687,
+   0.7621000000003733,
+   16.80600000000004
+  ],
+  "photostim_peak_power_mW": [
+   4.212536796876989,
+   4.225532548279576,
+   12.705769108000391
+  ],
+  "photostim_trial_epoch": {
+   "other": 95
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8726999999998952,
+   1.8784999999998035,
+   4.723899999999958
+  ],
+  "n_photostim_total": 95
+ },
+ {
+  "path": "sub-258250_ses-20141205_behavior+ecephys+ogen.nwb",
+  "subject": "sub-258250",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 290,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 26,
+   "hit": 194,
+   "miss": 70
+  },
+  "trial_instruction_counts": {
+   "non-performing": 26,
+   "left": 111,
+   "right": 153
+  },
+  "early_lick_counts": {
+   "no early": 210,
+   "early": 80
+  },
+  "task_counts": {
+   "audio delay": 290
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 8,
+  "unit_quality": {
+   "good": 8
+  },
+  "cell_type": {
+   "Pyr": 7,
+   "FS": 1
+  },
+  "n_spikes": 37806,
+  "session_dur_s": 3245.547296389894,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-980.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 264,
+   "go": 264,
+   "photostim_start_time": 107,
+   "photostim_stop_time": 107,
+   "sample": 264
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14450000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 37,
+   "left ALM_laser_power": 33,
+   "right ALM_laser_power": 30
+  },
+  "photostim_dur_s": [
+   0.41440000000011423,
+   0.7621000000002596,
+   33.80420000000004
+  ],
+  "photostim_peak_power_mW": [
+   4.2092848863462535,
+   4.222285379381481,
+   12.70045574834919
+  ],
+  "photostim_trial_epoch": {
+   "other": 100
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8532000000000153,
+   1.878500000000031,
+   4.872100000000046
+  ],
+  "n_photostim_total": 100
+ },
+ {
+  "path": "sub-263808_ses-20150121_behavior+ecephys+ogen.nwb",
+  "subject": "sub-263808",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 360,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 128,
+   "hit": 149,
+   "miss": 76,
+   "ignore": 7
+  },
+  "trial_instruction_counts": {
+   "non-performing": 128,
+   "right": 140,
+   "left": 92
+  },
+  "early_lick_counts": {
+   "no early": 283,
+   "early": 77
+  },
+  "task_counts": {
+   "audio delay": 360
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 42,
+  "unit_quality": {
+   "good": 42
+  },
+  "cell_type": {
+   "Pyr": 37,
+   "FS": 5
+  },
+  "n_spikes": 203544,
+  "session_dur_s": 4140.972966253153,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-326.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 232,
+   "go": 232,
+   "photostim_start_time": 110,
+   "photostim_stop_time": 110,
+   "sample": 232
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17950000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 45,
+   "left ALM_laser_power": 17,
+   "right ALM_laser_power": 24
+  },
+  "photostim_dur_s": [
+   0.7619999999997162,
+   0.7650999999996202,
+   0.7660999999998239
+  ],
+  "photostim_peak_power_mW": [
+   4.12237149864761,
+   12.75477656431147,
+   12.770066768922144
+  ],
+  "photostim_trial_epoch": {
+   "other": 86
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8725000000004002,
+   1.878099999999904,
+   3.414399999999887
+  ],
+  "n_photostim_total": 86
+ },
+ {
+  "path": "sub-263808_ses-20150122_behavior+ecephys+ogen.nwb",
+  "subject": "sub-263808",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 288,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 97,
+   "hit": 128,
+   "miss": 59,
+   "ignore": 4
+  },
+  "trial_instruction_counts": {
+   "non-performing": 97,
+   "left": 85,
+   "right": 106
+  },
+  "early_lick_counts": {
+   "no early": 214,
+   "early": 74
+  },
+  "task_counts": {
+   "audio delay": 288
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 31,
+  "unit_quality": {
+   "good": 31
+  },
+  "cell_type": {
+   "Pyr": 28,
+   "FS": 3
+  },
+  "n_spikes": 180805,
+  "session_dur_s": 3184.498479771909,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-896.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 191,
+   "go": 191,
+   "photostim_start_time": 90,
+   "photostim_stop_time": 90,
+   "sample": 191
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14350000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 37,
+   "left ALM_laser_power": 17,
+   "right ALM_laser_power": 18
+  },
+  "photostim_dur_s": [
+   0.6394999999999982,
+   0.7652500000000373,
+   0.7658000000001266
+  ],
+  "photostim_peak_power_mW": [
+   4.127724075288983,
+   12.730048489796937,
+   12.739472842828171
+  ],
+  "photostim_trial_epoch": {
+   "other": 72
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8438000000001011,
+   1.8782999999999674,
+   4.350100000000111
+  ],
+  "n_photostim_total": 72
+ },
+ {
+  "path": "sub-263808_ses-20150123_behavior+ecephys+ogen.nwb",
+  "subject": "sub-263808",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 318,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 42,
+   "hit": 193,
+   "miss": 80,
+   "ignore": 3
+  },
+  "trial_instruction_counts": {
+   "non-performing": 42,
+   "left": 145,
+   "right": 131
+  },
+  "early_lick_counts": {
+   "no early": 216,
+   "early": 102
+  },
+  "task_counts": {
+   "audio delay": 318
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 10,
+  "unit_quality": {
+   "good": 10
+  },
+  "cell_type": {
+   "Pyr": 9,
+   "FS": 1
+  },
+  "n_spikes": 48143,
+  "session_dur_s": 3428.6980392801865,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-947.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 276,
+   "go": 276,
+   "photostim_start_time": 125,
+   "photostim_stop_time": 125,
+   "sample": 276
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15850000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 52,
+   "left ALM_laser_power": 31,
+   "right ALM_laser_power": 32
+  },
+  "photostim_dur_s": [
+   0.7619999999997162,
+   0.762300000000323,
+   164.6015
+  ],
+  "photostim_peak_power_mW": [
+   4.118804322152541,
+   4.136649844141158,
+   12.748892138269566
+  ],
+  "photostim_trial_epoch": {
+   "other": 115
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8726000000001477,
+   1.8783000000000811,
+   4.279500000000098
+  ],
+  "n_photostim_total": 115
+ },
+ {
+  "path": "sub-263808_ses-20150124_behavior+ecephys+ogen.nwb",
+  "subject": "sub-263808",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 289,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 20,
+   "miss": 64,
+   "hit": 205
+  },
+  "trial_instruction_counts": {
+   "non-performing": 20,
+   "right": 149,
+   "left": 120
+  },
+  "early_lick_counts": {
+   "no early": 176,
+   "early": 113
+  },
+  "task_counts": {
+   "audio delay": 289
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 28,
+  "unit_quality": {
+   "good": 28
+  },
+  "cell_type": {
+   "Pyr": 27,
+   "FS": 1
+  },
+  "n_spikes": 95156,
+  "session_dur_s": 3085.5399081152714,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-938.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 269,
+   "go": 269,
+   "photostim_start_time": 120,
+   "photostim_stop_time": 120,
+   "sample": 269
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14400000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 55,
+   "left ALM_laser_power": 30,
+   "right ALM_laser_power": 32
+  },
+  "photostim_dur_s": [
+   0.7619999999997162,
+   0.762300000000323,
+   182.42020000000002
+  ],
+  "photostim_peak_power_mW": [
+   4.1259396419676255,
+   4.134864211268681,
+   12.741828143041776
+  ],
+  "photostim_trial_epoch": {
+   "other": 117
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8724999999999454,
+   1.8784999999998035,
+   4.874199999999973
+  ],
+  "n_photostim_total": 117
+ },
+ {
+  "path": "sub-263808_ses-20150125_behavior+ecephys+ogen.nwb",
+  "subject": "sub-263808",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 261,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 20,
+   "hit": 173,
+   "miss": 67,
+   "ignore": 1
+  },
+  "trial_instruction_counts": {
+   "non-performing": 20,
+   "right": 113,
+   "left": 128
+  },
+  "early_lick_counts": {
+   "no early": 178,
+   "early": 83
+  },
+  "task_counts": {
+   "audio delay": 261
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 13,
+  "unit_quality": {
+   "good": 13
+  },
+  "cell_type": {
+   "Pyr": 13
+  },
+  "n_spikes": 48956,
+  "session_dur_s": 2782.275960626517,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-967.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 241,
+   "go": 241,
+   "photostim_start_time": 95,
+   "photostim_stop_time": 95,
+   "sample": 241
+  },
+  "behavior_timeseries": {
+   "lick_trace": 13000000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 45,
+   "left ALM_laser_power": 24,
+   "right ALM_laser_power": 23
+  },
+  "photostim_dur_s": [
+   0.762000000000171,
+   0.762300000000323,
+   0.7657000000001517
+  ],
+  "photostim_peak_power_mW": [
+   4.1063268596541675,
+   4.127724075288983,
+   12.732405049117908
+  ],
+  "photostim_trial_epoch": {
+   "other": 92
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8724999999999454,
+   1.8783999999999423,
+   3.405699999999797
+  ],
+  "n_photostim_total": 92
+ },
+ {
+  "path": "sub-263808_ses-20150126_behavior+ecephys+ogen.nwb",
+  "subject": "sub-263808",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 301,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 53,
+   "hit": 172,
+   "miss": 76
+  },
+  "trial_instruction_counts": {
+   "non-performing": 53,
+   "left": 125,
+   "right": 123
+  },
+  "early_lick_counts": {
+   "no early": 236,
+   "early": 65
+  },
+  "task_counts": {
+   "audio delay": 301
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 6,
+  "unit_quality": {
+   "good": 6
+  },
+  "cell_type": {
+   "Pyr": 6
+  },
+  "n_spikes": 9290,
+  "session_dur_s": 2359.759652657776,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-967.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 248,
+   "go": 248,
+   "photostim_start_time": 105,
+   "photostim_stop_time": 105,
+   "sample": 248
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15000000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 47,
+   "left ALM_laser_power": 28,
+   "right ALM_laser_power": 21
+  },
+  "photostim_dur_s": [
+   0.7619999999999436,
+   0.762299999999982,
+   0.7658000000001266
+  ],
+  "photostim_peak_power_mW": [
+   4.118804322152541,
+   4.1259396419676255,
+   12.730048489796937
+  ],
+  "photostim_trial_epoch": {
+   "other": 96
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8724999999999454,
+   1.8784999999998035,
+   3.2773999999999432
+  ],
+  "n_photostim_total": 96
+ },
+ {
+  "path": "sub-263810_ses-20150121_behavior+ecephys+ogen.nwb",
+  "subject": "sub-263810",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 402,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 59,
+   "hit": 230,
+   "miss": 110,
+   "ignore": 3
+  },
+  "trial_instruction_counts": {
+   "non-performing": 59,
+   "left": 158,
+   "right": 185
+  },
+  "early_lick_counts": {
+   "no early": 341,
+   "early": 61
+  },
+  "task_counts": {
+   "audio delay": 402
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 25,
+  "unit_quality": {
+   "good": 25
+  },
+  "cell_type": {
+   "Pyr": 22,
+   "FS": 3
+  },
+  "n_spikes": 150411,
+  "session_dur_s": 3469.505932961857,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-280.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 343,
+   "go": 343,
+   "photostim_start_time": 133,
+   "photostim_stop_time": 133,
+   "sample": 343
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17250000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 60,
+   "left ALM_laser_power": 32,
+   "right ALM_laser_power": 24
+  },
+  "photostim_dur_s": [
+   0.7619999999999436,
+   0.7651499999999487,
+   0.7661000000002787
+  ],
+  "photostim_peak_power_mW": [
+   4.142008174317481,
+   12.751246165268888,
+   12.772417879610902
+  ],
+  "photostim_trial_epoch": {
+   "other": 116
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8724999999999454,
+   1.8780000000001564,
+   2.6709999999998217
+  ],
+  "n_photostim_total": 116
+ },
+ {
+  "path": "sub-263810_ses-20150122_behavior+ecephys+ogen.nwb",
+  "subject": "sub-263810",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 368,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 60,
+   "hit": 171,
+   "miss": 119,
+   "ignore": 18
+  },
+  "trial_instruction_counts": {
+   "non-performing": 60,
+   "right": 160,
+   "left": 148
+  },
+  "early_lick_counts": {
+   "no early": 337,
+   "early": 31
+  },
+  "task_counts": {
+   "audio delay": 368
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 17,
+  "unit_quality": {
+   "good": 17
+  },
+  "cell_type": {
+   "Pyr": 14,
+   "FS": 3
+  },
+  "n_spikes": 158528,
+  "session_dur_s": 3803.476383033125,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-934.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 308,
+   "go": 308,
+   "photostim_start_time": 118,
+   "photostim_stop_time": 118,
+   "sample": 308
+  },
+  "behavior_timeseries": {
+   "lick_trace": 18350000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 59,
+   "left ALM_laser_power": 24,
+   "right ALM_laser_power": 30
+  },
+  "photostim_dur_s": [
+   0.762000000000171,
+   0.7653000000000247,
+   0.7658000000001266
+  ],
+  "photostim_peak_power_mW": [
+   4.115238115356041,
+   12.732405049117908,
+   12.741828143041776
+  ],
+  "photostim_trial_epoch": {
+   "other": 113
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8726000000001477,
+   1.8778000000002066,
+   2.892900000000054
+  ],
+  "n_photostim_total": 113
+ },
+ {
+  "path": "sub-263810_ses-20150123_behavior+ecephys+ogen.nwb",
+  "subject": "sub-263810",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 243,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 25,
+   "hit": 167,
+   "miss": 49,
+   "ignore": 2
+  },
+  "trial_instruction_counts": {
+   "non-performing": 25,
+   "left": 110,
+   "right": 108
+  },
+  "early_lick_counts": {
+   "no early": 208,
+   "early": 35
+  },
+  "task_counts": {
+   "audio delay": 243
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 11,
+  "unit_quality": {
+   "good": 11
+  },
+  "cell_type": {
+   "Pyr": 11
+  },
+  "n_spikes": 45444,
+  "session_dur_s": 2276.314675714014,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-950.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 218,
+   "go": 218,
+   "photostim_start_time": 77,
+   "photostim_stop_time": 77,
+   "sample": 218
+  },
+  "behavior_timeseries": {
+   "lick_trace": 12100000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 39,
+   "left ALM_laser_power": 21,
+   "right ALM_laser_power": 16
+  },
+  "photostim_dur_s": [
+   0.7619999999997162,
+   0.7652000000000498,
+   0.7656999999999243
+  ],
+  "photostim_peak_power_mW": [
+   4.113455376492763,
+   12.732405049117908,
+   12.746537791644156
+  ],
+  "photostim_trial_epoch": {
+   "other": 76
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8725999999999203,
+   1.877999999999986,
+   2.1230000000000473
+  ],
+  "n_photostim_total": 76
+ },
+ {
+  "path": "sub-263810_ses-20150124_behavior+ecephys+ogen.nwb",
+  "subject": "sub-263810",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 377,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 57,
+   "hit": 219,
+   "ignore": 6,
+   "miss": 95
+  },
+  "trial_instruction_counts": {
+   "non-performing": 57,
+   "right": 162,
+   "left": 158
+  },
+  "early_lick_counts": {
+   "no early": 355,
+   "early": 22
+  },
+  "task_counts": {
+   "audio delay": 377
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 11,
+  "unit_quality": {
+   "good": 11
+  },
+  "cell_type": {
+   "Pyr": 10,
+   "FS": 1
+  },
+  "n_spikes": 68972,
+  "session_dur_s": 3880.9675703122193,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-939.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 320,
+   "go": 320,
+   "photostim_start_time": 132,
+   "photostim_stop_time": 132,
+   "sample": 320
+  },
+  "behavior_timeseries": {
+   "lick_trace": 18800000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 55,
+   "left ALM_laser_power": 34,
+   "right ALM_laser_power": 40
+  },
+  "photostim_dur_s": [
+   0.7619999999997162,
+   0.7623000000000957,
+   0.7658000000001266
+  ],
+  "photostim_peak_power_mW": [
+   4.118804322152541,
+   4.127724075288983,
+   12.734761294984555
+  ],
+  "photostim_trial_epoch": {
+   "other": 129
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.3968999999999596,
+   1.878099999999904,
+   2.63370000000009
+  ],
+  "n_photostim_total": 129
+ },
+ {
+  "path": "sub-263810_ses-20150125_behavior+ecephys+ogen.nwb",
+  "subject": "sub-263810",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 379,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 22,
+   "hit": 261,
+   "miss": 92,
+   "ignore": 4
+  },
+  "trial_instruction_counts": {
+   "non-performing": 22,
+   "right": 164,
+   "left": 193
+  },
+  "early_lick_counts": {
+   "no early": 367,
+   "early": 12
+  },
+  "task_counts": {
+   "audio delay": 379
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 17,
+  "unit_quality": {
+   "good": 17
+  },
+  "cell_type": {
+   "Pyr": 15,
+   "FS": 2
+  },
+  "n_spikes": 183963,
+  "session_dur_s": 3762.1173499025026,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-966.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 357,
+   "go": 357,
+   "photostim_start_time": 133,
+   "photostim_stop_time": 133,
+   "sample": 357
+  },
+  "behavior_timeseries": {
+   "lick_trace": 18900000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 66,
+   "left ALM_laser_power": 26,
+   "right ALM_laser_power": 40
+  },
+  "photostim_dur_s": [
+   0.7619999999997162,
+   0.7636500000000979,
+   0.7658000000000129
+  ],
+  "photostim_peak_power_mW": [
+   4.108108622353232,
+   8.430706327885604,
+   12.737117226515204
+  ],
+  "photostim_trial_epoch": {
+   "other": 132
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8725999999999203,
+   1.877800000000093,
+   2.2035000000000764
+  ],
+  "n_photostim_total": 132
+ },
+ {
+  "path": "sub-263810_ses-20150126_behavior+ecephys+ogen.nwb",
+  "subject": "sub-263810",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 315,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 70,
+   "miss": 54,
+   "hit": 190,
+   "ignore": 1
+  },
+  "trial_instruction_counts": {
+   "non-performing": 70,
+   "right": 121,
+   "left": 124
+  },
+  "early_lick_counts": {
+   "no early": 303,
+   "early": 12
+  },
+  "task_counts": {
+   "audio delay": 315
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 16,
+  "unit_quality": {
+   "good": 16
+  },
+  "cell_type": {
+   "Pyr": 16
+  },
+  "n_spikes": 59586,
+  "session_dur_s": 2561.5421732350987,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-966.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 245,
+   "go": 245,
+   "photostim_start_time": 101,
+   "photostim_stop_time": 101,
+   "sample": 245
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15700000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 51,
+   "left ALM_laser_power": 22,
+   "right ALM_laser_power": 23
+  },
+  "photostim_dur_s": [
+   0.762000000000171,
+   0.7652000000000498,
+   0.7657999999996719
+  ],
+  "photostim_peak_power_mW": [
+   4.113455376492763,
+   12.713543871890591,
+   12.722976939924955
+  ],
+  "photostim_trial_epoch": {
+   "other": 96
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8724999999999454,
+   1.873550000000023,
+   1.9920000000001892
+  ],
+  "n_photostim_total": 96
+ },
+ {
+  "path": "sub-264411_ses-20141222_behavior+ecephys+ogen.nwb",
+  "subject": "sub-264411",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 365,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 60,
+   "hit": 222,
+   "miss": 82,
+   "ignore": 1
+  },
+  "trial_instruction_counts": {
+   "non-performing": 60,
+   "left": 158,
+   "right": 147
+  },
+  "early_lick_counts": {
+   "no early": 295,
+   "early": 70
+  },
+  "task_counts": {
+   "audio delay": 365
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 20,
+  "unit_quality": {
+   "good": 20
+  },
+  "cell_type": {
+   "Pyr": 20
+  },
+  "n_spikes": 46010,
+  "session_dur_s": 3498.6028774091355,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-900.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 305,
+   "go": 305,
+   "photostim_start_time": 127,
+   "photostim_stop_time": 127,
+   "sample": 305
+  },
+  "behavior_timeseries": {
+   "lick_trace": 18200000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 55,
+   "left ALM_laser_power": 34,
+   "right ALM_laser_power": 29
+  },
+  "photostim_dur_s": [
+   0.33910000000014406,
+   0.7620999999999185,
+   56.58140000000003
+  ],
+  "photostim_peak_power_mW": [
+   4.405725742888823,
+   4.486914174414272,
+   13.158349114533095
+  ],
+  "photostim_trial_epoch": {
+   "other": 118
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.872400000000198,
+   1.878400000000056,
+   4.855499999999665
+  ],
+  "n_photostim_total": 118
+ },
+ {
+  "path": "sub-264411_ses-20141223_behavior+ecephys+ogen.nwb",
+  "subject": "sub-264411",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 305,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 79,
+   "miss": 78,
+   "hit": 144,
+   "ignore": 4
+  },
+  "trial_instruction_counts": {
+   "non-performing": 79,
+   "left": 104,
+   "right": 122
+  },
+  "early_lick_counts": {
+   "no early": 215,
+   "early": 90
+  },
+  "task_counts": {
+   "audio delay": 305
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 4,
+  "unit_quality": {
+   "good": 4
+  },
+  "cell_type": {
+   "Pyr": 3,
+   "FS": 1
+  },
+  "n_spikes": 5676,
+  "session_dur_s": 3163.827209980438,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-1010.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 226,
+   "go": 226,
+   "photostim_start_time": 91,
+   "photostim_stop_time": 91,
+   "sample": 226
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15200000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 48,
+   "left ALM_laser_power": 22,
+   "right ALM_laser_power": 9
+  },
+  "photostim_dur_s": [
+   0.7617000000000189,
+   0.7702999999996791,
+   40.22330000000056
+  ],
+  "photostim_peak_power_mW": [
+   4.248230462434418,
+   12.742971329311581,
+   12.75891969021215
+  ],
+  "photostim_trial_epoch": {
+   "other": 79
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8725999999999203,
+   1.878400000000056,
+   4.8499000000001615
+  ],
+  "n_photostim_total": 79
+ },
+ {
+  "path": "sub-264411_ses-20141224_behavior+ecephys+ogen.nwb",
+  "subject": "sub-264411",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 394,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 41,
+   "hit": 244,
+   "miss": 108,
+   "ignore": 1
+  },
+  "trial_instruction_counts": {
+   "non-performing": 41,
+   "left": 155,
+   "right": 198
+  },
+  "early_lick_counts": {
+   "no early": 297,
+   "early": 97
+  },
+  "task_counts": {
+   "audio delay": 394
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 22,
+  "unit_quality": {
+   "good": 22
+  },
+  "cell_type": {
+   "Pyr": 21,
+   "FS": 1
+  },
+  "n_spikes": 96602,
+  "session_dur_s": 4331.602671413965,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-979.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 353,
+   "go": 353,
+   "photostim_start_time": 150,
+   "photostim_stop_time": 150,
+   "sample": 353
+  },
+  "behavior_timeseries": {
+   "lick_trace": 19650000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 67,
+   "left ALM_laser_power": 43,
+   "right ALM_laser_power": 26
+  },
+  "photostim_dur_s": [
+   0.3142000000002554,
+   0.769950000000108,
+   294.4236999999998
+  ],
+  "photostim_peak_power_mW": [
+   4.2320233921371715,
+   4.26602592202288,
+   12.764236402620304
+  ],
+  "photostim_trial_epoch": {
+   "other": 136
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.872599999999693,
+   1.8783000000003085,
+   4.986499999999978
+  ],
+  "n_photostim_total": 136
+ },
+ {
+  "path": "sub-270337_ses-20150303_behavior+ecephys+ogen.nwb",
+  "subject": "sub-270337",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 393,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 28,
+   "miss": 74,
+   "hit": 284,
+   "ignore": 7
+  },
+  "trial_instruction_counts": {
+   "non-performing": 28,
+   "right": 180,
+   "left": 185
+  },
+  "early_lick_counts": {
+   "no early": 368,
+   "early": 25
+  },
+  "task_counts": {
+   "audio delay": 393
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 25,
+  "unit_quality": {
+   "good": 25
+  },
+  "cell_type": {
+   "Pyr": 22,
+   "FS": 3
+  },
+  "n_spikes": 142674,
+  "session_dur_s": 3804.4893172614557,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-888.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 365,
+   "go": 365,
+   "photostim_start_time": 143,
+   "photostim_stop_time": 143,
+   "sample": 365
+  },
+  "behavior_timeseries": {
+   "lick_trace": 19600000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 67,
+   "left ALM_laser_power": 30,
+   "right ALM_laser_power": 43
+  },
+  "photostim_dur_s": [
+   0.762199999999666,
+   0.762300000000323,
+   49.643499999999676
+  ],
+  "photostim_peak_power_mW": [
+   3.1437052696099848,
+   4.099826131946427,
+   4.109737829002672
+  ],
+  "photostim_trial_epoch": {
+   "other": 140
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8359999999997854,
+   1.8780000000000427,
+   4.401100000000042
+  ],
+  "n_photostim_total": 140
+ },
+ {
+  "path": "sub-270337_ses-20150304_behavior+ecephys+ogen.nwb",
+  "subject": "sub-270337",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 315,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 32,
+   "hit": 219,
+   "miss": 63,
+   "ignore": 1
+  },
+  "trial_instruction_counts": {
+   "non-performing": 32,
+   "right": 151,
+   "left": 132
+  },
+  "early_lick_counts": {
+   "no early": 293,
+   "early": 22
+  },
+  "task_counts": {
+   "audio delay": 315
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 22,
+  "unit_quality": {
+   "good": 22
+  },
+  "cell_type": {
+   "Pyr": 21,
+   "FS": 1
+  },
+  "n_spikes": 125554,
+  "session_dur_s": 3051.278617136596,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-900.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 283,
+   "go": 283,
+   "photostim_start_time": 106,
+   "photostim_stop_time": 106,
+   "sample": 283
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15700000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 52,
+   "left ALM_laser_power": 28,
+   "right ALM_laser_power": 22
+  },
+  "photostim_dur_s": [
+   0.762199999999666,
+   0.7701999999999316,
+   0.7716000000000349
+  ],
+  "photostim_peak_power_mW": [
+   3.1491068327393394,
+   3.157219000461897,
+   4.11965708736311
+  ],
+  "photostim_trial_epoch": {
+   "other": 102
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8724999999999454,
+   1.878099999999904,
+   3.0277000000000953
+  ],
+  "n_photostim_total": 102
+ },
+ {
+  "path": "sub-270337_ses-20150306_behavior+ecephys+ogen.nwb",
+  "subject": "sub-270337",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 341,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 41,
+   "hit": 255,
+   "miss": 41,
+   "ignore": 4
+  },
+  "trial_instruction_counts": {
+   "non-performing": 41,
+   "left": 176,
+   "right": 124
+  },
+  "early_lick_counts": {
+   "no early": 329,
+   "early": 12
+  },
+  "task_counts": {
+   "audio delay": 341
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 26,
+  "unit_quality": {
+   "good": 26
+  },
+  "cell_type": {
+   "Pyr": 23,
+   "FS": 3
+  },
+  "n_spikes": 152947,
+  "session_dur_s": 3113.12584508046,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-941.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 300,
+   "go": 300,
+   "photostim_start_time": 134,
+   "photostim_stop_time": 134,
+   "sample": 300
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17000000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 48,
+   "left ALM_laser_power": 34,
+   "right ALM_laser_power": 44
+  },
+  "photostim_dur_s": [
+   0.7700999999997293,
+   0.7705999999998312,
+   0.7708999999999833
+  ],
+  "photostim_peak_power_mW": [
+   3.1383089236329558,
+   6.366217662271711,
+   6.375510125418423
+  ],
+  "photostim_trial_epoch": {
+   "other": 126
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8724999999999454,
+   1.8730999999997948,
+   2.1148000000000593
+  ],
+  "n_photostim_total": 126
+ },
+ {
+  "path": "sub-270340_ses-20150618_behavior+ecephys+ogen.nwb",
+  "subject": "sub-270340",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 322,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 322
+  },
+  "trial_instruction_counts": {
+   "non-performing": 322
+  },
+  "early_lick_counts": {
+   "no early": 322
+  },
+  "task_counts": {
+   "audio delay": 322
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 12,
+  "unit_quality": {
+   "good": 12
+  },
+  "cell_type": {
+   "Pyr": 12
+  },
+  "n_spikes": 49413,
+  "session_dur_s": 2560.8029557569184,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-845.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {},
+  "behavior_timeseries": {
+   "lick_trace": 13600000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-270340_ses-20150619_behavior+ecephys+ogen.nwb",
+  "subject": "sub-270340",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 326,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 92,
+   "hit": 141,
+   "miss": 92,
+   "ignore": 1
+  },
+  "trial_instruction_counts": {
+   "non-performing": 92,
+   "left": 107,
+   "right": 127
+  },
+  "early_lick_counts": {
+   "no early": 291,
+   "early": 35
+  },
+  "task_counts": {
+   "audio delay": 326
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 24,
+  "unit_quality": {
+   "good": 24
+  },
+  "cell_type": {
+   "Pyr": 22,
+   "FS": 2
+  },
+  "n_spikes": 70268,
+  "session_dur_s": 3610.3415614053474,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-855.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 234,
+   "go": 234,
+   "sample": 234
+  },
+  "behavior_timeseries": {
+   "lick_trace": 16250000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-270340_ses-20150620_behavior+ecephys+ogen.nwb",
+  "subject": "sub-270340",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 221,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 111,
+   "hit": 68,
+   "miss": 39,
+   "ignore": 3
+  },
+  "trial_instruction_counts": {
+   "non-performing": 111,
+   "right": 60,
+   "left": 50
+  },
+  "early_lick_counts": {
+   "no early": 204,
+   "early": 17
+  },
+  "task_counts": {
+   "audio delay": 221
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 14,
+  "unit_quality": {
+   "good": 14
+  },
+  "cell_type": {
+   "Pyr": 14
+  },
+  "n_spikes": 21537,
+  "session_dur_s": 1809.3816040146962,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-962.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 110,
+   "go": 110,
+   "sample": 110
+  },
+  "behavior_timeseries": {
+   "lick_trace": 11000000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-270340_ses-20150621_behavior+ecephys+ogen.nwb",
+  "subject": "sub-270340",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 271,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 126,
+   "hit": 91,
+   "miss": 54
+  },
+  "trial_instruction_counts": {
+   "non-performing": 126,
+   "right": 78,
+   "left": 67
+  },
+  "early_lick_counts": {
+   "no early": 248,
+   "early": 23
+  },
+  "task_counts": {
+   "audio delay": 271
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 4,
+  "unit_quality": {
+   "good": 4
+  },
+  "cell_type": {
+   "Pyr": 4
+  },
+  "n_spikes": 5541,
+  "session_dur_s": 3008.7918378231507,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-930.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 145,
+   "go": 145,
+   "sample": 145
+  },
+  "behavior_timeseries": {
+   "lick_trace": 13500000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-270340_ses-20150623_behavior+ecephys+ogen.nwb",
+  "subject": "sub-270340",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 359,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 64,
+   "hit": 185,
+   "ignore": 31,
+   "miss": 79
+  },
+  "trial_instruction_counts": {
+   "non-performing": 64,
+   "right": 159,
+   "left": 136
+  },
+  "early_lick_counts": {
+   "no early": 336,
+   "early": 23
+  },
+  "task_counts": {
+   "audio delay": 359
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 9,
+  "unit_quality": {
+   "good": 9
+  },
+  "cell_type": {
+   "Pyr": 7,
+   "FS": 2
+  },
+  "n_spikes": 29973,
+  "session_dur_s": 3423.896453848455,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-973.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 295,
+   "go": 295,
+   "sample": 295
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17900000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-273657_ses-20150321_behavior+ecephys+ogen.nwb",
+  "subject": "sub-273657",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 348,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 60,
+   "hit": 209,
+   "miss": 72,
+   "ignore": 7
+  },
+  "trial_instruction_counts": {
+   "non-performing": 60,
+   "right": 171,
+   "left": 117
+  },
+  "early_lick_counts": {
+   "no early": 278,
+   "early": 70
+  },
+  "task_counts": {
+   "audio delay": 348
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 21,
+  "unit_quality": {
+   "good": 21
+  },
+  "cell_type": {
+   "Pyr": 20,
+   "FS": 1
+  },
+  "n_spikes": 62801,
+  "session_dur_s": 3201.1195585826667,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-906.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 288,
+   "go": 288,
+   "photostim_start_time": 128,
+   "photostim_stop_time": 128,
+   "sample": 288
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17350000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 43,
+   "left ALM_laser_power": 38,
+   "right ALM_laser_power": 38
+  },
+  "photostim_dur_s": [
+   0.7700999999997293,
+   0.7705999999998312,
+   0.7713999999998578
+  ],
+  "photostim_peak_power_mW": [
+   3.2318110061574545,
+   6.226078042973122,
+   6.2413570312937585
+  ],
+  "photostim_trial_epoch": {
+   "other": 119
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8722999999999956,
+   1.8733000000001994,
+   2.8889999999998963
+  ],
+  "n_photostim_total": 119
+ },
+ {
+  "path": "sub-273657_ses-20150322_behavior+ecephys+ogen.nwb",
+  "subject": "sub-273657",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 358,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 33,
+   "hit": 236,
+   "miss": 84,
+   "ignore": 5
+  },
+  "trial_instruction_counts": {
+   "non-performing": 33,
+   "right": 158,
+   "left": 167
+  },
+  "early_lick_counts": {
+   "no early": 272,
+   "early": 86
+  },
+  "task_counts": {
+   "audio delay": 358
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 16,
+  "unit_quality": {
+   "good": 16
+  },
+  "cell_type": {
+   "Pyr": 15,
+   "FS": 1
+  },
+  "n_spikes": 65012,
+  "session_dur_s": 3676.472867920469,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-998.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 325,
+   "go": 325,
+   "photostim_start_time": 126,
+   "photostim_stop_time": 126,
+   "sample": 325
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17850000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 45,
+   "left ALM_laser_power": 45,
+   "right ALM_laser_power": 29
+  },
+  "photostim_dur_s": [
+   0.769399999999905,
+   0.7710999999999331,
+   0.7743000000000393
+  ],
+  "photostim_peak_power_mW": [
+   3.6028733574656844,
+   6.649319302772472,
+   6.742183843179937
+  ],
+  "photostim_trial_epoch": {
+   "other": 119
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8722999999999956,
+   1.8730999999997948,
+   2.7975000000001273
+  ],
+  "n_photostim_total": 119
+ },
+ {
+  "path": "sub-273657_ses-20150323_behavior+ecephys+ogen.nwb",
+  "subject": "sub-273657",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 304,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 23,
+   "miss": 45,
+   "hit": 234,
+   "ignore": 2
+  },
+  "trial_instruction_counts": {
+   "non-performing": 23,
+   "left": 159,
+   "right": 122
+  },
+  "early_lick_counts": {
+   "no early": 210,
+   "early": 94
+  },
+  "task_counts": {
+   "audio delay": 304
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 23,
+  "unit_quality": {
+   "good": 23
+  },
+  "cell_type": {
+   "Pyr": 19,
+   "FS": 4
+  },
+  "n_spikes": 108998,
+  "session_dur_s": 2995.156192445031,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-970.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 281,
+   "go": 281,
+   "photostim_start_time": 97,
+   "photostim_stop_time": 97,
+   "sample": 281
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15150000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 38,
+   "left ALM_laser_power": 33,
+   "right ALM_laser_power": 24
+  },
+  "photostim_dur_s": [
+   0.7689999999997781,
+   0.7705999999998312,
+   7.735400000000027
+  ],
+  "photostim_peak_power_mW": [
+   3.330663982792589,
+   6.341436805160242,
+   6.403673065196651
+  ],
+  "photostim_trial_epoch": {
+   "other": 95
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8238000000001193,
+   1.8731000000000222,
+   4.309499999999844
+  ],
+  "n_photostim_total": 95
+ },
+ {
+  "path": "sub-273657_ses-20150325_behavior+ecephys+ogen.nwb",
+  "subject": "sub-273657",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 327,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 49,
+   "hit": 203,
+   "miss": 70,
+   "ignore": 5
+  },
+  "trial_instruction_counts": {
+   "non-performing": 49,
+   "right": 148,
+   "left": 130
+  },
+  "early_lick_counts": {
+   "no early": 248,
+   "early": 79
+  },
+  "task_counts": {
+   "audio delay": 327
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 13,
+  "unit_quality": {
+   "good": 13
+  },
+  "cell_type": {
+   "Pyr": 13
+  },
+  "n_spikes": 36254,
+  "session_dur_s": 3423.597739025324,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-1091.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 278,
+   "go": 278,
+   "photostim_start_time": 112,
+   "photostim_stop_time": 112,
+   "sample": 278
+  },
+  "behavior_timeseries": {
+   "lick_trace": 16250000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [
+   "bilateral ALM_aom_input_trace",
+   "bilateral ALM_laser_power",
+   "left ALM_aom_input_trace",
+   "left ALM_laser_power",
+   "right ALM_aom_input_trace",
+   "right ALM_laser_power"
+  ],
+  "n_photostim_epochs": {
+   "bilateral ALM_laser_power": 43,
+   "left ALM_laser_power": 33,
+   "right ALM_laser_power": 24
+  },
+  "photostim_dur_s": [
+   0.7618999999999687,
+   0.7620999999999185,
+   0.7714000000005399
+  ],
+  "photostim_peak_power_mW": [
+   3.2251097185694015,
+   4.206031772087976,
+   4.222285379381481
+  ],
+  "photostim_trial_epoch": {
+   "other": 100
+  },
+  "photostim_rel_to_trial_start_s": [
+   1.8724999999999454,
+   1.8784999999998035,
+   3.2323999999998705
+  ],
+  "n_photostim_total": 100
+ },
+ {
+  "path": "sub-278733_ses-20150528_behavior+ecephys+ogen.nwb",
+  "subject": "sub-278733",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 317,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 57,
+   "hit": 176,
+   "miss": 79,
+   "ignore": 5
+  },
+  "trial_instruction_counts": {
+   "non-performing": 57,
+   "right": 141,
+   "left": 119
+  },
+  "early_lick_counts": {
+   "no early": 298,
+   "early": 19
+  },
+  "task_counts": {
+   "audio delay": 317
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 29,
+  "unit_quality": {
+   "good": 29
+  },
+  "cell_type": {
+   "Pyr": 27,
+   "FS": 2
+  },
+  "n_spikes": 128047,
+  "session_dur_s": 2916.8815684237234,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-811.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 260,
+   "go": 260,
+   "sample": 260
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15800000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-278733_ses-20150530_behavior+ecephys+ogen.nwb",
+  "subject": "sub-278733",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 362,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 32,
+   "hit": 266,
+   "miss": 64
+  },
+  "trial_instruction_counts": {
+   "non-performing": 32,
+   "right": 177,
+   "left": 153
+  },
+  "early_lick_counts": {
+   "no early": 324,
+   "early": 38
+  },
+  "task_counts": {
+   "audio delay": 362
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 49,
+  "unit_quality": {
+   "good": 49
+  },
+  "cell_type": {
+   "Pyr": 43,
+   "FS": 6
+  },
+  "n_spikes": 242014,
+  "session_dur_s": 3572.5398212062923,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-880.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 330,
+   "go": 330,
+   "sample": 330
+  },
+  "behavior_timeseries": {
+   "lick_trace": 18050000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-278733_ses-20150531_behavior+ecephys+ogen.nwb",
+  "subject": "sub-278733",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 297,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 43,
+   "hit": 180,
+   "miss": 74
+  },
+  "trial_instruction_counts": {
+   "non-performing": 43,
+   "left": 115,
+   "right": 139
+  },
+  "early_lick_counts": {
+   "no early": 265,
+   "early": 32
+  },
+  "task_counts": {
+   "audio delay": 297
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 5,
+  "unit_quality": {
+   "good": 5
+  },
+  "cell_type": {
+   "Pyr": 5
+  },
+  "n_spikes": 9885,
+  "session_dur_s": 3117.955077600582,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-900.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 254,
+   "go": 254,
+   "sample": 254
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14800000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-278733_ses-20150601_behavior+ecephys+ogen.nwb",
+  "subject": "sub-278733",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 296,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 82,
+   "hit": 133,
+   "miss": 79,
+   "ignore": 2
+  },
+  "trial_instruction_counts": {
+   "non-performing": 82,
+   "right": 125,
+   "left": 89
+  },
+  "early_lick_counts": {
+   "no early": 255,
+   "early": 41
+  },
+  "task_counts": {
+   "audio delay": 296
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 28,
+  "unit_quality": {
+   "good": 28
+  },
+  "cell_type": {
+   "FS": 4,
+   "Pyr": 24
+  },
+  "n_spikes": 84959,
+  "session_dur_s": 3273.239959824502,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-911.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 214,
+   "go": 214,
+   "sample": 214
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14750000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-278733_ses-20150602_behavior+ecephys+ogen.nwb",
+  "subject": "sub-278733",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 355,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 29,
+   "miss": 90,
+   "ignore": 3,
+   "hit": 233
+  },
+  "trial_instruction_counts": {
+   "non-performing": 29,
+   "right": 182,
+   "left": 144
+  },
+  "early_lick_counts": {
+   "no early": 304,
+   "early": 51
+  },
+  "task_counts": {
+   "audio delay": 355
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 15,
+  "unit_quality": {
+   "good": 15
+  },
+  "cell_type": {
+   "Pyr": 13,
+   "FS": 2
+  },
+  "n_spikes": 42649,
+  "session_dur_s": 4095.420951070919,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-930.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 326,
+   "go": 326,
+   "sample": 326
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17700000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-278733_ses-20150603_behavior+ecephys+ogen.nwb",
+  "subject": "sub-278733",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 291,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 30,
+   "miss": 83,
+   "hit": 169,
+   "ignore": 9
+  },
+  "trial_instruction_counts": {
+   "non-performing": 30,
+   "left": 121,
+   "right": 140
+  },
+  "early_lick_counts": {
+   "no early": 237,
+   "early": 54
+  },
+  "task_counts": {
+   "audio delay": 291
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 25,
+  "unit_quality": {
+   "good": 25
+  },
+  "cell_type": {
+   "Pyr": 23,
+   "FS": 2
+  },
+  "n_spikes": 99083,
+  "session_dur_s": 3537.022560452076,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-934.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 261,
+   "go": 261,
+   "sample": 261
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14500000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-291063_ses-20150902_behavior+ecephys+ogen.nwb",
+  "subject": "sub-291063",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 306,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 49,
+   "hit": 176,
+   "miss": 78,
+   "ignore": 3
+  },
+  "trial_instruction_counts": {
+   "non-performing": 49,
+   "right": 141,
+   "left": 116
+  },
+  "early_lick_counts": {
+   "no early": 266,
+   "early": 40
+  },
+  "task_counts": {
+   "audio delay": 306
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 13,
+  "unit_quality": {
+   "good": 13
+  },
+  "cell_type": {
+   "Pyr": 13
+  },
+  "n_spikes": 68039,
+  "session_dur_s": 3372.936524040785,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-882.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 257,
+   "go": 257,
+   "sample": 257
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15200000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-291063_ses-20150904_behavior+ecephys+ogen.nwb",
+  "subject": "sub-291063",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 302,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 42,
+   "hit": 181,
+   "miss": 76,
+   "ignore": 3
+  },
+  "trial_instruction_counts": {
+   "non-performing": 42,
+   "right": 139,
+   "left": 121
+  },
+  "early_lick_counts": {
+   "no early": 250,
+   "early": 52
+  },
+  "task_counts": {
+   "audio delay": 302
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 14,
+  "unit_quality": {
+   "good": 14
+  },
+  "cell_type": {
+   "Pyr": 13,
+   "FS": 1
+  },
+  "n_spikes": 79484,
+  "session_dur_s": 3207.6981724654033,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-937.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 260,
+   "go": 260,
+   "sample": 260
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15000000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-291063_ses-20150906_behavior+ecephys+ogen.nwb",
+  "subject": "sub-291063",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 206,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 59,
+   "hit": 99,
+   "miss": 44,
+   "ignore": 4
+  },
+  "trial_instruction_counts": {
+   "non-performing": 59,
+   "left": 77,
+   "right": 70
+  },
+  "early_lick_counts": {
+   "no early": 150,
+   "early": 56
+  },
+  "task_counts": {
+   "audio delay": 206
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 5,
+  "unit_quality": {
+   "good": 5
+  },
+  "cell_type": {
+   "Pyr": 5
+  },
+  "n_spikes": 6023,
+  "session_dur_s": 2126.4422363379826,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-1029.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 147,
+   "go": 147,
+   "sample": 147
+  },
+  "behavior_timeseries": {
+   "lick_trace": 10250000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-291063_ses-20150907_behavior+ecephys+ogen.nwb",
+  "subject": "sub-291063",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 286,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 42,
+   "miss": 92,
+   "hit": 140,
+   "ignore": 12
+  },
+  "trial_instruction_counts": {
+   "non-performing": 42,
+   "right": 118,
+   "left": 126
+  },
+  "early_lick_counts": {
+   "no early": 231,
+   "early": 55
+  },
+  "task_counts": {
+   "audio delay": 286
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 4,
+  "unit_quality": {
+   "good": 4
+  },
+  "cell_type": {
+   "Pyr": 4
+  },
+  "n_spikes": 10405,
+  "session_dur_s": 3529.6590387554197,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-1031.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 244,
+   "go": 244,
+   "sample": 244
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14250000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-291064_ses-20150906_behavior+ecephys+ogen.nwb",
+  "subject": "sub-291064",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 275,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 33,
+   "hit": 107,
+   "miss": 58,
+   "ignore": 77
+  },
+  "trial_instruction_counts": {
+   "non-performing": 33,
+   "left": 119,
+   "right": 123
+  },
+  "early_lick_counts": {
+   "no early": 234,
+   "early": 41
+  },
+  "task_counts": {
+   "audio delay": 275
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 24,
+  "unit_quality": {
+   "good": 24
+  },
+  "cell_type": {
+   "Pyr": 22,
+   "FS": 2
+  },
+  "n_spikes": 93590,
+  "session_dur_s": 2819.5466025605238,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-920.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 242,
+   "go": 242,
+   "sample": 242
+  },
+  "behavior_timeseries": {
+   "lick_trace": 13700000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-291064_ses-20150907_behavior+ecephys+ogen.nwb",
+  "subject": "sub-291064",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 113,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 96,
+   "miss": 9,
+   "hit": 8
+  },
+  "trial_instruction_counts": {
+   "non-performing": 96,
+   "right": 9,
+   "left": 8
+  },
+  "early_lick_counts": {
+   "no early": 109,
+   "early": 4
+  },
+  "task_counts": {
+   "audio delay": 113
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 10,
+  "unit_quality": {
+   "good": 10
+  },
+  "cell_type": {
+   "Pyr": 9,
+   "FS": 1
+  },
+  "n_spikes": 3852,
+  "session_dur_s": 861.5041743098852,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-921.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 17,
+   "go": 17,
+   "sample": 17
+  },
+  "behavior_timeseries": {
+   "lick_trace": 5600000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-291064_ses-20150908_behavior+ecephys+ogen.nwb",
+  "subject": "sub-291064",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 404,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 55,
+   "hit": 208,
+   "ignore": 22,
+   "miss": 119
+  },
+  "trial_instruction_counts": {
+   "non-performing": 55,
+   "right": 187,
+   "left": 162
+  },
+  "early_lick_counts": {
+   "no early": 384,
+   "early": 20
+  },
+  "task_counts": {
+   "audio delay": 404
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 17,
+  "unit_quality": {
+   "good": 17
+  },
+  "cell_type": {
+   "Pyr": 17
+  },
+  "n_spikes": 81066,
+  "session_dur_s": 4163.5863996104845,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-899.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 349,
+   "go": 349,
+   "sample": 349
+  },
+  "behavior_timeseries": {
+   "lick_trace": 20150000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-291064_ses-20150909_behavior+ecephys+ogen.nwb",
+  "subject": "sub-291064",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 211,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 97,
+   "miss": 51,
+   "hit": 63
+  },
+  "trial_instruction_counts": {
+   "non-performing": 97,
+   "right": 69,
+   "left": 45
+  },
+  "early_lick_counts": {
+   "no early": 201,
+   "early": 10
+  },
+  "task_counts": {
+   "audio delay": 211
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 7,
+  "unit_quality": {
+   "good": 7
+  },
+  "cell_type": {
+   "Pyr": 6,
+   "FS": 1
+  },
+  "n_spikes": 25806,
+  "session_dur_s": 1690.9071160475196,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-907.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 114,
+   "go": 114,
+   "sample": 114
+  },
+  "behavior_timeseries": {
+   "lick_trace": 10500000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-297634_ses-20150907_behavior+ecephys+ogen.nwb",
+  "subject": "sub-297634",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 344,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 122,
+   "miss": 86,
+   "hit": 133,
+   "ignore": 3
+  },
+  "trial_instruction_counts": {
+   "non-performing": 122,
+   "right": 94,
+   "left": 128
+  },
+  "early_lick_counts": {
+   "no early": 334,
+   "early": 10
+  },
+  "task_counts": {
+   "audio delay": 344
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 22,
+  "unit_quality": {
+   "good": 22
+  },
+  "cell_type": {
+   "Pyr": 20,
+   "FS": 2
+  },
+  "n_spikes": 69886,
+  "session_dur_s": 3995.0246298180773,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-920.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 222,
+   "go": 222,
+   "sample": 222
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17150000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-297634_ses-20150908_behavior+ecephys+ogen.nwb",
+  "subject": "sub-297634",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 336,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 164,
+   "hit": 97,
+   "miss": 66,
+   "ignore": 9
+  },
+  "trial_instruction_counts": {
+   "non-performing": 164,
+   "right": 76,
+   "left": 96
+  },
+  "early_lick_counts": {
+   "no early": 326,
+   "early": 10
+  },
+  "task_counts": {
+   "audio delay": 336
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 9,
+  "unit_quality": {
+   "good": 9
+  },
+  "cell_type": {
+   "Pyr": 7,
+   "FS": 2
+  },
+  "n_spikes": 28080,
+  "session_dur_s": 3196.3079933365316,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-930.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 172,
+   "go": 172,
+   "sample": 172
+  },
+  "behavior_timeseries": {
+   "lick_trace": 16750000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-297634_ses-20150909_behavior+ecephys+ogen.nwb",
+  "subject": "sub-297634",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 318,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 72,
+   "hit": 144,
+   "miss": 98,
+   "ignore": 4
+  },
+  "trial_instruction_counts": {
+   "non-performing": 72,
+   "left": 146,
+   "right": 100
+  },
+  "early_lick_counts": {
+   "no early": 315,
+   "early": 3
+  },
+  "task_counts": {
+   "audio delay": 318
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 16,
+  "unit_quality": {
+   "good": 16
+  },
+  "cell_type": {
+   "Pyr": 16
+  },
+  "n_spikes": 32787,
+  "session_dur_s": 3078.0190887396166,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-996.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 246,
+   "go": 246,
+   "sample": 246
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15850000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-297634_ses-20150910_behavior+ecephys+ogen.nwb",
+  "subject": "sub-297634",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 395,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 259,
+   "hit": 77,
+   "ignore": 2,
+   "miss": 57
+  },
+  "trial_instruction_counts": {
+   "non-performing": 259,
+   "right": 61,
+   "left": 75
+  },
+  "early_lick_counts": {
+   "no early": 388,
+   "early": 7
+  },
+  "task_counts": {
+   "audio delay": 395
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 11,
+  "unit_quality": {
+   "good": 11
+  },
+  "cell_type": {
+   "Pyr": 11
+  },
+  "n_spikes": 6010,
+  "session_dur_s": 4199.529115622564,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-944.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 136,
+   "go": 136,
+   "sample": 136
+  },
+  "behavior_timeseries": {
+   "lick_trace": 19700000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-297634_ses-20150911_behavior+ecephys+ogen.nwb",
+  "subject": "sub-297634",
+  "genotype": "PV-ires-Cre x rosa-Cag-lsl-ReaChR-mCitrine",
+  "n_trials": 297,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 139,
+   "miss": 57,
+   "hit": 98,
+   "ignore": 3
+  },
+  "trial_instruction_counts": {
+   "non-performing": 139,
+   "right": 70,
+   "left": 88
+  },
+  "early_lick_counts": {
+   "no early": 289,
+   "early": 8
+  },
+  "task_counts": {
+   "audio delay": 297
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 15,
+  "unit_quality": {
+   "good": 15
+  },
+  "cell_type": {
+   "Pyr": 14,
+   "FS": 1
+  },
+  "n_spikes": 28699,
+  "session_dur_s": 2903.435916602483,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-1003.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 158,
+   "go": 158,
+   "sample": 158
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14800000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-298738_ses-20150724_behavior+ecephys+ogen.nwb",
+  "subject": "sub-298738",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 362,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 31,
+   "hit": 257,
+   "miss": 65,
+   "ignore": 9
+  },
+  "trial_instruction_counts": {
+   "non-performing": 31,
+   "left": 140,
+   "right": 191
+  },
+  "early_lick_counts": {
+   "no early": 254,
+   "early": 108
+  },
+  "task_counts": {
+   "audio delay": 362
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 28,
+  "unit_quality": {
+   "good": 28
+  },
+  "cell_type": {
+   "Pyr": 27,
+   "FS": 1
+  },
+  "n_spikes": 135437,
+  "session_dur_s": 3640.1429160480593,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-830.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 331,
+   "go": 331,
+   "sample": 331
+  },
+  "behavior_timeseries": {
+   "lick_trace": 17900000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-298738_ses-20150725_behavior+ecephys+ogen.nwb",
+  "subject": "sub-298738",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 312,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 73,
+   "hit": 147,
+   "miss": 92
+  },
+  "trial_instruction_counts": {
+   "non-performing": 73,
+   "right": 149,
+   "left": 90
+  },
+  "early_lick_counts": {
+   "no early": 251,
+   "early": 61
+  },
+  "task_counts": {
+   "audio delay": 312
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 33,
+  "unit_quality": {
+   "good": 33
+  },
+  "cell_type": {
+   "Pyr": 31,
+   "FS": 2
+  },
+  "n_spikes": 190620,
+  "session_dur_s": 3402.5030337882736,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-870.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 239,
+   "go": 239,
+   "sample": 239
+  },
+  "behavior_timeseries": {
+   "lick_trace": 15550000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-298738_ses-20150727_behavior+ecephys+ogen.nwb",
+  "subject": "sub-298738",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 276,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 34,
+   "hit": 171,
+   "miss": 71
+  },
+  "trial_instruction_counts": {
+   "non-performing": 34,
+   "right": 141,
+   "left": 101
+  },
+  "early_lick_counts": {
+   "no early": 203,
+   "early": 73
+  },
+  "task_counts": {
+   "audio delay": 276
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 22,
+  "unit_quality": {
+   "good": 22
+  },
+  "cell_type": {
+   "Pyr": 19,
+   "FS": 3
+  },
+  "n_spikes": 48903,
+  "session_dur_s": 2720.2675202050823,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-973.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 242,
+   "go": 242,
+   "sample": 242
+  },
+  "behavior_timeseries": {
+   "lick_trace": 13750000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-298738_ses-20150728_behavior+ecephys+ogen.nwb",
+  "subject": "sub-298738",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 252,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 36,
+   "hit": 138,
+   "miss": 78
+  },
+  "trial_instruction_counts": {
+   "non-performing": 36,
+   "left": 85,
+   "right": 131
+  },
+  "early_lick_counts": {
+   "no early": 189,
+   "early": 63
+  },
+  "task_counts": {
+   "audio delay": 252
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 29,
+  "unit_quality": {
+   "good": 29
+  },
+  "cell_type": {
+   "Pyr": 28,
+   "FS": 1
+  },
+  "n_spikes": 104164,
+  "session_dur_s": 2541.1529510593673,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-925.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 216,
+   "go": 216,
+   "sample": 216
+  },
+  "behavior_timeseries": {
+   "lick_trace": 12550000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-298738_ses-20150729_behavior+ecephys+ogen.nwb",
+  "subject": "sub-298738",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 214,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 48,
+   "hit": 114,
+   "miss": 52
+  },
+  "trial_instruction_counts": {
+   "non-performing": 48,
+   "left": 74,
+   "right": 92
+  },
+  "early_lick_counts": {
+   "no early": 166,
+   "early": 48
+  },
+  "task_counts": {
+   "audio delay": 214
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 26,
+  "unit_quality": {
+   "good": 26
+  },
+  "cell_type": {
+   "Pyr": 22,
+   "FS": 4
+  },
+  "n_spikes": 101094,
+  "session_dur_s": 2198.223681881221,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-962.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 166,
+   "go": 166,
+   "sample": 166
+  },
+  "behavior_timeseries": {
+   "lick_trace": 10650000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-298740_ses-20150723_behavior+ecephys+ogen.nwb",
+  "subject": "sub-298740",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 263,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 49,
+   "hit": 130,
+   "miss": 74,
+   "ignore": 10
+  },
+  "trial_instruction_counts": {
+   "non-performing": 49,
+   "left": 127,
+   "right": 87
+  },
+  "early_lick_counts": {
+   "no early": 196,
+   "early": 67
+  },
+  "task_counts": {
+   "audio delay": 263
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 20,
+  "unit_quality": {
+   "good": 20
+  },
+  "cell_type": {
+   "Pyr": 17,
+   "FS": 3
+  },
+  "n_spikes": 83118,
+  "session_dur_s": 2849.8895672625767,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-800.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 214,
+   "go": 214,
+   "sample": 214
+  },
+  "behavior_timeseries": {
+   "lick_trace": 13100000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-298740_ses-20150724_behavior+ecephys+ogen.nwb",
+  "subject": "sub-298740",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 388,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 39,
+   "hit": 260,
+   "miss": 87,
+   "ignore": 2
+  },
+  "trial_instruction_counts": {
+   "non-performing": 39,
+   "right": 146,
+   "left": 203
+  },
+  "early_lick_counts": {
+   "no early": 255,
+   "early": 133
+  },
+  "task_counts": {
+   "audio delay": 388
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 8,
+  "unit_quality": {
+   "good": 8
+  },
+  "cell_type": {
+   "Pyr": 8
+  },
+  "n_spikes": 37714,
+  "session_dur_s": 4172.5303830905295,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-830.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 349,
+   "go": 349,
+   "sample": 349
+  },
+  "behavior_timeseries": {
+   "lick_trace": 19350000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-298740_ses-20150726_behavior+ecephys+ogen.nwb",
+  "subject": "sub-298740",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 370,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 40,
+   "hit": 246,
+   "miss": 83,
+   "ignore": 1
+  },
+  "trial_instruction_counts": {
+   "non-performing": 40,
+   "left": 156,
+   "right": 174
+  },
+  "early_lick_counts": {
+   "no early": 278,
+   "early": 92
+  },
+  "task_counts": {
+   "audio delay": 370
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 10,
+  "unit_quality": {
+   "good": 10
+  },
+  "cell_type": {
+   "Pyr": 9,
+   "FS": 1
+  },
+  "n_spikes": 33770,
+  "session_dur_s": 3538.3278102573913,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-870.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 330,
+   "go": 330,
+   "sample": 330
+  },
+  "behavior_timeseries": {
+   "lick_trace": 18450000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ },
+ {
+  "path": "sub-298740_ses-20150729_behavior+ecephys+ogen.nwb",
+  "subject": "sub-298740",
+  "genotype": "VGAT-ChR2-EYFP",
+  "n_trials": 292,
+  "trial_cols": [
+   "early_lick",
+   "id",
+   "outcome",
+   "start_time",
+   "stop_time",
+   "task",
+   "task_protocol",
+   "trial_instruction"
+  ],
+  "outcome_counts": {
+   "non-performing": 66,
+   "hit": 164,
+   "miss": 62
+  },
+  "trial_instruction_counts": {
+   "non-performing": 66,
+   "right": 134,
+   "left": 92
+  },
+  "early_lick_counts": {
+   "no early": 198,
+   "early": 94
+  },
+  "task_counts": {
+   "audio delay": 292
+  },
+  "task_protocol": [
+   1
+  ],
+  "n_units": 7,
+  "unit_quality": {
+   "good": 7
+  },
+  "cell_type": {
+   "Pyr": 7
+  },
+  "n_spikes": 23253,
+  "session_dur_s": 3127.784748890047,
+  "electrode_locations": [
+   "{\"skull_reference\": \"bregma\", \"ap_location\": \"2500.00\", \"ml_location\": \"-1500.00\", \"dv_location\": \"-1028.00\", \"theta\": \"None\", \"phi\": \"None\", \"beta\": \"None\", \"brain_regions\": \"left ALM\"}"
+  ],
+  "behavioral_events": {
+   "delay": 226,
+   "go": 226,
+   "sample": 226
+  },
+  "behavior_timeseries": {
+   "lick_trace": 14550000
+  },
+  "ogen_sites": [
+   "bilateral ALM",
+   "left ALM",
+   "right ALM"
+  ],
+  "stim_presentation": [],
+  "n_photostim_epochs": {},
+  "n_photostim_total": 0
+ }
+]

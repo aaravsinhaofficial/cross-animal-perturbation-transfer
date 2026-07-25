@@ -1,0 +1,32 @@
+# data and large artefacts are reconstructed by scripts/, never committed
+data/raw/
+data/proc/
+*.nwb
+*.pkl
+*.7z
+
+# environment
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# logs and scratch
+results/logs/
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.toc
+
+# credentials must never enter the repository
+*.pem
+*credentials*
+*secret*
+.env
