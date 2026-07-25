@@ -18,6 +18,13 @@
 \captionsetup{font=small,labelfont=bf}
 \setlength{\parskip}{0.25em}
 
+% Text that depends on an experiment appears only once that experiment has produced
+% its numbers, so a partial build is never a page of dashes.
+\makeatletter
+\newcommand{\ifhave}[2]{\@ifundefined{#1}{}{\expandafter\ifx\csname #1\endcsname\@dashmark\else#2\fi}}
+\def\@dashmark{--}
+\makeatother
+
 % Fallbacks, so the paper still builds if an experiment has not been run yet.
 \input{fallbacks}
 \IfFileExists{numbers.tex}{\input{numbers}}{}
@@ -218,14 +225,14 @@ which follows from trial counts and firing rates, and how much independently see
 copies of the network disagree with each other. Neither reads a perturbation trial from
 the held out animal.
 
-Run on the whole light cohort, \AllOpModelN{} animals including the two later releases
-whose recordings are smaller, the model gives $\AllOpModel$ against $\AllOpStereo$,
-above zero in \AllOpModelPos{} of \AllOpModelN{} animals, a difference of
-$\AllOpModelVsStereoDiff$ at $p = \AllOpModelVsStereoP$. Adding animals with a dozen
+\ifhave{AllOpModel}{Run on the whole light cohort, \AllOpModelN{} animals including the
+two later releases whose recordings are smaller, the model gives $\AllOpModel$ against
+$\AllOpStereo$, above zero in \AllOpModelPos{} of \AllOpModelN{} animals, a difference
+of $\AllOpModelVsStereoDiff$ at $p = \AllOpModelVsStereoP$. Adding animals with a dozen
 neurons each does not raise the average, and Section~\ref{sec:individual} explains why:
 what an animal contributes is limited by how well its own response can be resolved.
 
-In the microstimulation cohort the same machinery gives $\IcmsOpModel$ against
+}In the microstimulation cohort the same machinery gives $\IcmsOpModel$ against
 $\IcmsOpStereo$ for the stereotype, a difference of $\IcmsOpModelVsStereoDiff$ at
 $p = \IcmsOpModelVsStereoP$, which with six animals is nothing.
 
@@ -343,8 +350,9 @@ one and not the other.
 The size of the effect under light varies enormously between animals, from essentially
 nothing to a third of everything measurable, and that variation is not random. It tracks
 the ceiling, which is fixed by trial counts and firing rates before any model is fitted,
-at a rank correlation of $\AllIndQualRho$ ($p = \AllIndQualP$ over \AllAnimals{}
-animals). Animals whose individual response cannot be resolved contribute nothing, and
+at a rank correlation of $\AlmIndQualRho$ ($p = \AlmIndQualP$).\ifhave{AllIndQualRho}{
+Across the full \AllAnimals{} animal cohort it is $\AllIndQualRho$
+($p = \AllIndQualP$).} Animals whose individual response cannot be resolved contribute nothing, and
 animals where it can contribute a lot.
 
 So split the animals in half by that ceiling, which is decided before any model is
@@ -363,8 +371,9 @@ effect can be seen at all.
 Two things follow from that. Averaging a per animal score over the whole cohort
 understates what the operator does, because the score is a ratio and animals with almost
 no measurable effect divide by almost nothing; pooling the errors instead, which is the
-usual way to combine and weights each animal by how much effect it actually has, gives
-$\AllIndPooledShared$ for the shared operator against $\AllIndPooledNull$ for the null.
+usual way to combine and weights each animal by how much effect it actually has, is the
+more informative summary.\ifhave{AllIndPooledShared}{ It gives $\AllIndPooledShared$
+for the shared operator against $\AllIndPooledNull$ for the null.}
 And the modest average says more about the recordings available today than about
 brains: the same analysis on recordings with hundreds of simultaneous neurons
 should recover a larger share.
@@ -485,12 +494,13 @@ not have found this effect and would have reported, with a straight face, that n
 transfers. The returns are still being collected at \CohortAllMaxN{} animals, which is
 an argument for cohorts over deeper recordings in a handful of animals.
 
-The same holds for the trained network, which cannot be refitted for every subset but
-can be compared between two runs that differ only in how many animals it had to learn
-from. Holding out the same \GrowModelN{} animals and scoring them identically, the
-network trained on \GrowLargeCohort{} other animals scores $\GrowModelLarge$ against
-$\GrowModelSmall$ for the one trained on \GrowSmallCohort{}, better in
-\GrowModelBetter{} of \GrowModelN{} of them ($p = \GrowModelP$).
+\ifhave{GrowModelLarge}{The same holds for the trained network, which cannot be
+refitted for every subset but can be compared between two runs that differ only in how
+many animals it had to learn from. Holding out the same \GrowModelN{} animals and
+scoring them identically, the network trained on \GrowLargeCohort{} other animals
+scores $\GrowModelLarge$ against $\GrowModelSmall$ for the one trained on
+\GrowSmallCohort{}, better in \GrowModelBetter{} of \GrowModelN{} of them
+($p = \GrowModelP$).}
 
 \section{Where the failure comes from}
 
