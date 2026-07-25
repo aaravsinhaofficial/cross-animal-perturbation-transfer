@@ -77,13 +77,17 @@ much smaller: +0.086 against +0.020, better in 26 of 39 animals, p = 0.013. The 
 does not rise when animals with a dozen neurons are added, for the reason the
 measurement-quality result below makes explicit.
 
-**On the individual part, it still wins, and how much depends on the recording.** A
-shared operator acting on each neuron's own ordinary activity lands above zero in 15 of
-20 mice (exact sign test, p = 0.041), against a measurable maximum of 0.57. Split the
-animals in half by that maximum, which is fixed by trial counts and firing rates before
-any model is fitted, and in the better measured half the operator recovers **22% of
-everything individual that is measurable, in 9 of 10 animals** (p = 0.021). In the worse
-measured half it recovers nothing.
+**On the individual part, how much transfers is proportional to how well the animal was
+measured.** Across all 39 mice the rank correlation between transfer and the noise
+ceiling, which is fixed by trial counts before any model is fitted, is **+0.44
+(p = 0.005)**. Sorted into thirds by that ceiling the gradient is monotone: −0.115 in
+the worst measured third, −0.017 in the middle, +0.090 in the best.
+
+Averaged over all 39, including nineteen whose recordings cannot resolve the individual
+part at all, the mean is not different from zero. We say that plainly. Where it can be
+resolved the amount is worth having: in the first cohort it is above zero in 15 of 20
+mice (p = 0.041), and in the better measured half of it the operator recovers **22% of
+everything individual that is measurable, in 9 of 10 animals** (p = 0.021).
 
 **Under current, nothing transfers at either level**, and this is not a measurement
 problem. The measurable maximum for the individual part there is 0.90, higher than in

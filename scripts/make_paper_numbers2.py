@@ -345,6 +345,19 @@ def main() -> int:
             M[f"{pre}{suf}Null"] = (f'{f3(v["null_mean_r"])}, '
                                     f'{v["null_negative"]}/{v["n"]}')
 
+    sa = Path("results/individuality_split_almall.json")
+    if sa.exists():
+        r = json.loads(sa.read_text())
+        for key, pre in (("bottom third", "ThirdBot"), ("middle third", "ThirdMid"),
+                         ("top third", "ThirdTop")):
+            v = r.get(key)
+            if not v:
+                continue
+            M[pre + "Mean"] = f3(v["mean"])
+            M[pre + "Pos"] = str(v["pos"])
+            M[pre + "N"] = str(v["n"])
+            M[pre + "Ceil"] = f2(v["ceiling"])
+
     jk = Path("results/jackknife_alm.json")
     if jk.exists():
         r = json.loads(jk.read_text())
@@ -561,8 +574,14 @@ def main() -> int:
             "everything individual that is measurable",
             f"{m.get('SplitHiNetFrac','--')}\\% of ceiling",
             m["SplitHiNetPos"], m["SplitHiNetN"], m["SplitHiNetP"], "--")
+    if "AllIndQualRho" in m:
+        row("How much of the individual part transfers is proportional to how well "
+            "the animal was measured",
+            f"$\\rho = {m['AllIndQualRho']}$", "--", m.get("AllAnimals", "--"),
+            m.get("AllIndQualP", "--"), "--")
     if "AlmIndSharedPos" in m:
-        row("The individual part of the response transfers, under light",
+        row("The individual part transfers in the first cohort, whose recordings "
+            "are larger throughout",
             f"${m.get('AlmIndSharedMed','--')}$ median",
             m["AlmIndSharedPos"], m["AlmIndSharedN"], m["AlmIndSharedP"],
             f"${m.get('AlmIndNull','--')}$")

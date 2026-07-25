@@ -55,14 +55,16 @@ ramps predicts nothing, a negative control inside the same analysis.
 
 A score on the whole response is dominated by a component every neuron shares, so we
 split the effect into that component and the part specific to one neuron, on which a
-stereotype scores exactly zero. Individual structure transfers under light
-(\AlmIndSharedPos{} of \AlmIndSharedN{} mice, $p = \AlmIndSharedP$) and not under
-microstimulation of somatosensory cortex (\IcmsIndSharedPos{} of \IcmsIndSharedN),
-where it is better resolved (a measurable maximum of $\IcmsIndCeiling$ against
-$\AlmIndCeiling$). In the half of the light cohort whose individual response is best
-resolved, split on that maximum before any model is fitted, the operator recovers
-\SplitHiNetFrac\% of it in \SplitHiNetPos{} of \SplitHiNetN{} animals
-($p = \SplitHiNetP$). The same measurement says why: under current, a neuron's ongoing
+stereotype scores exactly zero. That part transfers in proportion to how well an animal
+was measured, at a rank correlation of $\AllIndQualRho$ between transfer and the noise
+ceiling across \AllAnimals{} mice ($p = \AllIndQualP$); averaged over all of them,
+including nineteen whose recordings cannot resolve it, the mean is not different from
+zero. Where it can be resolved the amount is worth having: in the better measured half
+of the first cohort, split on that ceiling before any model is fitted, the operator
+recovers \SplitHiNetFrac\% of everything measurable in \SplitHiNetPos{} of
+\SplitHiNetN{} animals ($p = \SplitHiNetP$). Under microstimulation nothing transfers
+at all (\IcmsIndSharedPos{} of \IcmsIndSharedN) even though it is better resolved
+there (a measurable maximum of $\IcmsIndCeiling$ against $\AlmIndCeiling$). The same measurement says why: under current, a neuron's ongoing
 activity says nothing about how much the stimulus will move it ($\RuleIcmsRateR$,
 \RuleIcmsRateNeg{}/\RuleIcmsRateN).
 
@@ -352,7 +354,22 @@ nothing to a third of everything measurable, and that variation is not random. I
 the ceiling, which is fixed by trial counts and firing rates before any model is fitted,
 at a rank correlation of $\AlmIndQualRho$ ($p = \AlmIndQualP$).\ifhave{AllIndQualRho}{
 Across the full \AllAnimals{} animal cohort it is $\AllIndQualRho$
-($p = \AllIndQualP$).} Animals whose individual response cannot be resolved contribute nothing, and
+($p = \AllIndQualP$), which is the best powered statement in this paper about the
+individual part.}
+
+\ifhave{ThirdTopMean}{Sorting the \AllAnimals{} animals into thirds by that ceiling
+makes the gradient plain. The worst measured third averages $\ThirdBotMean$ with
+\ThirdBotPos{} of \ThirdBotN{} above zero, the middle third $\ThirdMidMean$ with
+\ThirdMidPos{} of \ThirdMidN, and the best measured third $\ThirdTopMean$ with
+\ThirdTopPos{} of \ThirdTopN.
+
+We should be equally plain about what that implies for the cohort average. Taken over
+all \AllAnimals{} animals, including nineteen whose recordings cannot resolve the
+individual part at all, the mean is not different from zero. The claim this section
+supports is not that the individual part transfers in every animal. It is that it
+transfers in proportion to how well the animal was measured, that the proportionality
+holds at $p = \AllIndQualP$ over \AllAnimals{} animals, and that in animals measured
+well enough the amount is worth having.} Animals whose individual response cannot be resolved contribute nothing, and
 animals where it can contribute a lot.
 
 So split the animals in half by that ceiling, which is decided before any model is
