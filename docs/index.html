@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do individuals share a causal dynamical operator?</title>
+<meta name="description" content="Zero-shot transfer of intervention responses between animals: a hierarchical controlled latent dynamical system, an identifiability result, and a leakage-audited benchmark on multi-animal microstimulation data.">
+<style>
+:root{
+  --bg:#ffffff; --fg:#16191d; --muted:#5b6470; --rule:#e3e7ec;
+  --accent:#1b4f9c; --accent2:#3f9b52; --warn:#b03030; --code:#f5f7fa;
+  --maxw:820px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#101317; --fg:#e7ebf0; --muted:#9aa5b1; --rule:#262c34;
+         --accent:#7fb0ee; --accent2:#6ecf86; --warn:#f08a8a; --code:#181d23; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+header{border-bottom:1px solid var(--rule);padding:56px 0 34px;margin-bottom:36px}
+h1{font-size:2.05rem;line-height:1.18;margin:0 0 14px;letter-spacing:-.02em}
+h1 .sub{display:block;font-size:1.15rem;font-weight:500;color:var(--muted);margin-top:10px;letter-spacing:0}
+h2{font-size:1.32rem;margin:44px 0 12px;letter-spacing:-.01em}
+h3{font-size:1.03rem;margin:28px 0 8px}
+p{margin:0 0 14px}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.badge{font-size:.78rem;padding:4px 10px;border:1px solid var(--rule);border-radius:999px;color:var(--muted)}
+blockquote{margin:22px 0;padding:16px 20px;border-left:3px solid var(--accent);
+  background:var(--code);border-radius:0 6px 6px 0;font-size:1.02rem}
+blockquote p:last-child{margin:0}
+.tablewrap{overflow-x:auto;margin:18px 0;border:1px solid var(--rule);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:.86rem;min-width:600px}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{background:var(--code);font-weight:600;font-size:.8rem;color:var(--muted)}
+tbody tr:last-child td{border-bottom:none}
+tr.hi td{background:color-mix(in srgb, var(--accent) 9%, transparent);font-weight:600}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em}
+code{background:var(--code);padding:.15em .4em;border-radius:4px}
+pre{background:var(--code);padding:14px 16px;border-radius:8px;overflow-x:auto;
+  border:1px solid var(--rule);line-height:1.5}
+pre code{background:none;padding:0}
+figure{margin:26px 0}
+figure img{width:100%;height:auto;border:1px solid var(--rule);border-radius:8px;background:#fff}
+figcaption{font-size:.83rem;color:var(--muted);margin-top:9px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin:22px 0}
+.card{border:1px solid var(--rule);border-radius:8px;padding:15px 16px}
+.card .n{font-size:1.5rem;font-weight:650;letter-spacing:-.02em}
+.card .n.good{color:var(--accent2)} .card .n.bad{color:var(--warn)}
+.card .l{font-size:.8rem;color:var(--muted);margin-top:3px;line-height:1.4}
+ul{margin:0 0 14px;padding-left:22px} li{margin-bottom:7px}
+.note{font-size:.88rem;color:var(--muted);border-top:1px solid var(--rule);padding-top:14px;margin-top:14px}
+footer{border-top:1px solid var(--rule);margin-top:56px;padding:26px 0 60px;font-size:.85rem;color:var(--muted)}
+.eq{background:var(--code);border:1px solid var(--rule);border-radius:8px;padding:14px 16px;
+  overflow-x:auto;font-family:ui-monospace,Menlo,monospace;font-size:.84rem;line-height:1.7;margin:16px 0}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>Do individuals share a causal dynamical operator?
+    <span class="sub">Zero-shot transfer of intervention responses between animals</span></h1>
+  <div class="badges">
+    <span class="badge">6 mice &middot; 48 sessions &middot; 949 units</span>
+    <span class="badge">16,532 stimulation trials</span>
+    <span class="badge">leave-one-animal-out</span>
+    <span class="badge"><a href="https://dandiarchive.org/dandiset/001868">DANDI:001868</a></span>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+<p>Latent neural dynamics look alike across individuals doing the same thing, and many
+methods now align recordings across animals into a shared representation. Those results
+are <em>descriptive</em>: they say observed activity occupies a common geometry. They do
+not say that different individuals share a common <strong>causal</strong> operator &mdash;
+that the same physical intervention would move each brain the same way.</p>
+
+<p>We turn that stronger claim into a prediction problem with a hard protocol:</p>
+
+<blockquote><p>After observing <strong>only normal, unperturbed activity</strong> from a new
+animal, predict the <strong>full time-resolved neural and behavioural response</strong> to
+an intervention that animal has never received.</p></blockquote>
+
+<p>No intervention trial from the held-out animal is used at any point &mdash; not its
+spikes, not its behaviour, not even its pre-stimulus window. Only the intervention
+<em>parameters</em>, which the experimenter chooses, are known in advance.</p>
+
+<h2>The answer depends on granularity</h2>
+
+<div class="cards">
+  <div class="card"><div class="n good">+0.577</div>
+    <div class="l">&Delta;R&sup2; for the time-resolved <b>behavioural</b> response in a
+    <b>new animal</b> &mdash; 60% of the noise ceiling, <i>p</i>&nbsp;=&nbsp;7&times;10<sup>&minus;15</sup></div></div>
+  <div class="card"><div class="n good">+0.321</div>
+    <div class="l">still positive when the stimulation <b>amplitude is also unseen</b>
+    in every training animal</div></div>
+  <div class="card"><div class="n">+0.147</div>
+    <div class="l"><b>population rate</b> &mdash; partial transfer, high shape
+    correlation (<i>r</i>&nbsp;=&nbsp;0.67)</div></div>
+  <div class="card"><div class="n bad">+0.003</div>
+    <div class="l"><b>single units</b> &mdash; indistinguishable from
+    &ldquo;the intervention does nothing&rdquo; (<i>p</i>&nbsp;=&nbsp;0.92)</div></div>
+</div>
+
+<p><code>&Delta;R&sup2; = 0</code> is exactly the model that asserts the intervention has no
+effect; <code>1</code> is perfect. Every row is leave-one-animal-out with a split-half
+noise ceiling for the same readout.</p>
+
+<div class="tablewrap">
+<table>
+<thead><tr><th>readout</th><th>in-sample</th><th>new session</th>
+<th>new animal</th><th>new animal + unseen amplitude</th><th>ceiling</th></tr></thead>
+<tbody>
+<tr><td>single units</td><td>+0.329</td><td>+0.172</td><td>+0.003</td><td>+0.011</td><td>0.914</td></tr>
+<tr><td>depth bands</td><td>+0.572</td><td>+0.359</td><td>+0.115</td><td>+0.072</td><td>0.938</td></tr>
+<tr><td>population rate</td><td>+0.965</td><td>+0.598</td><td>+0.147</td><td>+0.164</td><td>0.953</td></tr>
+<tr><td>wheel speed</td><td>+0.833</td><td>&minus;0.113</td><td>+0.045</td><td>+0.016</td><td>0.370</td></tr>
+<tr class="hi"><td>detection probability</td><td>+0.970</td><td>+0.194</td><td><b>+0.577</b></td><td><b>+0.321</b></td><td>0.968</td></tr>
+</tbody></table>
+</div>
+
+<figure>
+  <img src="fig5_behavior.png" alt="Measured and predicted detection-probability curves for each held-out animal">
+  <figcaption><b>Zero-shot behavioural prediction.</b> Measured (solid) and predicted
+  (dashed) time-resolved change in detection probability for each held-out animal,
+  coloured by stimulation amplitude. The model saw no intervention trial from the animal
+  shown. Positive in all six animals.</figcaption>
+</figure>
+
+<figure>
+  <img src="fig4_ladder.png" alt="Generalisation ladder">
+  <figcaption><b>The generalisation ladder.</b> Transfer to a new animal improves
+  monotonically as the readout coarsens, and is strongest for behaviour. Dashed lines are
+  split-half noise ceilings.</figcaption>
+</figure>
+
+<h2>Why single units fail &mdash; and it is not the causal operator</h2>
+
+<p>The model factorises the dynamics into a species-invariant part and an
+individual part:</p>
+
+<div class="eq">
+z<sub>t+1</sub> = z<sub>t</sub> + &Delta;t [ F<sub>shared</sub>(z<sub>t</sub>, u<sub>t</sub>) + G<sub>shared</sub>(z<sub>t</sub>) a<sub>t</sub> + F<sup>res</sup><sub>i</sub>(z<sub>t</sub>) ]<br>
+y<sub>t</sub><sup>(i)</sup> = Poisson( softplus( C<sub>i</sub> z<sub>t</sub> + b<sub>i</sub> ) )<br>
+b<sub>t</sub> = D<sub>shared</sub>(z<sub>t</sub>)
+</div>
+
+<p><strong>Proposition.</strong> Fix <code>F</code> and <code>G</code>. If a new animal's
+unperturbed law is matched by two different parameterisations, they differ by some
+<code>T</code> in the symmetry group
+<code>Sym(F) = {T : T F(z,u) = F(Tz,u) &forall; z,u}</code>, and their predicted
+intervention responses differ by <code>C&nbsp;T&#8315;&sup1;(T G(Tz)a &minus; G(z)a)</code>.
+So the prediction is <b>unique iff <code>Sym(F)</code> is trivial</b>, and otherwise
+ambiguous by exactly that group.</p>
+
+<p>Spontaneous cortical activity sits near a fixed point, where the flow is weak and
+nearly isotropic &mdash; effectively the degenerate case. That predicts difficulty exactly
+where we measure it. Two independent lines of evidence confirm the diagnosis:</p>
+
+<ul>
+<li><b>Refitting only the readout with intervention data</b> (an oracle that changes
+nothing about the shared operator) recovers much of the unit-level accuracy, while
+calibrating the same readout on spontaneous activity does not. The operator transfers;
+the neuron-to-latent map does not.</li>
+<li><b>The microstimulation effect is spatially diffuse.</b> Pooled over all sessions,
+the correlation between a unit's distance from the stimulating contact and its response
+is &minus;0.01 &mdash; there is no peak at the electrode. Low-amplitude ICMS recruits a
+sparse, distributed, implant-specific set of neurons, so there is no conserved
+neuron-level spatial rule to learn.</li>
+</ul>
+
+<p>Four qualitatively different models &mdash; a latent hierarchical model, an
+observed-space linear-response (fluctuation&ndash;response) model, a physical-feature
+encoding model, and a manifold-alignment group average &mdash; all plateau at
+<i>r</i>&nbsp;&asymp;&nbsp;0.28 across animals, while reaching
+&Delta;R&sup2;&nbsp;=&nbsp;0.33 within a session.</p>
+
+<figure>
+  <img src="fig3_dataset.png" alt="Dataset overview">
+  <figcaption><b>Parameterised microstimulation in mouse S1.</b> The stimulus roughly
+  doubles the population rate for the duration of the train, with a graded and
+  saturating dependence on amplitude, a spatially diffuse profile, and a clear
+  behavioural response. Median split-half ceilings are 0.91 (units) and 0.84
+  (behaviour), so the measurements are not the limiting factor.</figcaption>
+</figure>
+
+<h2>What makes this measurable</h2>
+<ul>
+<li><b>Validated noise ceilings.</b> The split-half estimator is tested against
+simulations with known signal and noise across six noise/trial-count regimes
+(agreement within 0.06).</li>
+<li><b>Covariate-matched unperturbed data.</b> Trials are delivered under a quiescence
+criterion, so uniformly sampled inter-trial windows carry up to <b>3&times;</b> the
+pre-stimulus population rate &mdash; which would bias every measured effect, because
+predictions draw initial conditions from unperturbed trials. Candidates are matched to
+stimulation trials on a joint quantile grid of pre-stimulus rate and wheel speed, then
+mean-trimmed; sessions with residual mismatch &gt;1.25&times; are excluded. The audit
+reports <b>0</b> remaining problems.</li>
+<li><b>Leakage audit</b> on every session: the intervention gate must be identically zero
+before the alignment index and on all unperturbed trials.</li>
+<li><b>Bit-for-bit reproducible.</b> Seeds use <code>zlib.crc32</code>, not Python's
+per-process-salted <code>hash</code>; two independent builds agree exactly.</li>
+<li><b>Negative controls</b> (permuted unit identities, scrambled intervention labels)
+and an oracle upper bound, in every fold.</li>
+<li><b>Numbers cannot drift:</b> every figure quoted in the paper is emitted as a LaTeX
+macro straight from the result JSONs.</li>
+</ul>
+
+<h2>Reproduce it</h2>
+<pre><code>git clone https://github.com/aaravsinhaofficial/cross-animal-perturbation-transfer
+cd cross-animal-perturbation-transfer
+uv venv --python 3.12 .venv
+VIRTUAL_ENV=.venv uv pip install --python .venv/bin/python -e . numpy scipy matplotlib \
+    scikit-learn pandas h5py pynwb pyyaml seaborn statsmodels tqdm
+
+.venv/bin/python scripts/download_dandi.py --out data/raw/dandi001868   # 7.5 GB, CC-BY-4.0
+.venv/bin/python scripts/build_icms_cache.py                            # tensors + leakage audit
+.venv/bin/python scripts/run_icms_ladder.py                             # the results table
+.venv/bin/python scripts/make_figures.py</code></pre>
+
+<h2>Limitations</h2>
+<p>One species, one task, one perturbation modality; cross-species transfer is a much
+harder extension we do not attempt. Six animals bound the precision of the confidence
+intervals, and the per-animal spread is substantial. Simultaneously recorded populations
+are small (8&ndash;33 units) &mdash; our diagnosis predicts that unit-level transfer
+should improve with population size, which is the sharp, testable consequence of this
+work. Electrical microstimulation is coarse and not cell-type-specific.</p>
+
+<div class="note">Dataset: <a href="https://dandiarchive.org/dandiset/001868">DANDI:001868</a>,
+<i>Chronic electrophysiology and two-photon calcium imaging of mouse primary somatosensory
+cortex during intracortical microstimulation learning</i> (CC-BY-4.0). Raw data are never
+committed; the download script reconstructs them with a SHA-256 manifest.</div>
+
+</div>
+<footer><div class="wrap">
+  Code MIT-licensed &middot;
+  <a href="https://github.com/aaravsinhaofficial/cross-animal-perturbation-transfer">source on GitHub</a> &middot;
+  <a href="paper.pdf">paper (PDF)</a>
+</div></footer>
+</body>
+</html>

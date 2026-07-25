@@ -119,6 +119,7 @@ def main() -> int:
     ap.add_argument("--tag", default=None)
     ap.add_argument("--cache", type=Path, default=None)
     ap.add_argument("--quiet", action="store_true")
+    ap.add_argument("--methods", nargs="*", default=["cadence","no_effect","ma_latent","oracle","ctrl_permuted_obs","ctrl_scrambled_interv"])
     args = ap.parse_args()
     tag = args.tag or f"teacher_{args.regime}"
 
@@ -156,6 +157,7 @@ def main() -> int:
                           batch_size=args.batch, log_every=50, patience=40),
         seeds=tuple(args.seeds), device=args.device, out_dir=Path(args.out_dir),
         tag=tag, holdout=ho, breakdown="teacher", verbose_fit=not args.quiet,
+        methods=tuple(args.methods),
     )
     print(f"holdout: {cfg.holdout.describe()}")
     run_loao(ds, cfg, animals=args.animals)

@@ -57,10 +57,11 @@ def readout(s, level: str) -> np.ndarray:
         return s.y[:, s.t0 :]
     if level == "depth_band":
         uy = np.asarray(s.meta["unit_y_um"], float)
-        cols = [s.y[:, s.t0 :, (uy >= lo) & (uy < hi)] for lo, hi in BANDS]
-        return np.stack(
-            [c.mean(2) if c.shape[2] else np.full(c.shape[:2], np.nan) for c in cols], -1
-        )
+        # only bands that actually contain units: zero-filling empty bands would
+        # add noiseless channels and inflate the noise ceiling
+        cols = [s.y[:, s.t0 :, m].mean(2)
+                for m in ((uy >= lo) & (uy < hi) for lo, hi in BANDS) if m.any()]
+        return np.stack(cols, -1)
     if level == "population":
         return s.y[:, s.t0 :].mean(2, keepdims=True)
     if level == "wheel_speed":
@@ -74,7 +75,9 @@ def channel_coords(s, level: str) -> np.ndarray:
     if level == "unit":
         return np.asarray(s.meta["unit_y_um"], float) / MAX_D
     if level == "depth_band":
-        return np.array([(lo + hi) / 2 / MAX_D for lo, hi in BANDS])
+        uy = np.asarray(s.meta["unit_y_um"], float)
+        return np.array([(lo + hi) / 2 / MAX_D for lo, hi in BANDS
+                         if ((uy >= lo) & (uy < hi)).any()])
     return np.array([0.0])
 
 
@@ -94,23 +97,12 @@ def cond_params(s, c):
 # ---------------------------------------------------------------------------
 # the low-dimensional shared operator (population / behaviour readouts)
 # ---------------------------------------------------------------------------
-def dose_design(a: float, d: float, coord: float) -> np.ndarray:
-    an = a / 10.0
-    dn = d / MAX_D
-    dz = coord - dn
-    g = [np.exp(-((dz / w) ** 2)) for w in (0.10, 0.25, 0.60)]
-    return np.array([an, an**2, an**3, np.sqrt(an), np.log1p(an), dn, an * dn, dn**2,
-                     *g, *[an * x for x in g], 1.0])
-
-
-def ridge_solve(X, Y, lam):
-    G = X.T @ X + lam * len(X) * np.eye(X.shape[1])
-    return np.linalg.solve(G, X.T @ Y)
+from cadence.dose import dose_design, ridge_solve  # noqa: E402
 
 
 def dose_rows(s, level, conds):
     coords = channel_coords(s, level)
-    dl = measured(s, level, conds)
+    dl = measured_cached(s, level, conds)
     X, Y, cid, ch = [], [], [], []
     for c in conds:
         a, d = cond_params(s, c)
@@ -152,22 +144,41 @@ def predict_dose(s, level, conds, model):
 
 
 # ---------------------------------------------------------------------------
+_CEIL: dict = {}
+_MEAS: dict = {}
+
+
+def ceiling_for(s, level, conds, n_splits=120):
+    """Split-half ceiling. Depends only on the data, the readout and which
+    conditions are scored -- never on the model -- so it is cached."""
+    ck = (s.key, level, tuple(sorted(conds)))
+    if ck not in _CEIL:
+        Y = readout(s, level)
+        keep = np.isin(s.cond, conds) | (~s.perturbed)
+        _CEIL[ck] = M.noise_ceiling(
+            np.nan_to_num(Y[keep]), s.cond[keep], s.perturbed[keep], n_splits=n_splits
+        )["delta_r2_ceiling"]
+    return _CEIL[ck]
+
+
+def measured_cached(s, level, conds):
+    ck = (s.key, level, tuple(sorted(conds)))
+    if ck not in _MEAS:
+        _MEAS[ck] = measured(s, level, conds)
+    return _MEAS[ck]
+
+
 def score(s, level, conds, pred):
-    Y = readout(s, level)
-    keep = np.isin(s.cond, conds) | (~s.perturbed)
-    dl = measured(s, level, conds)
+    dl = measured_cached(s, level, conds)
     cs = [c for c in conds if c in pred]
     if not cs:
         return None
     A = np.stack([np.nan_to_num(dl[c]) for c in cs])
     B = np.stack([np.nan_to_num(pred[c]) for c in cs])
-    ce = M.noise_ceiling(
-        np.nan_to_num(Y[keep]), s.cond[keep], s.perturbed[keep], n_splits=200
-    )
     return {
         "delta_r2": M.delta_r2(A, B),
         "delta_corr": M.corr(A, B),
-        "ceiling": ce["delta_r2_ceiling"],
+        "ceiling": ceiling_for(s, level, cs),
     }
 
 

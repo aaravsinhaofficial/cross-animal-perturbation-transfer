@@ -431,26 +431,32 @@ def _aggregate(per_set: dict[str, dict]) -> dict:
 
 def run_loao(ds: Dataset, cfg: ExperimentConfig, animals=None) -> dict:
     animals = animals or ds.animals
-    folds = []
+    folds: list[dict] = []
+    cfg.out_dir.mkdir(parents=True, exist_ok=True)
+    path = cfg.out_dir / f"{cfg.tag}.json"
+
+    def flush():
+        out = {
+            "dataset": ds.name,
+            "config": _jsonable(asdict(cfg)),
+            "animals": animals,
+            "folds": folds,
+            "summary": summarise(folds) if folds else {},
+        }
+        path.write_text(json.dumps(out, indent=1, default=_jsonable))
+        return out
+
     for seed in cfg.seeds:
         for a in animals:
             try:
                 folds.append(evaluate_fold(ds, a, cfg, seed=seed))
             except Exception as exc:
                 print(f"  ! fold {a} seed {seed} failed: {exc!r}", flush=True)
-    summary = summarise(folds)
-    out = {
-        "dataset": ds.name,
-        "config": _jsonable(asdict(cfg)),
-        "animals": animals,
-        "folds": folds,
-        "summary": summary,
-    }
-    cfg.out_dir.mkdir(parents=True, exist_ok=True)
-    path = cfg.out_dir / f"{cfg.tag}.json"
-    path.write_text(json.dumps(out, indent=1, default=_jsonable))
+            flush()          # keep partial results on disk after every fold
+    out = flush()
     print(f"\nwrote {path}")
-    print_summary(summary)
+    if out["summary"]:
+        print_summary(out["summary"])
     return out
 
 

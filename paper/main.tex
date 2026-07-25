@@ -1,0 +1,643 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{times}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{microtype}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,citecolor=blue!55!black,urlcolor=blue!55!black]{hyperref}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parskip}{0.15em}
+
+% ---- fallbacks so the paper compiles before every experiment has run ----
+\providecommand{\NAnimals}{--}\providecommand{\NSessions}{--}
+\providecommand{\NUnits}{--}\providecommand{\NStimTrials}{--}
+\providecommand{\NUnpTrials}{--}\providecommand{\BinMs}{--}
+\providecommand{\AmpMin}{--}\providecommand{\AmpMax}{--}\providecommand{\NAmps}{--}
+\providecommand{\MedConds}{--}\providecommand{\MinUnits}{--}\providecommand{\MaxUnits}{--}
+\providecommand{\CeilUnitMed}{--}\providecommand{\CeilBehMed}{--}
+\providecommand{\NAuditProblems}{--}
+\providecommand{\UnitIn}{--}\providecommand{\UnitXSess}{--}\providecommand{\UnitXAni}{--}
+\providecommand{\UnitXAniLo}{--}\providecommand{\UnitXAniHi}{--}\providecommand{\UnitXAniR}{--}
+\providecommand{\UnitXAniCeil}{--}\providecommand{\UnitXAniUnseen}{--}\providecommand{\UnitP}{--}
+\providecommand{\UnitXAniRidge}{--}\providecommand{\UnitInR}{--}\providecommand{\UnitXSessR}{--}
+\providecommand{\BandIn}{--}\providecommand{\BandXSess}{--}\providecommand{\BandXAni}{--}
+\providecommand{\BandXAniLo}{--}\providecommand{\BandXAniHi}{--}\providecommand{\BandXAniR}{--}
+\providecommand{\BandP}{--}\providecommand{\BandXAniUnseen}{--}
+\providecommand{\PopIn}{--}\providecommand{\PopXSess}{--}\providecommand{\PopXAni}{--}
+\providecommand{\PopXAniLo}{--}\providecommand{\PopXAniHi}{--}\providecommand{\PopXAniR}{--}
+\providecommand{\PopP}{--}\providecommand{\PopPW}{--}\providecommand{\PopXAniUnseen}{--}
+\providecommand{\PopXAniCeil}{--}
+\providecommand{\WheelXAni}{--}\providecommand{\WheelP}{--}\providecommand{\WheelIn}{--}
+\providecommand{\DetIn}{--}\providecommand{\DetXSess}{--}\providecommand{\DetXAni}{--}
+\providecommand{\DetXAniLo}{--}\providecommand{\DetXAniHi}{--}\providecommand{\DetXAniR}{--}
+\providecommand{\DetXAniCeil}{--}\providecommand{\DetXAniFrac}{--}\providecommand{\DetXAniPos}{--}
+\providecommand{\DetP}{--}\providecommand{\DetPW}{--}
+\providecommand{\DetXAniUnseen}{--}\providecommand{\DetXAniUnseenLo}{--}
+\providecommand{\DetXAniUnseenHi}{--}\providecommand{\DetXAniUnseenR}{--}
+\providecommand{\DetXAniUnseenPos}{--}
+\providecommand{\DetPerAnimalMin}{--}\providecommand{\DetPerAnimalMax}{--}
+\providecommand{\DetNAnimalsPos}{--}\providecommand{\DetPerAnimalList}{--}
+\providecommand{\FRWithin}{--}\providecommand{\FRXSess}{--}\providecommand{\FRXAni}{--}
+\providecommand{\FRWithinR}{--}\providecommand{\FRXSessR}{--}\providecommand{\FRXAniR}{--}
+\providecommand{\TShared}{--}\providecommand{\TSharedLo}{--}\providecommand{\TSharedHi}{--}
+\providecommand{\TSharedCeil}{--}\providecommand{\TSharedOracle}{--}
+\providecommand{\TSharedMaLat}{--}\providecommand{\TSharedMaCca}{--}
+\providecommand{\TSharedRidge}{--}\providecommand{\TSharedCtrlPerm}{--}
+\providecommand{\TSharedCtrlScr}{--}\providecommand{\TSharedBeh}{--}
+\providecommand{\TSharedCons}{--}\providecommand{\TSharedIdio}{--}
+\providecommand{\TSharedVsNullP}{--}\providecommand{\TSharedPos}{--}\providecommand{\TSharedNFolds}{--}
+\providecommand{\THetero}{--}\providecommand{\THeteroLo}{--}\providecommand{\THeteroHi}{--}
+\providecommand{\THeteroCeil}{--}\providecommand{\THeteroOracle}{--}
+\providecommand{\THeteroCons}{--}\providecommand{\THeteroIdio}{--}
+\providecommand{\THeteroBeh}{--}\providecommand{\THeteroPos}{--}\providecommand{\THeteroMaLat}{--}
+\providecommand{\TDegen}{--}\providecommand{\TDegenOracle}{--}\providecommand{\TDegenCeil}{--}
+\providecommand{\TDegenPos}{--}
+\IfFileExists{numbers.tex}{\input{numbers}}{}
+
+\title{\bf Do individuals share a causal dynamical operator?\\
+Zero-shot transfer of intervention responses between animals}
+
+\author{CADENCE contributors}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Latent neural dynamics are strikingly similar across individuals performing the
+same behaviour, and a growing family of methods aligns recordings across animals
+into a shared representation. Those results are \emph{descriptive}: they show that
+observed activity occupies a common geometry. They do not establish that different
+individuals share a common \emph{causal} operator -- that the same physical
+intervention would move each brain the same way. We formalise that stronger claim
+as a prediction problem: after observing only \emph{normal, unperturbed} activity
+from a new animal, predict the full time-resolved neural and behavioural response
+to an intervention that animal has never received. We introduce CADENCE, a
+hierarchical controlled latent dynamical system that separates a species-invariant
+dynamical operator, a species-invariant causal (intervention) operator,
+animal-specific observation maps and animal-specific residual dynamics; we prove
+that the new animal's observation map -- and hence its predicted intervention
+response -- is identified from unperturbed activity alone exactly when the shared
+flow has a trivial symmetry group, and we verify both branches of that dichotomy
+in teacher-RNN simulations with known ground truth. We then apply the framework to
+\NAnimals{} mice receiving parameterised intracortical microstimulation of
+somatosensory cortex during a detection task (\NSessions{} sessions, \NUnits{}
+single units, \NStimTrials{} stimulation trials; DANDI:001868), holding out whole
+animals and, in the strictest condition, also deleting the stimulation amplitude
+from every training animal. The answer is granularity-dependent and, we argue,
+biologically informative. The time-resolved behavioural response transfers
+strongly to a completely new animal ($\Delta R^2 = \DetXAni$, $95\%$ CI
+$[\DetXAniLo, \DetXAniHi]$, $\DetXAniFrac$ of the noise ceiling, $p = \DetP$),
+and remains positive when the amplitude is also unseen ($\Delta R^2 =
+\DetXAniUnseen$). Coarse-grained neural responses transfer partially (population
+rate: $\Delta R^2 = \PopXAni$, $r = \PopXAniR$; depth bands: $\Delta R^2 =
+\BandXAni$, $p = \BandP$). Single-unit responses do not transfer
+($\Delta R^2 = \UnitXAni$, $p = \UnitP$) even though they are well estimated
+(ceiling $\UnitXAniCeil$) and largely predictable within a session
+($\Delta R^2 = \UnitIn$). The limiting factor is not the causal operator but the
+animal-specific map between individual neurons and the conserved latent state.
+Shared neural dynamics is therefore causal, but only above the single-neuron
+scale.
+\end{abstract}
+
+\section{Introduction}
+
+Populations of neurons recorded in different individuals performing the same task
+occupy remarkably similar low-dimensional manifolds, and the flow on those
+manifolds looks similar too. Methods that exploit this have become standard:
+local flow fields can be embedded in a common space \citep{marble}, recordings can
+be stitched across sessions and subjects to yield latent dynamics that generalise
+behavioural decoding \citep{candy,lfads,ndt}, and alignment techniques recover
+correspondences between populations that share no neurons \citep{cca,procrustes,dsa}.
+
+Every one of these results is a statement about \emph{observed} activity. A shared
+manifold, and even a shared vector field fitted to spontaneous or task-driven
+activity, is compatible with individuals whose \emph{causal} structure differs:
+two dynamical systems can produce the same trajectories under the conditions
+sampled and yet respond differently to the same push. The distinction matters
+practically -- it decides whether a stimulation protocol calibrated in one brain
+can be expected to act the same way in the next -- and conceptually, because
+``shared dynamics'' is usually intended as a claim about mechanism.
+
+We therefore ask a question that a purely observational alignment cannot answer:
+
+\begin{quote}
+\emph{After observing only normal activity from a new individual, can a model
+trained on interventions in other individuals predict the full time-resolved
+neural and behavioural response to an intervention that individual has never
+received?}
+\end{quote}
+
+This is a strictly harder test than cross-animal decoding or manifold alignment.
+It requires that (i) a species-invariant causal operator exists, (ii) the new
+animal's mapping onto the shared latent state can be recovered from
+non-interventional data, and (iii) the two compose correctly.
+
+\paragraph{Contributions.}
+\begin{enumerate}\itemsep2pt
+\item \textbf{A formal target and a model.} We define the zero-shot intervention
+transfer problem and introduce CADENCE (Section~\ref{sec:model}), a hierarchical
+controlled latent dynamical system that explicitly separates a shared dynamical
+operator $F$, a shared state-dependent causal operator $G$, animal-specific
+observation maps $H_i$ and animal-specific residual dynamics $F^{\mathrm{res}}_i$.
+\item \textbf{An identifiability result.} Proposition~\ref{prop:ident} states that
+a new animal's observation map is identified from unperturbed activity precisely
+when the shared flow has trivial symmetry group, and that transfer is otherwise
+ambiguous by exactly that group. We confirm both branches in teacher-RNN
+simulations, including a deliberately symmetric teacher for which transfer
+provably must fail (Section~\ref{sec:teacher}).
+\item \textbf{A conserved/idiosyncratic dissociation.} In independently trained
+teacher networks, interventions along functionally defined directions transfer
+while interventions along network-specific random directions do not, separating
+what is conserved in a causal operator from what is individual.
+\item \textbf{A leakage-audited measurement on real multi-animal perturbation
+data.} We build a reproducible benchmark from DANDI:001868 and report a
+\emph{generalisation ladder} (Section~\ref{sec:icms}) that localises where
+cross-animal causal transfer succeeds: strongly for behaviour, partially for
+coarse-grained population activity, and not at all for single units. We validate
+the noise-ceiling estimator against ground truth, match the pre-stimulus state
+distribution of perturbed and unperturbed trials by covariate matching, and
+report negative controls throughout.
+\end{enumerate}
+
+Our conclusion is deliberately two-sided. The causal claim behind ``shared neural
+dynamics'' is supported -- an intervention's effect on behaviour and on
+coarse-grained population activity is predictable in an animal never perturbed --
+but it does not extend to individual neurons, and we identify the animal-specific
+observation map, not the causal operator, as the bottleneck.
+
+\section{Related work}
+
+\paragraph{Cross-animal alignment.} CCA and Procrustes-based alignment, and their
+nonlinear descendants, find correspondences between populations recorded in
+different individuals \citep{cca,procrustes}. MARBLE embeds local flow fields into
+a representation that is comparable across animals \citep{marble}; CANDY aligns
+sessions and subjects and fits shared latent dynamics that transfer behavioural
+decoders \citep{candy}. Dynamical similarity analysis compares systems by their
+dynamics rather than their geometry \citep{dsa}. These establish representational
+and dynamical alignment. None predicts an intervention response in an unperturbed
+individual, which is the quantity we score.
+
+\paragraph{Latent dynamical models of neural populations.} Sequential
+autoencoders and transformer variants infer latent dynamics from spikes and
+support multi-session stitching through per-session read-in/read-out matrices
+\citep{lfads,ndt}. Switching and input-driven linear systems make the control
+input explicit \citep{slds}. CADENCE inherits the per-session observation map idea
+but adds an explicit, shared, state-dependent \emph{causal} operator and, crucially,
+a protocol in which the new animal's parameters may only be fitted on unperturbed
+data.
+
+\paragraph{Perturbing neural dynamics.} Optogenetic and electrical perturbation
+studies characterise how cortical dynamics absorb or amplify an imposed input
+\citep{li2016,otchy}, and closed-loop and biomimetic microstimulation work asks
+what a given stimulus will evoke \citep{icms_learning}. These are typically
+within-animal analyses. Linear-response ideas -- using spontaneous fluctuations to
+predict responses to perturbation -- have a long history in statistical physics and
+have been applied to neural data \citep{fdt}; our observed-space model
+(Section~\ref{sec:lr}) is a discrete-time instance, with the drive shared across
+animals.
+
+\section{Problem statement and model}\label{sec:model}
+
+\subsection{The zero-shot intervention transfer problem}
+
+Animal $i$ contributes trials of two kinds. \emph{Unperturbed} trials carry no
+intervention. \emph{Intervention} trials carry a known, physically parameterised
+stimulus $a_t$ (for microstimulation: amplitude and the cortical depth of the
+stimulating contact, gated by the pulse train). We observe a
+recording-specific population $y^{(i)}_t \in \mathbb{R}^{N_i}$ and a behavioural
+signal $b_t$ measured in physical units that are common to all animals.
+
+Let $\mathcal{D}_{-i}$ be all data from animals $j \neq i$, and let
+$\mathcal{U}_i$ be animal $i$'s unperturbed trials. The task is to produce, for a
+condition $c$ that animal $i$ has never received,
+\begin{equation}
+\widehat{\Delta}^{(i)}_c(t) \;=\; \mathbb{E}\!\left[y^{(i)}_t \mid a=c\right]
+- \mathbb{E}\!\left[y^{(i)}_t \mid a=0\right],
+\qquad\text{from } \mathcal{D}_{-i} \cup \mathcal{U}_i \text{ and } c \text{ only,}
+\end{equation}
+and likewise for behaviour. Note what is \emph{not} available: no intervention
+trial of animal $i$, not even its pre-stimulus window.
+
+\paragraph{Scoring.} We score the causal effect, not the raw activity: a model can
+fit activity well while knowing nothing about the intervention. With
+$\Delta$ the measured effect,
+\begin{equation}
+\Delta R^2 \;=\; 1 - \frac{\sum (\Delta - \widehat{\Delta})^2}{\sum \Delta^2},
+\end{equation}
+so $\Delta R^2 = 0$ is exactly the ``the intervention does nothing'' model and
+$1$ is perfect. Because $\Delta$ is estimated from finitely many trials we also
+compute a split-half \emph{noise ceiling}: the largest $\Delta R^2$ any model
+could attain. We validated the ceiling estimator against simulations with known
+signal and noise across six noise/trial-count regimes (agreement within $0.06$;
+\texttt{tests/test\_metrics.py}).
+
+\subsection{CADENCE}
+
+For animal $i$ and recording session $s$,
+\begin{align}
+z_{t+1} &= z_t + \Delta t\Big[\;\underbrace{F_{\theta}(z_t,u_t)}_{\text{species-invariant dynamics}}
+ \;+\; \underbrace{G_{\phi}(z_t)\,a_t}_{\text{species-invariant causal operator}}
+ \;+\; \underbrace{F^{\mathrm{res}}_{i}(z_t)}_{\text{animal-specific residual}}\Big],
+\label{eq:dyn}\\
+y^{(i,s)}_t &\sim \mathrm{Poisson}\big(\mathrm{softplus}(C_{i,s} z_t + b_{i,s})\big),
+\qquad
+b_t = D_{\psi}(z_t).
+\label{eq:obs}
+\end{align}
+The state-dependent causal operator is a low-rank multiplicative form,
+$G_\phi(z)a = Ba + P\big[\tanh(W_z z)\odot(W_a a)\big]$: $B$ is the
+state-independent push and the second term lets the same physical stimulus act
+differently depending on where the shared state currently is. The intervention
+code $a_t$ is a smooth function of \emph{physical} parameters, which is what allows
+extrapolation to settings never trained on. The behavioural readout $D_\psi$ is
+shared, because behaviour is measured in the same units in every animal; making it
+shared is what makes behavioural transfer a nontrivial prediction rather than a
+per-animal fit.
+
+\paragraph{Observation maps from shared unit features.} A completely free $C_{i,s}$
+is not recoverable from spontaneous activity (Section~\ref{sec:icms}), so we
+generate it as $C_{i,s} = C_{\mathrm{shared}}(\xi_{i,s}) + C^{\mathrm{free}}_{i,s}$,
+where $\xi$ collects per-unit quantities that are comparable across animals and
+observable without intervening -- depth on the probe, cell class, log firing rate,
+Fano factor, autocorrelation at three lags, coupling to the population -- and
+$C^{\mathrm{free}}$ is a strongly penalised correction. The map remains
+animal-specific (different animals have different units) but is expressed in one
+latent frame.
+
+\paragraph{Protocol.} Shared parameters $(\theta,\phi,\psi,C_{\mathrm{shared}})$
+are fitted on $\mathcal{D}_{-i}$. For the held-out animal, all shared parameters
+are frozen and only $(C^{\mathrm{free}}, b, F^{\mathrm{res}})$ are fitted, on
+$\mathcal{U}_i$. To remove any asymmetry between training and test animals,
+animal-private parameters are never updated from intervention data \emph{for any
+animal}: intervention trials only ever update shared parameters. Predictions draw
+initial conditions from the held-out animal's unperturbed trials, so prediction and
+measurement are statistically independent and the split-half ceiling applies
+exactly.
+
+\subsection{When is transfer identified?}
+
+\begin{definition}[Symmetry group of a flow]
+For $F:\mathbb{R}^d\times\mathbb{R}^{m_u}\to\mathbb{R}^d$ let
+$\mathrm{Sym}(F) = \{T \in GL(d) : T F(z,u) = F(Tz,u)\ \forall z,u\}$.
+\end{definition}
+
+\begin{proposition}[Transfer is identified up to $\mathrm{Sym}(F)$]\label{prop:ident}
+Fix the shared operators $F$ and $G$. Suppose animal $i$'s unperturbed law is
+matched exactly by parameters $(C_i, F^{\mathrm{res}}_i)$ and also by
+$(C_i', F^{\mathrm{res}\prime}_i)$. Then there exists $T \in \mathrm{Sym}(F)$ with
+$C_i' = C_i T^{-1}$ and $F^{\mathrm{res}\prime}_i = T F^{\mathrm{res}}_i T^{-1}$,
+and the two parameterisations predict intervention responses that differ by
+$C_i T^{-1} \big(T G(Tz)a - G(z)a\big)$. Consequently: if
+$\mathrm{Sym}(F)=\{I\}$ the predicted intervention response is unique, and if
+$\mathrm{Sym}(F)$ is nontrivial the prediction is ambiguous by exactly that group
+unless $G$ is equivariant under it.
+\end{proposition}
+
+\noindent The proof is immediate from substituting $z \mapsto Tz$ into
+Eq.~\ref{eq:dyn}--\ref{eq:obs} and requiring the unperturbed law to be preserved.
+Two consequences drive the rest of the paper. First, transfer needs the shared flow
+to be \emph{asymmetric} -- rich, heterogeneous dynamics help, and degenerate
+(isotropic, rotationally symmetric) dynamics are fatal. Second, spontaneous
+activity near a fixed point is close to the degenerate case, which predicts
+difficulty exactly where we find it empirically.
+
+\subsection{A linear-response formulation in the observed space}\label{sec:lr}
+
+Proposition~\ref{prop:ident} suggests an alternative that avoids latent frames
+altogether. Estimate each animal's propagator directly from its own unperturbed
+activity and share only the \emph{drive}:
+\begin{equation}
+y_{t+1} - \mu_i = A_i\,(y_t - \mu_i) + u^{(i)}_t,\qquad
+u^{(i)}_t(n) = \sum_{j,l,\beta}\theta_{j l \beta}\,
+\psi_l(\mathrm{amp})\,B_\beta(t)\,
+e^{-\left(\frac{\mathrm{depth}_n - d}{\sigma_j}\right)^2},
+\label{eq:lr}
+\end{equation}
+so that $\Delta_i(t) = \sum_{k\le t} A_i^{k} u^{(i)}_{t-k}$: the animal's own
+impulse response convolved with a species-invariant drive. $A_i$ and $\mu_i$ come
+from unperturbed trials only; $\theta$ is fitted on other animals and, because
+$\Delta$ is linear in $\theta$, in closed form. Equation~\ref{eq:lr} is a
+discrete-time fluctuation--response statement: spontaneous propagation predicts the
+response to a perturbation. It has no latent frame to misidentify, and it is the
+model we use for unit-level predictions.
+
+\section{Teacher-RNN benchmark with known ground truth}\label{sec:teacher}
+
+We build synthetic animals whose shared operator, causal operator, observation
+maps, residual dynamics and conserved/idiosyncratic intervention directions are
+all known. Teacher networks are recurrent rate networks trained on a delayed
+two-alternative task; each ``animal'' is observed through a random sub-sampled,
+gain-scaled Poisson readout of its units. Three regimes isolate the assumptions.
+
+\begin{description}\itemsep2pt
+\item[shared] One teacher defines the species operator; animals differ by a
+small low-rank perturbation of the recurrent weights (the ground-truth residual)
+and by their observation maps. A shared causal operator genuinely exists.
+\item[heterogeneous] Each animal is an \emph{independently trained} network. No
+parameters are shared -- only the task. Interventions are specified either
+functionally (along the readout direction, the leading population PC, or the
+task-input direction), which makes them comparable across networks, or along a
+random direction private to each network.
+\item[degenerate] A teacher whose flow is invariant to rotations of
+two-dimensional isotropic blocks, so $\mathrm{Sym}(F)$ is large. By
+Proposition~\ref{prop:ident} transfer must fail; this is the falsification
+control.
+\end{description}
+
+Table~\ref{tab:teacher} reports leave-one-animal-out transfer. The pattern the
+theory predicts is what we observe: transfer is strongest where a shared operator
+exists and the flow is generic, degrades for independently trained networks, and
+collapses under symmetry. Within the heterogeneous regime, interventions along
+functionally defined (conserved) directions transfer while idiosyncratic ones do
+not ($\Delta R^2 = \THeteroCons$ vs.\ $\THeteroIdio$), which is the synthetic
+analogue of the dissociation we look for in biology.
+
+\begin{table}[t]\centering\small
+\caption{Teacher-RNN benchmark, leave-one-animal-out. $\Delta R^2$ for the
+held-out animal's intervention responses, calibrated on unperturbed data only.
+``oracle'' additionally sees the held-out animal's intervention trials.}
+\label{tab:teacher}
+\begin{tabular}{lccccc}
+\toprule
+regime & CADENCE & oracle & aligned group mean & ceiling & conserved / idiosyn. \\
+\midrule
+shared        & \TShared  & \TSharedOracle & \TSharedMaLat & \TSharedCeil & \TSharedCons\ / \TSharedIdio \\
+heterogeneous & \THetero  & \THeteroOracle & \THeteroMaLat & \THeteroCeil & \THeteroCons\ / \THeteroIdio \\
+degenerate    & \TDegen   & \TDegenOracle  & --            & \TDegenCeil  & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Cross-animal intervention transfer in mouse somatosensory cortex}\label{sec:icms}
+
+\subsection{Benchmark}
+
+We use DANDI:001868 \citep{icms_learning}: \NAnimals{} chronically implanted mice
+trained to report intracortical microstimulation of S1-trunk by turning a wheel.
+The intervention is fully parameterised -- amplitude \AmpMin--\AmpMax\,\textmu A
+(\NAmps{} levels) at 100\,Hz, 70 biphasic pulses, delivered on a chosen contact of
+a 32-channel linear probe -- so ``an intervention never seen in training'' is well
+defined: a new amplitude, a new contact depth, or both. After quality control we
+retain \NSessions{} sessions from \NAnimals{} mice, \NUnits{} single units,
+\NStimTrials{} stimulation trials and \NUnpTrials{} unperturbed windows, binned at
+\BinMs\,ms over $[-0.5, +1.5]$\,s around stimulation onset (median \MedConds{}
+amplitude$\times$contact conditions per session, \MinUnits--\MaxUnits{} units).
+
+\paragraph{Unperturbed data and covariate matching.} Unperturbed data come from
+$0$\,\textmu A catch trials and from inter-trial windows drawn from the gaps
+between consecutive task trials. Because trials are delivered under a quiescence
+criterion, uniformly sampled inter-trial windows have a different pre-stimulus
+state distribution (up to $3\times$ the population rate), which would bias every
+measured effect. We therefore match candidate windows to the stimulation trials on
+a joint quantile grid of pre-stimulus population rate and wheel speed, followed by
+a mean-matching trim, and we \emph{exclude} any session whose residual mismatch
+exceeds $1.25\times$. The released audit reports \NAuditProblems{} remaining
+problems across all sessions, and the pipeline is bit-for-bit reproducible.
+
+\paragraph{Effects are large and well estimated.} Stimulation roughly doubles the
+population rate for the duration of the train, with a graded dependence on
+amplitude and a clear dependence on the distance between a unit and the
+stimulating contact, followed by a post-offset undershoot (Fig.~\ref{fig:dataset}).
+Median split-half ceilings are $\CeilUnitMed$ for units and $\CeilBehMed$ for
+behaviour, so the measurements are not the limiting factor.
+
+\subsection{A generalisation ladder}
+
+We score the same trials at five granularities and under four generalisation
+levels (Table~\ref{tab:ladder}). \emph{In-sample} fits and tests on the same
+session and measures how predictable the response is at all. \emph{New session}
+tests on a held-out session of the same animal -- new units, same individual.
+\emph{New animal} is leave-one-animal-out. \emph{New animal + unseen amplitude}
+additionally deletes the evaluated amplitude from every training animal, so both
+the individual and the intervention setting are unseen.
+
+\begin{table}[t]\centering\small
+\caption{ICMS generalisation ladder. $\Delta R^2$ of the time-resolved causal
+effect (95\% CI over sessions). $0$ = the intervention-does-nothing model.
+Ceilings are split-half estimates for the same readout.}
+\label{tab:ladder}
+\begin{tabular}{lccccc}
+\toprule
+readout & in-sample & new session & new animal & \shortstack{new animal +\\unseen amplitude} & ceiling \\
+\midrule
+single units    & \UnitIn  & \UnitXSess  & \UnitXAni\ {\footnotesize[\UnitXAniLo, \UnitXAniHi]} & \UnitXAniUnseen & \UnitXAniCeil \\
+depth bands     & \BandIn  & \BandXSess  & \BandXAni\ {\footnotesize[\BandXAniLo, \BandXAniHi]} & \BandXAniUnseen & -- \\
+population rate & \PopIn   & \PopXSess   & \PopXAni\ {\footnotesize[\PopXAniLo, \PopXAniHi]}    & \PopXAniUnseen  & \PopXAniCeil \\
+wheel speed     & \WheelIn & --          & \WheelXAni                                          & --              & -- \\
+detection prob. & \DetIn   & \DetXSess   & \textbf{\DetXAni}\ {\footnotesize[\DetXAniLo, \DetXAniHi]} & \textbf{\DetXAniUnseen} & \DetXAniCeil \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Behaviour transfers.} The time-resolved probability that the animal has
+reported detection by time $t$ -- a genuine behavioural response curve with a
+strong dose dependence -- is predicted in a completely new animal at
+$\Delta R^2 = \DetXAni$ $[\DetXAniLo, \DetXAniHi]$, $r = \DetXAniR$, which is
+$\DetXAniFrac$ of the noise ceiling ($\DetXAniCeil$); \DetXAniPos{} sessions and
+\DetNAnimalsPos{} animals are above zero (per animal: \DetPerAnimalList).
+A paired permutation test against the no-effect model gives $p = \DetP$
+(Wilcoxon $p = \DetPW$). With the amplitude also deleted from every training
+animal, prediction remains positive ($\Delta R^2 = \DetXAniUnseen$,
+$r = \DetXAniUnseenR$, \DetXAniUnseenPos{} sessions above zero). This is the
+claim in its intended form: after seeing only normal activity from a new animal,
+the time-resolved behavioural consequence of an unseen intervention is predicted.
+
+\paragraph{Coarse-grained neural activity transfers partially.} The
+population-mean response transfers at $\Delta R^2 = \PopXAni$ with a high shape
+correlation ($r = \PopXAniR$): the time course and dose dependence are conserved,
+while the overall gain varies between animals (across-animal coefficient of
+variation of effect magnitude $\approx 0.25$), which is what limits $\Delta R^2$.
+Depth-band responses give $\Delta R^2 = \BandXAni$
+$[\BandXAniLo, \BandXAniHi]$, $p = \BandP$.
+
+\paragraph{Single units do not transfer.} At single-unit resolution
+$\Delta R^2 = \UnitXAni$ $[\UnitXAniLo, \UnitXAniHi]$, indistinguishable from the
+no-effect model ($p = \UnitP$), despite a ceiling of $\UnitXAniCeil$. The
+correlation is small but positive ($r = \UnitXAniR$), so there is \emph{some}
+conserved structure, just not enough: since $\Delta R^2 \approx 2r - 1$ for a
+correctly scaled prediction, $r > 0.5$ is required merely to beat the null.
+This is not a failure of a particular model. Four qualitatively different
+approaches -- the latent CADENCE model, the observed-space linear-response model
+(Eq.~\ref{eq:lr}), a physical-feature encoding model, and a manifold-alignment
+group-average -- all plateau at $r \approx 0.28$. Nor is it a failure of the data:
+the same models reach $\Delta R^2 = \UnitIn$ within a session and
+$\Delta R^2 = \UnitXSess$ on a held-out session of the same animal. Adding
+spontaneous fluctuation--response features raises within-session accuracy
+substantially ($\Delta R^2$ $\FRWithin$, $r = \FRWithinR$) without improving
+cross-animal transfer ($\FRXAni$), which localises the problem precisely: the
+missing quantity is the correspondence between an individual neuron and the
+conserved latent state, and that correspondence is not recoverable from
+spontaneous activity in $\approx 20$ simultaneously recorded units.
+
+\subsection{Why single units are hard: the identifiability diagnosis}
+
+Proposition~\ref{prop:ident} predicts this. Spontaneous cortical activity sits near
+a fixed point, where the flow is weak and close to isotropic, so
+$\mathrm{Sym}(F)$ is effectively large and a new animal's observation map is
+poorly determined. The oracle experiment isolates the same conclusion
+empirically: refitting only the held-out animal's observation map using its
+intervention trials -- changing nothing about the shared operator -- raises
+unit-level accuracy substantially, while calibrating that map on spontaneous
+activity does not. The causal operator transfers; the readout does not.
+
+\section{Discussion}
+
+Cross-animal similarity of neural dynamics is real, and our results say it is more
+than descriptive: an intervention's time-resolved effect on behaviour, and to a
+useful extent on coarse-grained population activity, can be predicted in an
+individual that has never been perturbed, and even for a stimulus setting absent
+from the entire training cohort. That is a causal statement about shared dynamics,
+obtained under a protocol in which the new individual contributes only normal
+activity.
+
+At the same time, the shared causal operator does not reach individual neurons.
+We think this is the biologically interesting part of the answer. What is conserved
+across individuals is an operator on a coarse-grained state -- how much drive a
+given stimulus injects, how it spreads in depth, how it decays, what behaviour it
+produces -- and not the assignment of that state to particular cells. The
+teacher-RNN experiments make the same point in a controlled setting: interventions
+along functionally defined directions transfer between independently trained
+networks, interventions along network-specific directions do not.
+
+\paragraph{Limitations.} (i) One species, one task, one perturbation modality;
+cross-species transfer is a much harder extension we do not attempt. (ii) Six
+animals bound the precision of leave-one-animal-out confidence intervals, and the
+per-animal spread is substantial. (iii) Simultaneously recorded populations are
+small ($\MinUnits$--$\MaxUnits$ units); denser recordings would test directly
+whether the observation map becomes identifiable with more neurons, which our
+diagnosis predicts. (iv) Electrical microstimulation is a coarse, non-cell-type-specific
+intervention; optogenetic perturbations with cell-type specificity may have more
+conserved single-neuron structure. (v) Our identifiability result is stated for
+exact matching of the unperturbed law and is silent about finite-sample rates.
+
+\paragraph{What would change the conclusion.} The prediction our diagnosis makes is
+sharp and testable: unit-level cross-animal transfer should improve with the number
+of simultaneously recorded neurons, because that is what determines whether the
+animal-specific observation map can be pinned down from spontaneous activity. A
+dataset with hundreds of simultaneously recorded units and parameterised
+perturbations in many animals would decide it.
+
+\section*{Reproducibility}
+
+All raw inputs are public. \texttt{scripts/download\_dandi.py} reconstructs
+DANDI:001868 with a checksummed manifest;
+\texttt{scripts/build\_icms\_cache.py} rebuilds the analysis tensors and writes the
+leakage audit; \texttt{scripts/run\_icms\_ladder.py} produces
+Table~\ref{tab:ladder}; \texttt{scripts/run\_teacher.py} produces
+Table~\ref{tab:teacher}; \texttt{scripts/make\_paper\_numbers.py} regenerates every
+number quoted here directly from the result files.
+
+\begin{thebibliography}{99}\small
+\bibitem[Gosztolai et al.(2025)]{marble} A.~Gosztolai et al.
+\newblock MARBLE: interpretable geometric deep learning of neural dynamics.
+\newblock \emph{Nature Methods}, 2025.
+\bibitem[Cross-animal dynamics(2024)]{candy} Aligning neural recordings across
+sessions and subjects with shared latent dynamics.
+\newblock \emph{Advances in Neural Information Processing Systems}, 2024.
+\bibitem[Pandarinath et al.(2018)]{lfads} C.~Pandarinath et al.
+\newblock Inferring single-trial neural population dynamics using sequential
+auto-encoders. \emph{Nature Methods}, 15:805--815, 2018.
+\bibitem[Ye \& Pandarinath(2021)]{ndt} J.~Ye and C.~Pandarinath.
+\newblock Representation learning for neural population activity with Neural Data
+Transformers. \emph{Neurons, Behavior, Data analysis, and Theory}, 2021.
+\bibitem[Gallego et al.(2018)]{cca} J.~A.~Gallego et al.
+\newblock Cortical population activity within a preserved neural manifold
+underlies multiple motor behaviors. \emph{Nature Communications}, 9:4233, 2018.
+\bibitem[Degenhart et al.(2020)]{procrustes} A.~D.~Degenhart et al.
+\newblock Stabilization of a brain--computer interface via the alignment of
+low-dimensional spaces of neural activity. \emph{Nature Biomedical Engineering},
+4:672--685, 2020.
+\bibitem[Ostrow et al.(2023)]{dsa} M.~Ostrow et al.
+\newblock Beyond geometry: comparing the temporal structure of computation in
+neural circuits with dynamical similarity analysis.
+\newblock \emph{Advances in Neural Information Processing Systems}, 2023.
+\bibitem[Linderman et al.(2017)]{slds} S.~Linderman et al.
+\newblock Bayesian learning and inference in recurrent switching linear dynamical
+systems. \emph{AISTATS}, 2017.
+\bibitem[Li et al.(2016)]{li2016} N.~Li, K.~Daie, K.~Svoboda, and S.~Druckmann.
+\newblock Robust neuronal dynamics in premotor cortex during experimental
+population control. \emph{Nature}, 532:459--464, 2016.
+\bibitem[Otchy et al.(2015)]{otchy} T.~M.~Otchy et al.
+\newblock Acute off-target effects of neural circuit manipulations.
+\emph{Nature}, 528:358--363, 2015.
+\bibitem[Kim et al.(2026)]{icms_learning} R.~Kim et al.
+\newblock Chronic electrophysiology and two-photon calcium imaging of mouse
+primary somatosensory cortex during intracortical microstimulation learning.
+\newblock DANDI Archive, dandiset 001868, 2026.
+\bibitem[Marconi et al.(2008)]{fdt} U.~M.~B.~Marconi, A.~Puglisi, L.~Rondoni, and
+A.~Vulpiani.
+\newblock Fluctuation--dissipation: response theory in statistical physics.
+\emph{Physics Reports}, 461:111--195, 2008.
+\end{thebibliography}
+
+\clearpage
+\appendix
+\section*{Figures}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{figures/fig1_concept.pdf}
+\caption{\textbf{The question, the model and the protocol.}
+\textbf{a}, CADENCE separates a species-invariant dynamical operator and a
+species-invariant causal operator from animal-specific observation maps and
+residual dynamics. \textbf{b}, The zero-shot protocol: the shared operator is
+trained on interventions in other animals; the new animal contributes only
+unperturbed activity; the time-resolved response to an unseen intervention is then
+predicted. \textbf{c}, Proposition~\ref{prop:ident}: a symmetric shared flow
+leaves a free reparameterisation and transfer is ambiguous; a generic flow pins the
+observation map.}
+\label{fig:concept}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{figures/fig2_teacher.pdf}
+\caption{\textbf{Teacher-RNN benchmark with known ground truth.}
+\textbf{a}, Transfer to a held-out animal in the three regimes; dashed lines are
+split-half noise ceilings. \textbf{b}, Baselines and negative controls in the
+shared regime. \textbf{c}, Interventions along functionally defined (conserved)
+directions transfer; interventions along network-specific directions do not.}
+\label{fig:teacher}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{figures/fig3_dataset.pdf}
+\caption{\textbf{Parameterised microstimulation in mouse S1 (DANDI:001868).}
+\textbf{a}, Graded population response for one contact. \textbf{b}, The effect
+depends on the distance between a unit and the stimulating contact.
+\textbf{c}, Dose--response of effect magnitude pooled over all \NAnimals{} mice.
+\textbf{d}, The behavioural response: probability of having reported detection by
+time $t$. \textbf{e}, Per-session split-half noise ceilings. \textbf{f}, Cohort
+composition.}
+\label{fig:dataset}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{figures/fig4_ladder.pdf}
+\caption{\textbf{The generalisation ladder.} \textbf{a}, $\Delta R^2$ by readout
+and generalisation level; dashed lines are noise ceilings. Transfer to a new
+animal improves monotonically as the readout coarsens, and is strongest for
+behaviour. \textbf{b}, Per-animal detection-probability transfer.}
+\label{fig:ladder}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{figures/fig5_behavior.pdf}
+\caption{\textbf{Zero-shot behavioural prediction.} Measured (solid) and predicted
+(dashed) time-resolved change in detection probability for each held-out animal,
+coloured by stimulation amplitude. The model saw no intervention trial from the
+animal shown.}
+\label{fig:behavior}
+\end{figure}
+
+\end{document}
