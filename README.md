@@ -87,6 +87,17 @@ qualitatively different models (latent CADENCE, an observed-space linear-respons
 model, a physical-feature encoding model, a manifold-alignment group average) all
 plateau at *r* ≈ 0.28 across animals.
 
+**But that per-unit amplitude is not predictable.** Given the missing quantity, we
+tried to predict it from everything non-interventional available — unit depth and
+offset from each contact, firing statistics, and the unit's spontaneous
+fluctuation–response drive from each contact — with nested shrinkage selection. Across
+all 949 units predicted and required gains correlate at only *r* = 0.174, lifting ΔR²
+to just +0.055 (*p* = 0.037) against the +0.405 oracle.
+
+So there is a clean **scale dependence**: responsiveness is legible in spontaneous
+activity at the level of the **animal** (*r* = 0.42 → population ΔR² = 0.289) and not
+at the level of the **neuron** (*r* = 0.17 → single units 0.055).
+
 And we know why, for this preparation: pooled over all sessions, a unit's response is
 essentially **uncorrelated with its distance from the stimulating contact**
 (*r*(|Δdepth|, Δrate) = −0.013). Low-amplitude ICMS recruits a sparse, spatially

@@ -45,6 +45,7 @@ def main() -> int:
     ap.add_argument("--gain", type=Path, default=Path("results/tables/gain_from_spontaneous.json"))
     ap.add_argument("--gain-unit", type=Path,
                     default=Path("results/tables/gain_from_spontaneous_unit.json"))
+    ap.add_argument("--unit-gain", type=Path, default=Path("results/tables/unit_gain.json"))
     ap.add_argument("--out", type=Path, default=Path("paper/numbers.tex"))
     args = ap.parse_args()
 
@@ -162,6 +163,22 @@ def main() -> int:
         t = g.get("test_predicted_vs_none")
         if t:
             M[pre + "P"] = pval(t["p_perm"])
+
+    # ---- per-unit gain predicted from non-interventional data ----
+    if args.unit_gain.exists():
+        ug = json.loads(args.unit_gain.read_text())
+        for k, t in (("none", "None"), ("global", "Global"),
+                     ("predicted", "Pred"), ("oracle", "Oracle")):
+            if k in ug:
+                M["UGain" + t] = fmt(ug[k]["delta_r2"])
+                M["UGain" + t + "Lo"] = fmt(ug[k]["ci"][0])
+                M["UGain" + t + "Hi"] = fmt(ug[k]["ci"][1])
+                M["UGain" + t + "Pos"] = f"{ug[k]['sessions_above_zero']}/{ug[k]['n']}"
+        if "unit_gain_corr" in ug:
+            M["UGainR"] = fmt(ug["unit_gain_corr"])
+        t = ug.get("test_predicted_vs_none")
+        if t:
+            M["UGainP"] = pval(t["p_perm"])
 
     # ---- teacher ----
     for p in args.teacher:

@@ -66,6 +66,10 @@
 \providecommand{\TDegenLo}{--}\providecommand{\TDegenHi}{--}\providecommand{\TDegenBeh}{--}
 \providecommand{\TDegenCtrlPerm}{--}\providecommand{\TDegenCtrlScr}{--}
 \providecommand{\THeteroCtrlPerm}{--}\providecommand{\THeteroCtrlScr}{--}
+\providecommand{\UGainNone}{--}\providecommand{\UGainGlobal}{--}
+\providecommand{\UGainPred}{--}\providecommand{\UGainPredLo}{--}\providecommand{\UGainPredHi}{--}
+\providecommand{\UGainPredPos}{--}\providecommand{\UGainOracle}{--}
+\providecommand{\UGainR}{--}\providecommand{\UGainP}{--}
 \providecommand{\GainPopNone}{--}\providecommand{\GainPopGlobal}{--}
 \providecommand{\GainPopPred}{--}\providecommand{\GainPopPredLo}{--}
 \providecommand{\GainPopPredHi}{--}\providecommand{\GainPopPredPos}{--}
@@ -136,9 +140,10 @@ scalar per unit} raises $\Delta R^2$ from $\ReadoutNone$ to $\ReadoutGain$
 ($p = \ReadoutGainP$), and a per-unit scalar cannot invent structure in time or
 across conditions. The shared causal operator is therefore already substantially
 correct; what is missing is the animal-specific map between individual neurons and
-the conserved state -- and for microstimulation we show why it is missing, since the
-stimulus recruits a spatially diffuse, implant-specific set of cells
-($r(|\Delta z|,\Delta\text{rate}) = -0.013$). Shared neural dynamics is causal, but
+the conserved state. Responsiveness turns out to be legible in spontaneous activity at
+the level of the animal ($r = \GainPopR$) but not of the neuron ($r = \UGainR$), and
+for microstimulation we show why: the stimulus recruits a spatially diffuse,
+implant-specific set of cells ($r(|\Delta z|,\Delta\text{rate}) = -0.013$). Shared neural dynamics is causal, but
 only above the single-neuron scale.
 \end{abstract}
 
@@ -619,6 +624,23 @@ $p = \ReadoutGainP$; $\ReadoutGainPos$ sessions and all \NAnimals{} animals
 positive; Table~\ref{tab:oracle}). Adding a per-unit offset gives
 $\ReadoutGainOff$, and a per-unit gain plus a single temporal profile shared by all
 units gives $\ReadoutTime$.
+
+\paragraph{And that per-unit amplitude is not predictable.} Having identified the
+missing quantity exactly, we tried to predict it without intervention data. The target
+is the per-unit gain above; the predictors are everything non-interventional we have
+-- the unit's depth and offset from each stimulating contact, its firing statistics,
+and its spontaneous fluctuation--response drive from each contact (the
+covariance- and lagged-covariance-weighted coupling to the units near that contact) --
+with ridge shrinkage chosen by nested leave-one-animal-out. Across all \NUnits{} units
+the predicted and required gains correlate at only $r = \UGainR$, and applying the
+prediction lifts $\Delta R^2$ from $\UGainNone$ to $\UGainPred$
+$[\UGainPredLo, \UGainPredHi]$ ($p = \UGainP$) -- statistically detectable, but far
+below the $\UGainOracle$ an exact per-unit gain achieves.
+
+Put beside Section~\ref{sec:gain} this gives a clean scale dependence:
+responsiveness is legible in spontaneous activity at the level of the \emph{animal}
+($r = \GainPopR$, lifting the population response to $\GainPopPred$) and not at the
+level of the \emph{neuron} ($r = \UGainR$, lifting single units only to $\UGainPred$).
 
 The shared causal operator is therefore already substantially correct: it predicts
 \emph{which pattern in time and across conditions} each unit will show, and gets the
