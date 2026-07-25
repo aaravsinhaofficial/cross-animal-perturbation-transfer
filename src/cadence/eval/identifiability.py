@@ -21,7 +21,7 @@ from __future__ import annotations
 import numpy as np
 
 
-def cca_correlations(A: np.ndarray, B: np.ndarray, reg: float = 1e-6) -> np.ndarray:
+def cca_correlations(A: np.ndarray, B: np.ndarray) -> np.ndarray:
     """Canonical correlations between two sets of observations (rows = samples)."""
     A = np.asarray(A, float)
     B = np.asarray(B, float)
@@ -29,10 +29,8 @@ def cca_correlations(A: np.ndarray, B: np.ndarray, reg: float = 1e-6) -> np.ndar
     B = B - B.mean(0, keepdims=True)
     qa, _ = np.linalg.qr(A)
     qb, _ = np.linalg.qr(B)
-    s = np.linalg.svd(qa.T @ qb, compute_uv=False) if False else np.linalg.svd(
-        qa.T @ qb, compute_uv=False
-    )
-    return np.clip(s, 0.0, 1.0)
+    sv = np.linalg.svd(qa.T @ qb, compute_uv=False)
+    return np.clip(sv, 0.0, 1.0)
 
 
 def linear_map(Z: np.ndarray, X: np.ndarray, reg: float = 1e-4) -> np.ndarray:

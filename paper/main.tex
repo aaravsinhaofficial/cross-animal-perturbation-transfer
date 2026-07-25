@@ -63,6 +63,17 @@
 \providecommand{\THeteroBeh}{--}\providecommand{\THeteroPos}{--}\providecommand{\THeteroMaLat}{--}
 \providecommand{\TDegen}{--}\providecommand{\TDegenOracle}{--}\providecommand{\TDegenCeil}{--}
 \providecommand{\TDegenPos}{--}
+\providecommand{\TDegenLo}{--}\providecommand{\TDegenHi}{--}\providecommand{\TDegenBeh}{--}
+\providecommand{\TDegenCtrlPerm}{--}\providecommand{\TDegenCtrlScr}{--}
+\providecommand{\THeteroCtrlPerm}{--}\providecommand{\THeteroCtrlScr}{--}
+\providecommand{\ReadoutNone}{--}\providecommand{\ReadoutNoneLo}{--}\providecommand{\ReadoutNoneHi}{--}
+\providecommand{\ReadoutNonePos}{--}
+\providecommand{\ReadoutGain}{--}\providecommand{\ReadoutGainLo}{--}\providecommand{\ReadoutGainHi}{--}
+\providecommand{\ReadoutGainPos}{--}\providecommand{\ReadoutGainDiff}{--}\providecommand{\ReadoutGainP}{--}
+\providecommand{\ReadoutGainOff}{--}\providecommand{\ReadoutGainOffLo}{--}
+\providecommand{\ReadoutGainOffHi}{--}\providecommand{\ReadoutGainOffPos}{--}
+\providecommand{\ReadoutTime}{--}\providecommand{\ReadoutTimeLo}{--}
+\providecommand{\ReadoutTimeHi}{--}\providecommand{\ReadoutTimePos}{--}
 \IfFileExists{numbers.tex}{\input{numbers}}{}
 
 \title{\bf Do individuals share a causal dynamical operator?\\
@@ -89,10 +100,13 @@ dynamical operator, a species-invariant causal (intervention) operator,
 animal-specific observation maps and animal-specific residual dynamics; we show
 that the new animal's observation map -- and hence its predicted intervention
 response -- is identified from unperturbed activity alone up to the symmetry group
-of the shared flow, and confirm in teacher-RNN simulations with known ground truth
-both that transfer succeeds when a shared operator exists ($\Delta R^2 = \TShared$
-against a $\TSharedCeil$ ceiling, all controls $\le 0$) and that it fails between
-independently trained networks that share only the task. We then apply the framework to
+of the shared flow. In teacher-RNN simulations with known ground truth, zero-shot
+transfer is positive when animals genuinely share dynamics ($\Delta R^2 = \TDegen$
+and $\TShared$ in two such regimes, against ceilings of $\TDegenCeil$ and
+$\TSharedCeil$) and negative between independently trained networks that share only
+the task ($\THetero$), with every negative control below zero; with five simulated
+animals per regime these estimates are imprecise, so we treat them as existence
+checks rather than measurements. We then apply the framework to
 \NAnimals{} mice receiving parameterised intracortical microstimulation of
 somatosensory cortex during a detection task (\NSessions{} sessions, \NUnits{}
 single units, \NStimTrials{} stimulation trials; DANDI:001868), holding out whole
@@ -108,10 +122,16 @@ rate: $\Delta R^2 = \PopXAni$, $r = \PopXAniR$; depth bands: $\Delta R^2 =
 \BandXAni$, $p = \BandP$). Single-unit responses do not transfer
 ($\Delta R^2 = \UnitXAni$, $p = \UnitP$) even though they are well estimated
 (ceiling $\UnitXAniCeil$) and largely predictable within a session
-($\Delta R^2 = \UnitIn$). The limiting factor is not the causal operator but the
-animal-specific map between individual neurons and the conserved latent state.
-Shared neural dynamics is therefore causal, but only above the single-neuron
-scale.
+($\Delta R^2 = \UnitIn$). We then localise that failure precisely: holding the
+shared operator completely fixed and granting the held-out animal only \emph{one
+scalar per unit} raises $\Delta R^2$ from $\ReadoutNone$ to $\ReadoutGain$
+($p = \ReadoutGainP$), and a per-unit scalar cannot invent structure in time or
+across conditions. The shared causal operator is therefore already substantially
+correct; what is missing is the animal-specific map between individual neurons and
+the conserved state -- and for microstimulation we show why it is missing, since the
+stimulus recruits a spatially diffuse, implant-specific set of cells
+($r(|\Delta z|,\Delta\text{rate}) = -0.013$). Shared neural dynamics is causal, but
+only above the single-neuron scale.
 \end{abstract}
 
 \section{Introduction}
@@ -157,12 +177,18 @@ observation maps $H_i$ and animal-specific residual dynamics $F^{\mathrm{res}}_i
 \item \textbf{An identifiability result, and what breaks the degeneracy.}
 Proposition~\ref{prop:ident} states that with a free per-animal observation map,
 transfer is identified precisely when the shared flow has trivial symmetry group,
-and is otherwise ambiguous by exactly that group. Teacher-RNN simulations confirm
-that transfer succeeds when a shared operator exists, fails between independently
-trained networks that share only the task, and -- informatively -- survives a
+and is otherwise ambiguous by exactly that group. Teacher-RNN simulations show
+that transfer is positive when dynamics are genuinely shared, absent between
+independently trained networks that share only the task, and -- informatively --
+survives a
 deliberately symmetric flow once observation maps are tied across animals through
 shared per-unit features, because that removes the freedom the symmetry would
 otherwise exploit (Section~\ref{sec:teacher}).
+\item \textbf{A decomposition that localises the failure.} With the shared operator
+held fixed, one scalar per unit fitted on the held-out animal lifts $\Delta R^2$ from
+$\ReadoutNone$ to $\ReadoutGain$ ($\ReadoutGainPos$ sessions positive). The operator
+predicts \emph{which pattern in time and across conditions} each unit shows and gets
+only the per-unit amplitude wrong.
 \item \textbf{A concrete mechanism for the failure at single-neuron resolution.}
 Pooled over every session, a unit's response to microstimulation is essentially
 uncorrelated with its distance from the stimulating contact
@@ -367,22 +393,33 @@ unidentifiable.
 
 Table~\ref{tab:teacher} reports leave-one-animal-out transfer.
 
-\paragraph{The positive branch holds.} When a shared operator genuinely exists,
-zero-shot transfer works: $\Delta R^2 = \TShared$ against a noise ceiling of
-$\TSharedCeil$, with every negative control at or below zero (permuted unit
-identities $\TSharedCtrlPerm$, scrambled intervention labels $\TSharedCtrlScr$,
-no-effect $0$ by construction) and the oracle -- which additionally sees the
-held-out animal's intervention trials -- at $\TSharedOracle$. Behaviour transfers
-at $\TSharedBeh$. This is the existence proof the biological question needs: given
-a shared causal operator and an identifiable observation map, an intervention
-response \emph{can} be predicted in an animal calibrated only on normal activity.
+\paragraph{Transfer is positive where dynamics are genuinely shared.} In the
+degenerate regime, where every animal inherits the same teacher exactly,
+zero-shot transfer is positive in $\TDegenPos$ folds ($\Delta R^2 = \TDegen$,
+ceiling $\TDegenCeil$; behaviour $\TDegenBeh$). In the shared regime, where animals
+additionally carry an animal-specific low-rank perturbation of the recurrent
+weights, the mean is positive but variable across folds
+($\Delta R^2 = \TShared$, $\TSharedPos$ folds above zero, behaviour $\TSharedBeh$).
+Negative controls are clearly below zero in both (permuted unit identities
+$\TSharedCtrlPerm$, scrambled intervention labels $\TSharedCtrlScr$ in the shared
+regime). With only five simulated animals per regime the confidence intervals are
+wide -- this benchmark is an existence check that the protocol can work at all, not
+a precise measurement; the well-powered numbers in this paper are the biological
+ones in Section~\ref{sec:icms}, which rest on \NSessions{} sessions.
 
 \paragraph{Independently trained networks do not transfer.} In the heterogeneous
-regime $\Delta R^2 = \THetero$ while the oracle reaches $\THeteroOracle$. Networks
-that solve the same task with unrelated weights therefore do not share a causal
-operator that our model can recover at this scale -- even though the same model,
-given the held-out network's intervention trials, fits it well. Sharing a task is
-not sharing an operator.
+regime $\Delta R^2 = \THetero$ with only $\THeteroPos$ folds above zero, while the
+oracle reaches $\THeteroOracle$. Networks that solve the same task with unrelated
+weights therefore do not share a causal operator that our model can recover at this
+scale -- even though the same model, given the held-out network's intervention
+trials, fits it well. Sharing a task is not sharing an operator.
+
+\paragraph{The oracle gap is the same everywhere.} Across all three regimes the
+oracle sits far above zero-shot ($\TSharedOracle$, $\THeteroOracle$, $\TDegenOracle$
+versus $\TShared$, $\THetero$, $\TDegen$). The model can express these intervention
+responses; what limits zero-shot transfer is calibrating the held-out animal. That
+is the same conclusion the biological data force, and Section~\ref{sec:whyhard}
+quantifies it there.
 
 \paragraph{Symmetry is broken by tying observation maps, not by the data.} The
 degenerate teacher still transfers ($\Delta R^2 = \TDegen$). This is not a
@@ -399,19 +436,18 @@ coupling.
 \begin{table}[t]\centering\small
 \caption{Teacher-RNN benchmark, leave-one-animal-out. $\Delta R^2$ for the
 held-out animal's intervention responses, calibrated on unperturbed data only.
-``oracle'' additionally sees the held-out animal's intervention trials. The
-aligned-group-mean baseline transports the measured average effect through the
-model's own observation maps; it is numerically unstable when those maps are
-ill-conditioned, which is why it diverges.}
+``oracle'' additionally sees the held-out animal's intervention trials. Five
+simulated animals per regime, so the intervals are wide; this table is an existence
+check, not a measurement.}
 \label{tab:teacher}
-\begin{tabular}{lcccccc}
+\begin{tabular}{lccccccc}
 \toprule
-regime & CADENCE & oracle & \shortstack{permuted\\units} & \shortstack{scrambled\\stimulus} &
-\shortstack{aligned\\group mean} & ceiling \\
+regime & zero-shot & \shortstack{folds\\$>0$} & oracle & \shortstack{permuted\\units} &
+\shortstack{scrambled\\stimulus} & behaviour & ceiling \\
 \midrule
-shared        & \textbf{\TShared} & \TSharedOracle & \TSharedCtrlPerm & \TSharedCtrlScr & \TSharedMaLat & \TSharedCeil \\
-heterogeneous & \THetero  & \THeteroOracle & -- & -- & \THeteroMaLat & \THeteroCeil \\
-degenerate    & \TDegen   & \TDegenOracle  & -- & -- & --            & \TDegenCeil  \\
+shared        & \TShared\,{\footnotesize[\TSharedLo, \TSharedHi]} & \TSharedPos & \TSharedOracle & \TSharedCtrlPerm & \TSharedCtrlScr & \TSharedBeh & \TSharedCeil \\
+heterogeneous & \THetero\,{\footnotesize[\THeteroLo, \THeteroHi]} & \THeteroPos & \THeteroOracle & \THeteroCtrlPerm & \THeteroCtrlScr & \THeteroBeh & \THeteroCeil \\
+degenerate    & \textbf{\TDegen}\,{\footnotesize[\TDegenLo, \TDegenHi]} & \TDegenPos & \TDegenOracle & \TDegenCtrlPerm & \TDegenCtrlScr & \TDegenBeh & \TDegenCeil \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -443,11 +479,12 @@ exceeds $1.25\times$. The released audit reports \NAuditProblems{} remaining
 problems across all sessions, and the pipeline is bit-for-bit reproducible.
 
 \paragraph{Effects are large and well estimated.} Stimulation roughly doubles the
-population rate for the duration of the train, with a graded dependence on
-amplitude and a clear dependence on the distance between a unit and the
-stimulating contact, followed by a post-offset undershoot (Fig.~\ref{fig:dataset}).
-Median split-half ceilings are $\CeilUnitMed$ for units and $\CeilBehMed$ for
-behaviour, so the measurements are not the limiting factor.
+population rate for the duration of the train, with a graded (and, above
+$\sim$5\,\textmu A, saturating) dependence on amplitude and a post-offset
+undershoot (Fig.~\ref{fig:dataset}). It is, however, \emph{not} spatially
+organised around the stimulating contact -- a point we return to in
+Section~\ref{sec:whyhard}. Median split-half ceilings are $\CeilUnitMed$ for units
+and $\CeilBehMed$ for behaviour, so the measurements are not the limiting factor.
 
 \subsection{A generalisation ladder}
 
@@ -519,20 +556,52 @@ missing quantity is the correspondence between an individual neuron and the
 conserved latent state, and that correspondence is not recoverable from
 spontaneous activity in $\approx 20$ simultaneously recorded units.
 
-\subsection{Why single units are hard}
+\subsection{Why single units are hard}\label{sec:whyhard}
 
 Two independent lines of evidence localise the failure, and neither implicates the
 causal operator.
 
-\paragraph{The readout, not the operator.} Refitting \emph{only} the held-out
-animal's observation map using its intervention trials -- changing nothing about the
-shared operator -- recovers much of the unit-level accuracy, while calibrating the
-same map on spontaneous activity does not. Proposition~\ref{prop:ident} explains
-why calibration on spontaneous activity is hard: spontaneous cortical activity sits
-near a fixed point, where the flow is weak and close to isotropic, so the freedom
-left in the observation map is large. The teacher experiments show that tying
-observation maps through shared per-unit features can remove that freedom entirely
--- but only if the features carry information about a unit's causal coupling.
+\paragraph{The readout, not the operator.} We can localise the missing ingredient to
+a handful of numbers. Hold the shared drive \emph{completely fixed} at the value
+fitted on the other animals, and grant on the held-out animal only a per-unit
+rescaling of the predicted effect, fitted on its intervention trials. This is not a
+prediction -- it uses data the protocol forbids -- but it is a decomposition, and a
+tightly constrained one: a per-unit scalar cannot invent structure in time or across
+conditions, because each unit's predicted time course and dose dependence are fixed
+by the shared operator. One scalar per unit takes $\Delta R^2$ from
+$\ReadoutNone$ to $\ReadoutGain$ (paired difference $\ReadoutGainDiff$,
+$p = \ReadoutGainP$; $\ReadoutGainPos$ sessions and all \NAnimals{} animals
+positive; Table~\ref{tab:oracle}). Adding a per-unit offset gives
+$\ReadoutGainOff$, and a per-unit gain plus a single temporal profile shared by all
+units gives $\ReadoutTime$.
+
+The shared causal operator is therefore already substantially correct: it predicts
+\emph{which pattern in time and across conditions} each unit will show, and gets the
+per-unit amplitude wrong. Proposition~\ref{prop:ident} explains why that amplitude is
+not recoverable from spontaneous activity: near a fixed point the flow is weak and
+close to isotropic, so the freedom left in the observation map is large. The teacher
+experiments show that tying observation maps through shared per-unit features can
+remove that freedom entirely -- but only if the features carry information about a
+unit's causal coupling. In this preparation they do not, for the reason below.
+
+\begin{table}[t]\centering\small
+\caption{Localising the failure. The shared drive is fitted on other animals and
+held fixed; the held-out animal is granted only a readout rescaling, fitted on its
+intervention trials. These rows are \emph{not} predictions -- they quantify how much
+of the gap is attributable to the per-unit readout rather than to the causal
+operator.}
+\label{tab:oracle}
+\begin{tabular}{llcc}
+\toprule
+readout freedom granted & parameters & $\Delta R^2$ & sessions $>0$ \\
+\midrule
+none (honest zero-shot)        & $0$              & \ReadoutNone\ {\footnotesize[\ReadoutNoneLo, \ReadoutNoneHi]} & \ReadoutNonePos \\
+one gain per unit              & $N_i$            & \textbf{\ReadoutGain}\ {\footnotesize[\ReadoutGainLo, \ReadoutGainHi]} & \ReadoutGainPos \\
+gain and offset per unit       & $2N_i$           & \ReadoutGainOff\ {\footnotesize[\ReadoutGainOffLo, \ReadoutGainOffHi]} & \ReadoutGainOffPos \\
+gain per unit + shared timecourse & $N_i + T$     & \ReadoutTime\ {\footnotesize[\ReadoutTimeLo, \ReadoutTimeHi]} & \ReadoutTimePos \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \paragraph{In this preparation, they cannot.} Pooled over all \NSessions{} sessions
 and every condition, a unit's response is essentially uncorrelated with its

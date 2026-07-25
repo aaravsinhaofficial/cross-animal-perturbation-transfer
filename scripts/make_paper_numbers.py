@@ -41,6 +41,7 @@ def main() -> int:
         Path("results/teacher_degenerate.json"),
     ])
     ap.add_argument("--levels", type=Path, default=Path("results/tables/transfer_levels_fr.json"))
+    ap.add_argument("--readout", type=Path, default=Path("results/tables/readout_oracle.json"))
     ap.add_argument("--out", type=Path, default=Path("paper/numbers.tex"))
     args = ap.parse_args()
 
@@ -122,6 +123,24 @@ def main() -> int:
                 M[tag] = fmt(lv[k]["delta_r2"])
                 M[tag + "R"] = fmt(lv[k]["delta_corr"])
 
+    # ---- readout-oracle decomposition ----
+    if args.readout.exists():
+        ro = json.loads(args.readout.read_text())
+        tags = {"none": "ReadoutNone", "gain": "ReadoutGain",
+                "gain+offset": "ReadoutGainOff", "timecourse": "ReadoutTime"}
+        for k, tag in tags.items():
+            if k not in ro:
+                continue
+            r = ro[k]
+            M[tag] = fmt(r["delta_r2"])
+            M[tag + "Lo"] = fmt(r["ci"][0])
+            M[tag + "Hi"] = fmt(r["ci"][1])
+            M[tag + "Pos"] = f"{r['sessions_above_zero']}/{r['n']}"
+        t = ro.get("test_gain_vs_none")
+        if t:
+            M["ReadoutGainDiff"] = fmt(t["mean_diff"])
+            M["ReadoutGainP"] = pval(t["p_perm"])
+
     # ---- teacher ----
     for p in args.teacher:
         if not p.exists():
@@ -148,6 +167,10 @@ def main() -> int:
         b = s.get("cadence", {}).get("behavior.delta_r2")
         if b:
             M[tag + "Beh"] = fmt(b["mean"])
+        v = s.get("cadence", {}).get("neural.delta_r2")
+        if v:
+            M[tag + "Lo"] = fmt(v["ci_lo"])
+            M[tag + "Hi"] = fmt(v["ci_hi"])
         for gk, gt in [("group.group:conserved", "Cons"),
                        ("group.group:idiosyncratic", "Idio")]:
             v = s.get("cadence", {}).get(gk)

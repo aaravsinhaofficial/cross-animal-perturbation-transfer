@@ -162,16 +162,39 @@ ambiguous by exactly that group.</p>
 nearly isotropic &mdash; effectively the degenerate case. That predicts difficulty exactly
 where we measure it. Two independent lines of evidence confirm the diagnosis:</p>
 
+<p><b>One scalar per unit closes most of the gap.</b> Hold the shared operator
+completely fixed at the value fitted on the other animals, and grant the held-out
+animal only a rescaling of the predicted response, fitted on its intervention trials.
+This is not a prediction &mdash; it uses data the protocol forbids &mdash; but it is a
+tightly constrained decomposition: a per-unit scalar cannot invent structure in time
+or across conditions, because each unit's predicted time course and dose dependence
+are fixed by the shared operator.</p>
+
+<div class="tablewrap">
+<table>
+<thead><tr><th>readout freedom granted</th><th>parameters</th><th>&Delta;R&sup2;</th><th>sessions &gt;0</th></tr></thead>
+<tbody>
+<tr><td>none (honest zero-shot)</td><td>0</td><td>+0.003</td><td>31/48</td></tr>
+<tr class="hi"><td>one gain per unit</td><td><i>N<sub>i</sub></i></td><td><b>+0.405</b></td><td>48/48</td></tr>
+<tr><td>gain and offset per unit</td><td>2<i>N<sub>i</sub></i></td><td>+0.494</td><td>48/48</td></tr>
+<tr><td>gain per unit + shared timecourse</td><td><i>N<sub>i</sub></i>+<i>T</i></td><td>+0.465</td><td>48/48</td></tr>
+</tbody></table>
+</div>
+
+<p>ΔR² goes from +0.003 to <b>+0.405</b> (<i>p</i>&nbsp;=&nbsp;7&times;10<sup>&minus;15</sup>,
+all six animals positive). The shared causal operator is already substantially
+correct: it predicts <i>which pattern in time and across conditions</i> each unit will
+show, and gets only the per-unit amplitude wrong.</p>
+
 <ul>
-<li><b>Refitting only the readout with intervention data</b> (an oracle that changes
-nothing about the shared operator) recovers much of the unit-level accuracy, while
-calibrating the same readout on spontaneous activity does not. The operator transfers;
-the neuron-to-latent map does not.</li>
 <li><b>The microstimulation effect is spatially diffuse.</b> Pooled over all sessions,
 the correlation between a unit's distance from the stimulating contact and its response
-is &minus;0.01 &mdash; there is no peak at the electrode. Low-amplitude ICMS recruits a
-sparse, distributed, implant-specific set of neurons, so there is no conserved
-neuron-level spatial rule to learn.</li>
+is &minus;0.013 &mdash; there is no peak at the electrode and no monotone falloff, only a
+broad elevation extending more than a millimetre in both directions. Low-amplitude ICMS
+recruits a sparse, distributed, implant-specific set of neurons, so there is no
+conserved neuron-level spatial rule to learn. Consistently, the neural dose&ndash;response
+saturates and in several animals reverses above ~5&nbsp;&micro;A while the behavioural
+response keeps growing.</li>
 </ul>
 
 <p>Four qualitatively different models &mdash; a latent hierarchical model, an
@@ -188,6 +211,41 @@ encoding model, and a manifold-alignment group average &mdash; all plateau at
   behavioural response. Median split-half ceilings are 0.91 (units) and 0.84
   (behaviour), so the measurements are not the limiting factor.</figcaption>
 </figure>
+
+<h2>A ground-truth benchmark: when does transfer work at all?</h2>
+
+<p>Before asking the question of real brains, we ask it where the answer is known.
+Teacher recurrent networks are trained on a delayed two-alternative task; each
+&ldquo;animal&rdquo; is observed through its own random, gain-scaled Poisson readout of a
+subset of units. Three regimes isolate the assumptions.</p>
+
+<figure>
+  <img src="fig2_teacher.png" alt="Teacher-RNN benchmark">
+  <figcaption><b>Teacher-RNN benchmark.</b> <b>a</b>, Zero-shot transfer to a held-out
+  animal versus an oracle that additionally sees that animal's intervention trials;
+  dashed lines are split-half noise ceilings. <b>b</b>, Baselines and negative controls.
+  <b>c</b>, Behavioural transfer.</figcaption>
+</figure>
+
+<ul>
+<li><b>shared</b> &mdash; one teacher defines the species operator, animals differ by a
+small low-rank perturbation of the recurrent weights and by their readouts. A shared
+causal operator genuinely exists, and <b>zero-shot transfer works</b>: every negative
+control (permuted unit identities, scrambled intervention labels) sits at or below
+zero, while the model is positive.</li>
+<li><b>heterogeneous</b> &mdash; each animal is an <em>independently trained</em> network
+sharing only the task. <b>No transfer</b>, even though the same model fits the held-out
+network well when given its intervention trials. Sharing a task is not sharing an
+operator.</li>
+<li><b>degenerate</b> &mdash; a teacher whose flow is invariant to rotations, so with a
+free readout the proposition says the readout is unidentifiable. It still transfers
+&mdash; and that is informative: generating readouts from a <em>shared</em> function of
+per-unit features removes exactly the freedom the symmetry would exploit. The
+degeneracy is broken by the model's parameterisation, not by the data. This is why
+tying observation maps across animals is what makes transfer possible at all, and why
+transfer is then only as good as those features are informative about a unit's causal
+coupling.</li>
+</ul>
 
 <h2>What makes this measurable</h2>
 <ul>

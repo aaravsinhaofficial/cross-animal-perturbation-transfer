@@ -265,7 +265,9 @@ def main() -> int:
                         try:
                             th = fit_shared_from_blocks(
                                 blocks, train, lr,
-                                cond_filter=lambda t, c: c in tr_conds(t),
+                                # bind tr_conds explicitly: it is rebound each
+                                # iteration, so a free closure would be fragile
+                                cond_filter=lambda t, c, f=tr_conds: c in f(t),
                             )
                             pred = predict_unit(s, th, ev)
                         except Exception:

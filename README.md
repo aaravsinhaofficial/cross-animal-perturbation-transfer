@@ -54,12 +54,36 @@ The answer is **granularity-dependent**, and that is the finding:
   well predicted within a session (0.329) and partly within animal across
   sessions (0.172).
 
-The bottleneck is **not** the causal operator. It is the animal-specific map
-between individual neurons and the conserved latent state, which is not
-recoverable from spontaneous activity in ~20 simultaneously recorded units. Four
+### The bottleneck is the readout, not the operator
+
+Hold the shared causal operator **completely fixed** at the value fitted on the other
+animals, and grant the held-out animal only a rescaling of the predicted response,
+fitted on its intervention trials. This is not a prediction — it uses data the
+protocol forbids — but it is a tightly constrained decomposition: a per-unit scalar
+cannot invent structure in time or across conditions, because each unit's predicted
+time course and dose dependence are fixed by the shared operator.
+
+| readout freedom granted | parameters | ΔR² | sessions >0 |
+|---|---|---|---|
+| none (honest zero-shot) | 0 | +0.003 | 31/48 |
+| **one gain per unit** | *Nᵢ* | **+0.405** | **48/48** |
+| gain and offset per unit | 2*Nᵢ* | +0.494 | 48/48 |
+| gain per unit + shared timecourse | *Nᵢ*+*T* | +0.465 | 48/48 |
+
+One scalar per unit lifts ΔR² from +0.003 to **+0.405** (paired difference +0.402,
+*p* = 7×10⁻¹⁵, all 6 animals positive). **The shared causal operator is already
+substantially correct** — it predicts *which pattern in time and across conditions*
+each unit will show — and gets only the per-unit amplitude wrong. That amplitude is
+not recoverable from spontaneous activity in ~20 simultaneously recorded units. Four
 qualitatively different models (latent CADENCE, an observed-space linear-response
 model, a physical-feature encoding model, a manifold-alignment group average) all
 plateau at *r* ≈ 0.28 across animals.
+
+And we know why, for this preparation: pooled over all sessions, a unit's response is
+essentially **uncorrelated with its distance from the stimulating contact**
+(*r*(|Δdepth|, Δrate) = −0.013). Low-amplitude ICMS recruits a sparse, spatially
+diffuse, implant-specific set of neurons, so there is no conserved neuron-level
+spatial rule for any model to learn.
 
 ---
 
@@ -79,15 +103,33 @@ both `(C_i, F_res_i)` and `(C_i', F_res_i')`, then the two differ by some
 responses differ by `C_i T⁻¹ (T G(Tz) a − G(z) a)`. So the predicted response is
 **unique iff `Sym(F)` is trivial**, and otherwise ambiguous by exactly that group.
 
-Two consequences, both verified:
+Two consequences:
 
-1. **Rich, asymmetric shared dynamics make transfer identifiable; degenerate
-   (isotropic/rotationally symmetric) dynamics make it impossible.** The
-   teacher-RNN benchmark includes a deliberately symmetric teacher as a
-   falsification control.
-2. **Spontaneous cortical activity sits near a fixed point**, where the flow is
-   weak and nearly isotropic — effectively the degenerate case. This predicts
-   difficulty exactly where we measure it.
+1. **With a free per-animal observation map, transfer needs the shared flow to be
+   asymmetric.** Degenerate (isotropic, rotationally symmetric) dynamics leave a
+   reparameterisation the readout can absorb. But the freedom can be removed by
+   *construction*: generating observation maps from a shared function of per-unit
+   features is exactly what stops the readout absorbing a rotation. This is why our
+   deliberately symmetric teacher still transfers — the degeneracy is broken by the
+   parameterisation, not by the data — and it is why tying observation maps across
+   animals is what makes transfer possible at all.
+2. **Spontaneous cortical activity sits near a fixed point**, where the flow is weak
+   and nearly isotropic. So the freedom left in a new animal's readout is large, and
+   transfer is then only as good as the per-unit features are informative about that
+   unit's causal coupling. In this preparation they are not (see above), which
+   predicts difficulty exactly where we measure it.
+
+Teacher-RNN simulations (5 animals per regime, so these are existence checks rather
+than precise measurements) bear both branches out: zero-shot transfer is positive
+where animals genuinely share dynamics (ΔR² = +0.230, 5/5 folds when teachers are
+identical; +0.159, 3/5 when they also carry animal-specific weight perturbations),
+negative between independently trained networks sharing only the task (−0.104, 1/5),
+and every negative control is below zero. The oracle is far above zero-shot in all
+three regimes (+0.29 to +0.74) — the model can express these responses; calibrating
+the held-out animal is what limits it. Informatively, a *deliberately symmetric*
+teacher still transfers: generating observation maps from a shared function of
+per-unit features removes exactly the freedom the symmetry would exploit, so the
+degeneracy is broken by the parameterisation rather than by the data.
 
 An observed-space **linear-response** formulation avoids latent frames entirely:
 estimate each animal's propagator `A_i` from its own unperturbed activity and share
