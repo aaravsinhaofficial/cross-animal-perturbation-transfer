@@ -587,11 +587,21 @@ drives transfer of the individual part to zero.
 
 The microstimulation cohort sits below the worst case the simulator can produce. So
 private recruitment is part of the story there and not all of it, and the missing piece
-is the second mechanism: for electrical stimulation, a neuron's ongoing rate does not
-say how much the stimulus will move it. Under light it does, which is what the beam
-suppressing exactly the cells that were ramping hardest would look like. That is a
-statement about mechanism which a future experiment can check directly, by measuring
-responsiveness and ongoing rate in the same cells under both kinds of perturbation.
+has to be the second mechanism: for electrical stimulation, a neuron's ongoing activity
+must fail to say how much the stimulus will move it, while under light it must succeed.
+
+That was a prediction when we wrote it, and Section~\ref{sec:rule} is the test. It
+holds. Under light a neuron's firing rate predicts how much it is suppressed in
+\RuleRateNeg{} of \RuleRateN{} animals, and how sharply it distinguishes the two
+choices predicts it in \RuleSelNeg{} of \RuleSelN. Under current the same measurement
+gives $\RuleIcmsRateR$ in \RuleIcmsRateNeg{} of \RuleIcmsRateN{} animals, which is
+nothing. The simulator told us which quantity to go and measure, and the measurement
+came out the way it had to for the two cohorts to differ as they do.
+
+One detail of our guess was wrong, and it is worth recording. We expected the light to
+act on the cells that were ramping hardest. It does not: the ramp on its own predicts
+nothing (\RuleRampNeg{}/\RuleRampN, $p = \RuleRampP$). What it acts on is selectivity
+and rate.
 
 \section{When can transfer work at all}
 
