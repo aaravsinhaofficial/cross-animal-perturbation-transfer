@@ -205,6 +205,16 @@ def main() -> int:
         if not p.exists():
             continue
         r = json.loads(p.read_text())
+        best = r.get("blend", {}).get("per_animal", {})
+        if best:
+            v = sorted(best.values())[-4:]
+            M[f"{pre}Top"] = f3(max(v))
+            M[f"{pre}TopLo"] = f3(min(v))
+            g = r.get("group", {}).get("per_animal", {})
+            gv = [g[k] for k in sorted(best, key=lambda k: -best[k])[:4] if k in g]
+            if gv:
+                M[f"{pre}TopStereoLo"] = f3(min(gv))
+                M[f"{pre}TopStereoHi"] = f3(max(gv))
         for k, suf in (("group", "Stereo"), ("operator", "Net"), ("blend", "Model")):
             if k in r:
                 M[f"{pre}{suf}"] = f3(r[k]["animal_mean"])
