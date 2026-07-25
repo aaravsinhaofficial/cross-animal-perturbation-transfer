@@ -580,3 +580,116 @@ def fig_operator(kernel: dict, out: Path, gain: dict | None = None):
                      f"{gain['predicted']['delta_r2']:+.2f}", loc="left", fontsize=7.5)
     fig.tight_layout()
     save(fig, out, "fig6_operator")
+
+
+# ---------------------------------------------------------------------------
+# Figure 7 -- the simulated cortex
+# ---------------------------------------------------------------------------
+def fig_cortex(rows: list, out: Path, real_range=(8, 33)):
+    """Unit- and population-level transfer against the number of recorded neurons,
+    for a shared recruitment rule and for one private to each implant."""
+    use_style()
+    fig, axes = plt.subplots(1, 3, figsize=(7.6, 2.5),
+                             gridspec_kw=dict(width_ratios=[1.1, 1.1, 0.95]))
+    style = {"local": (C["oracle"], "o", "shared recruitment rule"),
+             "sparse": (C["warm"], "s", "recruitment private to each implant")}
+
+    for ax, level, title in ((axes[0], "unit", "Single neurons"),
+                             (axes[1], "population", "Population rate")):
+        panel_label(ax, "a" if level == "unit" else "b")
+        for rec in ("local", "sparse"):
+            sub = sorted([r for r in rows if r["recruit"] == rec],
+                         key=lambda r: r["n_obs"])
+            if not sub:
+                continue
+            col, mk, lab = style[rec]
+            x = [r["n_obs"] for r in sub]
+            y = [r[level]["animal_mean"] for r in sub]
+            lo = [r[level]["ci_lo"] for r in sub]
+            hi = [r[level]["ci_hi"] for r in sub]
+            ax.fill_between(x, lo, hi, color=col, alpha=0.16, lw=0)
+            ax.plot(x, y, marker=mk, ms=3.5, color=col, label=lab)
+        ax.axvspan(*real_range, color="#999999", alpha=0.16, lw=0, zorder=0)
+        ax.axhline(0, color="#777777", lw=0.8)
+        ax.set_xscale("log")
+        ax.set_xlabel("neurons recorded at once")
+        ax.set_ylabel("$\\Delta R^2$ (held-out animal)")
+        ax.set_title(title, loc="left")
+        if level == "unit":
+            ax.legend(fontsize=6.2, loc="lower right")
+
+    ax = axes[2]; panel_label(ax, "c")
+    sub_l = sorted([r for r in rows if r["recruit"] == "local"], key=lambda r: r["n_obs"])
+    sub_s = sorted([r for r in rows if r["recruit"] == "sparse"], key=lambda r: r["n_obs"])
+    if sub_l and sub_s:
+        x = [r["n_obs"] for r in sub_s]
+        gap = [a["unit"]["animal_mean"] - b["unit"]["animal_mean"]
+               for a, b in zip(sub_l, sub_s)]
+        ax.plot(x, gap, marker="D", ms=3.5, color=C["cadence"])
+        ax.axvspan(*real_range, color="#999999", alpha=0.16, lw=0, zorder=0)
+        ax.axhline(0, color="#777777", lw=0.8)
+        ax.set_xscale("log")
+        ax.set_xlabel("neurons recorded at once")
+        ax.set_ylabel("cost of private recruitment")
+        ax.set_title("Cost of a private\nrecruitment pattern", loc="left", fontsize=7.5)
+        ax.text(np.sqrt(real_range[0] * real_range[1]), ax.get_ylim()[1] * 0.92,
+                "range in\nthe mice", ha="center", va="top", fontsize=6,
+                color="#555555")
+    fig.tight_layout()
+    save(fig, out, "fig7_cortex")
+
+
+# ---------------------------------------------------------------------------
+# Figure 4 (rebuilt) -- one point per animal
+# ---------------------------------------------------------------------------
+LEVEL_TITLE = {"detection": "behaviour", "population": "population rate",
+               "depth_band": "depth bands", "unit": "single neurons"}
+
+
+def fig_ladder_animals(final: dict, out: Path):
+    """Every animal shown, because six animals is the sample size that matters."""
+    use_style()
+    res = final["results"]
+    levels = [lv for lv in ("detection", "population", "depth_band", "unit")
+              if f"{lv}|none|group_mean" in res]
+    prefer = {"detection": "dose_physical", "population": "linear_response",
+              "depth_band": "linear_response", "unit": "linear_response"}
+    fig, axes = plt.subplots(1, len(levels), figsize=(1.85 * len(levels) + 0.6, 2.7),
+                             sharey=True)
+    if len(levels) == 1:
+        axes = [axes]
+    for i, lv in enumerate(levels):
+        ax = axes[i]
+        panel_label(ax, "abcdef"[i], dx=-0.28 if i == 0 else -0.12)
+        entries = []
+        for meth, lab, col in ((("group_mean"), "average of\nother mice", C["ma"]),
+                               (prefer[lv], "shared rule", C["cadence"])):
+            r = res.get(f"{lv}|none|{meth}")
+            if r:
+                entries.append((lab, col, r))
+        for j, (lab, col, r) in enumerate(entries):
+            vals = list(r["per_animal"].values())
+            xs = np.full(len(vals), j) + np.linspace(-0.13, 0.13, len(vals))
+            ax.scatter(xs, vals, s=16, color=col, zorder=3, edgecolor="white",
+                       linewidth=0.4)
+            ax.hlines(r["animal_mean"], j - 0.28, j + 0.28, color=col, lw=2.0, zorder=2)
+            ax.vlines(j, r["ci_lo"], r["ci_hi"], color=col, lw=1.0, zorder=2)
+            ax.text(j, 0.025, f"{r['sign_test']['n_positive']}/{r['sign_test']['n']}",
+                    ha="center", va="bottom", fontsize=6.5, color=col,
+                    transform=ax.get_xaxis_transform())
+        r0 = res.get(f"{lv}|none|group_mean")
+        if r0:
+            ax.axhline(r0["ceiling"], color=C["ceiling"], ls=(0, (2, 1.6)), lw=0.9)
+        ax.axhline(0, color="#777777", lw=0.9)
+        ax.set_xticks(range(len(entries)))
+        ax.set_xticklabels([e[0] for e in entries], fontsize=6.2)
+        ax.set_xlim(-0.55, len(entries) - 0.45)
+        ax.set_title(LEVEL_TITLE.get(lv, lv), loc="left")
+        if i == 0:
+            ax.set_ylabel("$\\Delta R^2$ (held-out animal)")
+    axes[0].set_ylim(-0.6, 1.05)
+    fig.suptitle("Each dot is one mouse, held out in turn. "
+                 "Counts show how many mice scored above zero.",
+                 fontsize=8.5, fontweight="bold", y=1.03)
+    fig.tight_layout()
+    save(fig, out, "fig4_ladder")

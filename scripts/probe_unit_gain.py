@@ -154,6 +154,7 @@ def main() -> int:
 
     modes = ("none", "global", "predicted", "oracle")
     rows = {m: [] for m in modes}
+    groups: list[str] = []
     per_animal = {m: {} for m in modes}
     gp, gt, chosen = [], [], []
     for a in ds.animals:
@@ -173,6 +174,7 @@ def main() -> int:
         chosen.append(best_lam)
         model = fit(tr, best_lam)
         te = [k for k in keys if ani[k] == a]
+        groups += [a] * len(te)
         for m in modes:
             v = score(te, model, m)
             rows[m] += v
@@ -187,20 +189,31 @@ def main() -> int:
     out = {"lams_chosen_nested": chosen}
     for m in modes:
         mean, lo, hi = M.bootstrap_ci(rows[m])
+        rep = M.animal_level_report(rows[m], groups)
         out[m] = {"delta_r2": mean, "ci": [lo, hi], "n": len(rows[m]),
                   "sessions_above_zero": int(sum(x > 0 for x in rows[m])),
-                  "per_animal": per_animal[m]}
+                  "per_animal": per_animal[m],
+                  "animal_mean": rep["animal_mean"],
+                  "animal_ci": [rep["ci_lo"], rep["ci_hi"]],
+                  "animals_positive":
+                      f"{rep['sign_test']['n_positive']}/{rep['sign_test']['n']}",
+                  "animal_p": rep["permutation"]["p"]}
         pa = " ".join(f"{x.replace('sub-ICMS','m')}={v:+.2f}" for x, v in per_animal[m].items())
-        print(f"{m:16s} {mean:+.3f} [{lo:+.3f},{hi:+.3f}]{'':4s} "
-              f"{out[m]['sessions_above_zero']:3d}/{len(rows[m])}   {pa}")
+        print(f"{m:16s} animal {out[m]['animal_mean']:+.3f} "
+              f"[{out[m]['animal_ci'][0]:+.3f},{out[m]['animal_ci'][1]:+.3f}] "
+              f"pos {out[m]['animals_positive']} p={out[m]['animal_p']:.3f} | "
+              f"session {mean:+.3f}   {pa}")
     r = M.corr(np.concatenate(gp), np.concatenate(gt))
     out["unit_gain_corr"] = r
     print(f"\ncorr(predicted, required) per-unit gain = {r:+.3f} "
           f"(LOAO, n={len(np.concatenate(gt))} units)")
     for m in ("predicted", "global"):
         d, p = M.paired_permutation_test(rows[m], rows["none"])
-        out[f"test_{m}_vs_none"] = {"mean_diff": d, "p_perm": p}
-        print(f"{m:10s} vs no rescaling: diff={d:+.3f}  p_perm={p:.2e}")
+        at = M.animal_permutation_test([per_animal[m][a] for a in per_animal[m]],
+                                       [per_animal["none"][a] for a in per_animal["none"]])
+        out[f"test_{m}_vs_none"] = {"mean_diff": d, "p_perm": p, "animal": at}
+        print(f"{m:10s} vs no rescaling: session diff={d:+.3f} p={p:.2e} | "
+              f"ANIMAL diff={at['mean_diff']:+.3f} p={at['p']:.3f}")
     print(f"nested shrinkages: {chosen}")
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(out, indent=1))

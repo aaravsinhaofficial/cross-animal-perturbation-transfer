@@ -179,9 +179,18 @@ def main() -> int:
         print("fig3 dataset")
         F.fig_dataset(ds, json.loads(args.audit.read_text()), args.out)
 
-    if do("ladder") and args.ladder.exists():
+    fin = Path("results/final_analysis.json")
+    if do("ladder") and fin.exists():
+        print("fig4 ladder (one point per animal)")
+        F.fig_ladder_animals(json.loads(fin.read_text()), args.out)
+    elif do("ladder") and args.ladder.exists():
         print("fig4 ladder")
         F.fig_ladder(json.loads(args.ladder.read_text()), args.out)
+
+    cx = Path("results/cortex_sweep.json")
+    if do("cortex") and cx.exists():
+        print("fig7 simulated cortex")
+        F.fig_cortex(json.loads(cx.read_text()), args.out)
 
     if ds is not None and do("behavior"):
         print("fig5 behaviour")

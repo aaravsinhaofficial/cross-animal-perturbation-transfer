@@ -1,267 +1,136 @@
-# Do individuals share a causal dynamical operator?
+# Brains share the rule, but not the wiring
 
-**Zero-shot transfer of intervention responses between animals.**
+We trained a model on how electrical stimulation moves the brains of five mice, then
+showed it a sixth mouse doing nothing special, just resting. From that resting
+activity, plus the settings of the stimulus we were about to deliver, the model had to
+say what would happen next in an animal it had never seen perturbed.
 
-Latent neural dynamics look alike across individuals doing the same thing, and many
-methods now align recordings across animals into a shared representation. Those
-results are *descriptive*: they say observed activity occupies a common geometry.
-They do not say that different individuals share a common **causal** operator — that
-the same physical intervention would move each brain the same way.
+## What came through
 
-This repository turns that stronger claim into a prediction problem with a hard
-protocol:
+**What the mouse would do.** When it would notice the stimulus and report it, and how
+that changed with stimulation strength. This worked, and it worked in every animal.
 
-> After observing **only normal, unperturbed activity** from a new animal, predict
-> the **full time-resolved neural and behavioural response** to an intervention
-> that animal has never received.
+**How its neural population as a whole would respond.** The timing, the rise and fall,
+and the dependence on current all came across.
 
-No intervention trial from the held-out animal is used at any point — not its
-spikes, not its behaviour, not even its pre-stimulus window. Only the intervention
-*parameters*, which the experimenter chooses, are known in advance.
+**But not what any individual neuron would do.**
 
----
+## Why the last one fails
 
-## Headline results
+This is the part we found most interesting. The shared rule actually gets each neuron's
+response shape right, meaning when it fires, how it ramps and decays, and how it scales
+with current. The only thing it gets wrong is how strongly each neuron responds, which
+is one number per cell.
 
-Real data: **6 mice**, **48 sessions**, **949 single units**, **16,532 stimulation
-trials**, parameterised intracortical microstimulation of mouse S1 during a
-detection task ([DANDI:001868](https://dandiarchive.org/dandiset/001868)).
-Leave-one-animal-out. `ΔR² = 0` is exactly the "the intervention does nothing"
-model; `1` is perfect.
+Hand the model that one number per cell and change nothing else, and the neural score
+jumps from 0.035 to 0.422, in every one of the six mice. A single scalar cannot invent
+structure in time or across currents, because each neuron's predicted time course is
+already fixed by the shared rule. So the rule was right and the amplitude was wrong.
 
-| readout | in-sample | new session | **new animal** | new animal + unseen amplitude | ceiling |
-|---|---|---|---|---|---|
-| single units | +0.329 | +0.172 | **+0.003** | +0.011 | 0.914 |
-| population rate *+ predicted gain* | — | — | **+0.289** | — | 0.953 |
-| depth bands | +0.572 | +0.359 | **+0.115** | +0.072 | 0.938 |
-| population rate | +0.965 | +0.598 | **+0.147** | +0.164 | 0.953 |
-| wheel speed | +0.833 | −0.113 | **+0.045** | +0.016 | 0.370 |
-| **detection probability** | +0.970 | +0.194 | **+0.577** | **+0.321** | 0.968 |
+That amplitude turned out to be essentially unguessable. We tried predicting it from
+everything we could measure without stimulating, including each neuron's depth, its
+distance from the electrode, its firing statistics and its spontaneous coupling to the
+cells near the contact. Across all 949 neurons the correlation was 0.174, and the
+improvement did not survive a test over animals.
 
-The answer is **granularity-dependent**, and that is the finding:
+The reason is that low current stimulation does not light up a neat sphere of nearby
+cells. It grabs a sparse, scattered set that depends on where that particular electrode
+happened to land in that particular brain. Pooled over every session, how much a neuron
+responds is essentially unrelated to how far it sits from the contact (r = −0.013).
+There is no species level rule to learn at that resolution.
 
-- **Behaviour transfers.** The time-resolved probability that the animal has
-  reported detection by time *t* is predicted in a completely new animal at
-  **ΔR² = 0.577** (95% CI [0.471, 0.669]), **60% of the noise ceiling**,
-  *p* = 7×10⁻¹⁵ (paired permutation vs. no-effect; Wilcoxon *p* = 6×10⁻¹¹).
-  Positive in **all 6 animals** and 43/48 sessions. Still positive
-  (**ΔR² = 0.321**) when the stimulation amplitude is *also* deleted from every
-  training animal — a new individual *and* a new intervention setting.
-- **Coarse-grained neural activity transfers once responsiveness is predicted.** The
-  population time course and dose dependence are conserved (*r* = 0.669) but the
-  overall gain varies between animals. That gain turns out to be readable from the
-  animal's *own spontaneous propagator* — exactly the fluctuation–response prediction
-  — which lifts the population response from ΔR² = 0.005 to **ΔR² = 0.289**
-  [0.174, 0.397], *p* = 1×10⁻⁵, about half the 0.571 attainable with the gain known
-  exactly. Shrinkage is chosen by **nested** leave-one-animal-out inside the training
-  animals, and only unperturbed activity is used, so this is a real strengthening of
-  the zero-shot prediction rather than an oracle. A single *global* constant achieves
-  only 0.113, so the improvement is genuinely animal-specific.
-- **Single units do not transfer.** ΔR² = 0.003, indistinguishable from the
-  no-effect model (*p* = 0.92), despite a 0.914 ceiling and despite being
-  well predicted within a session (0.329) and partly within animal across
-  sessions (0.172).
+## A simulated cortex, and a correction to what we expected
 
-### The bottleneck is the readout, not the operator
+We built a cortex where we control the thing we think matters. When the electrode
+drives neurons by a rule shared across animals, single neuron transfer works at every
+population size we tried, and it improves very regularly as more neurons are recorded
+(correlation of 0.99 between the score and the log of the population size). When the
+electrode instead drives a scattered set private to each implant, the average score
+falls from 0.68 to 0.41, the trend with population size becomes erratic, and the spread
+across animals roughly triples.
 
-Hold the shared causal operator **completely fixed** at the value fitted on the other
-animals, and grant the held-out animal only a rescaling of the predicted response,
-fitted on its intervention trials. This is not a prediction — it uses data the
-protocol forbids — but it is a tightly constrained decomposition: a per-unit scalar
-cannot invent structure in time or across conditions, because each unit's predicted
-time course and dose dependence are fixed by the shared operator.
+So private recruitment does clearly damage single neuron transfer and makes it much less
+reliable from animal to animal. It does not abolish it in simulation, which means it is
+one contributing cause in the real mice rather than the whole story. Small
+simultaneously recorded populations are likely another: our sessions have between 8 and
+33 neurons, at the bottom of the range we simulated.
 
-| readout freedom granted | parameters | ΔR² | sessions >0 |
-|---|---|---|---|
-| none (honest zero-shot) | 0 | +0.003 | 31/48 |
-| **one gain per unit** | *Nᵢ* | **+0.405** | **48/48** |
-| gain and offset per unit | 2*Nᵢ* | +0.494 | 48/48 |
-| gain per unit + shared timecourse | *Nᵢ*+*T* | +0.465 | 48/48 |
+## Six animals is the sample size
 
-One scalar per unit lifts ΔR² from +0.003 to **+0.405** (paired difference +0.402,
-*p* = 7×10⁻¹⁵, all 6 animals positive). **The shared causal operator is already
-substantially correct** — it predicts *which pattern in time and across conditions*
-each unit will show — and gets only the per-unit amplitude wrong. That amplitude is
-not recoverable from spontaneous activity in ~20 simultaneously recorded units. Four
-qualitatively different models (latent CADENCE, an observed-space linear-response
-model, a physical-feature encoding model, a manifold-alignment group average) all
-plateau at *r* ≈ 0.28 across animals.
+The claim is about animals. Several sessions from one mouse are still one mouse, so
+every headline number is inferred at the animal level, with a
+bootstrap that resamples animals and an exact sign flip permutation over the six. With
+six animals the smallest p value such a test can return is 0.031, reached when all six
+fall on the same side, and we say so wherever it appears.
 
-**But that per-unit amplitude is not predictable.** Given the missing quantity, we
-tried to predict it from everything non-interventional available — unit depth and
-offset from each contact, firing statistics, and the unit's spontaneous
-fluctuation–response drive from each contact — with nested shrinkage selection. Across
-all 949 units predicted and required gains correlate at only *r* = 0.174, lifting ΔR²
-to just +0.055 (*p* = 0.037) against the +0.405 oracle.
+An earlier version of this work reported session level statistics as the headline,
+which overstated the evidence. Correcting it changed the behavioural p value from
+7×10⁻¹⁵ to 0.031 and removed any claim that population level effect sizes transfer
+reliably.
 
-So there is a clean **scale dependence**: responsiveness is legible in spontaneous
-activity at the level of the **animal** (*r* = 0.42 → population ΔR² = 0.289) and not
-at the level of the **neuron** (*r* = 0.17 → single units 0.055).
+## The honest comparison
 
-And we know why, for this preparation: pooled over all sessions, a unit's response is
-essentially **uncorrelated with its distance from the stimulating contact**
-(*r*(|Δdepth|, Δrate) = −0.013). Low-amplitude ICMS recruits a sparse, spatially
-diffuse, implant-specific set of neurons, so there is no conserved neuron-level
-spatial rule for any model to learn.
+Averaging the other five mice predicts the sixth about as well as our dynamical model
+does. Adding the new mouse's resting activity made the behavioural prediction worse.
+The behavioural consequence of stimulating this part of cortex is conserved enough
+across individuals that it does not need a model of the individual, which is itself
+worth knowing.
 
----
+## What we could not settle
 
-## Why single units fail: an identifiability result
-
-The model factorises the dynamics as
-
-```
-z_{t+1} = z_t + Δt [ F_shared(z_t, u_t) + G_shared(z_t) a_t + F_res_i(z_t) ]
-y_t^(i) = Poisson( softplus( C_i z_t + b_i ) )
-b_t     = D_shared(z_t)
-```
-
-**Proposition.** Fix `F` and `G`. If animal *i*'s unperturbed law is matched by
-both `(C_i, F_res_i)` and `(C_i', F_res_i')`, then the two differ by some
-`T ∈ Sym(F) = {T : T F(z,u) = F(Tz,u) ∀ z,u}`, and their predicted intervention
-responses differ by `C_i T⁻¹ (T G(Tz) a − G(z) a)`. So the predicted response is
-**unique iff `Sym(F)` is trivial**, and otherwise ambiguous by exactly that group.
-
-Two consequences:
-
-1. **With a free per-animal observation map, transfer needs the shared flow to be
-   asymmetric.** Degenerate (isotropic, rotationally symmetric) dynamics leave a
-   reparameterisation the readout can absorb. But the freedom can be removed by
-   *construction*: generating observation maps from a shared function of per-unit
-   features is exactly what stops the readout absorbing a rotation. This is why our
-   deliberately symmetric teacher still transfers — the degeneracy is broken by the
-   parameterisation, not by the data — and it is why tying observation maps across
-   animals is what makes transfer possible at all.
-2. **Spontaneous cortical activity sits near a fixed point**, where the flow is weak
-   and nearly isotropic. So the freedom left in a new animal's readout is large, and
-   transfer is then only as good as the per-unit features are informative about that
-   unit's causal coupling. In this preparation they are not (see above), which
-   predicts difficulty exactly where we measure it.
-
-Teacher-RNN simulations (5 animals per regime, so these are existence checks rather
-than precise measurements) bear both branches out: zero-shot transfer is positive
-where animals genuinely share dynamics (ΔR² = +0.230, 5/5 folds when teachers are
-identical; +0.159, 3/5 when they also carry animal-specific weight perturbations),
-negative between independently trained networks sharing only the task (−0.104, 1/5),
-and every negative control is below zero. The oracle is far above zero-shot in all
-three regimes (+0.29 to +0.74) — the model can express these responses; calibrating
-the held-out animal is what limits it. Informatively, a *deliberately symmetric*
-teacher still transfers: generating observation maps from a shared function of
-per-unit features removes exactly the freedom the symmetry would exploit, so the
-degeneracy is broken by the parameterisation rather than by the data.
-
-An observed-space **linear-response** formulation avoids latent frames entirely:
-estimate each animal's propagator `A_i` from its own unperturbed activity and share
-only the *drive*, so `Δ_i(t) = Σ_k A_i^k u_{t−k}` — a discrete-time
-fluctuation–response statement, fitted in closed form
-(`src/cadence/linear_response.py`).
-
----
-
-## Rigour
-
-Everything the claim depends on is checked, and the checks are in the repo.
-
-- **Validated noise ceilings.** The split-half ceiling estimator is tested against
-  simulations with known signal and noise across six noise/trial-count regimes
-  (agreement within 0.06): `tests/test_metrics.py`.
-- **Covariate-matched unperturbed data.** Stimulation trials are delivered under a
-  quiescence criterion, so uniformly sampled inter-trial windows have up to **3×**
-  the pre-stimulus population rate. That would bias every measured effect, since
-  predictions draw initial conditions from unperturbed trials. Candidate windows
-  are matched to stimulation trials on a joint quantile grid of pre-stimulus
-  population rate and wheel speed, then mean-trimmed; sessions with residual
-  mismatch > 1.25× are **excluded**. The audit reports **0** remaining problems.
-- **Leakage audit** on every session: the intervention gate must be identically
-  zero before the alignment index and on all unperturbed trials.
-- **Bit-for-bit reproducible.** Seeds are derived with `zlib.crc32`, not Python's
-  per-process-salted `hash`; two independent builds agree exactly.
-- **Negative controls.** Permuted unit identities, scrambled intervention labels.
-- **Statistics.** Bootstrap CIs over sessions, paired permutation tests (with the
-  exact 2^−(n−1) floor) and Wilcoxon signed-rank.
-- **Numbers cannot drift.** `scripts/make_paper_numbers.py` emits every figure
-  quoted in the paper as a LaTeX macro straight from the result JSONs.
-
----
+Six animals is the binding constraint. One species, one cortical area, one task, one
+way of perturbing. Electrical microstimulation is coarse and does not respect cell
+type, so an optogenetic perturbation aimed at a defined population may have more
+conserved structure at the single cell level than we found.
 
 ## Reproducing
 
 ```bash
-uv venv --python 3.12 .venv
-VIRTUAL_ENV=.venv uv pip install --python .venv/bin/python -e . \
-    numpy scipy matplotlib scikit-learn pandas h5py pynwb pyyaml seaborn statsmodels tqdm
-VIRTUAL_ENV=.venv uv pip install --python .venv/bin/python torch --index-url https://download.pytorch.org/whl/cu128
-
-# 1. data (7.5 GB, public, CC-BY-4.0) + checksummed manifest
-.venv/bin/python scripts/download_dandi.py --out data/raw/dandi001868
-
-# 2. analysis tensors + leakage audit  (writes results/tables/icms_audit.json)
-.venv/bin/python scripts/build_icms_cache.py
-
-# 3. the generalisation ladder  (Table 2 of the paper)
-.venv/bin/python scripts/run_icms_ladder.py
-
-# 4. teacher-RNN benchmark with ground truth  (Table 1)
-.venv/bin/python scripts/run_teacher.py --regime shared        --identifiability
-.venv/bin/python scripts/run_teacher.py --regime heterogeneous --identifiability
-.venv/bin/python scripts/run_teacher.py --regime degenerate
-
-# 5. figures, numbers, paper
-.venv/bin/python scripts/make_figures.py
-.venv/bin/python scripts/make_paper_numbers.py
-cd paper && pdflatex main && pdflatex main
+make env        # python 3.12 venv and dependencies
+make cache      # download DANDI:001868 (7.5 GB, CC-BY-4.0), build tensors, audit
+make analysis   # the results table, with animal-level statistics
+make cortex     # the simulated cortex sweep
+make paper      # figures, numbers and the PDF
+make test       # tests
 ```
 
-Diagnostics that localise the difficulty:
+Data: [DANDI:001868](https://dandiarchive.org/dandiset/001868), chronic
+electrophysiology in mouse somatosensory cortex during intracortical microstimulation
+learning (CC-BY-4.0). Raw files are never committed; the download script rebuilds them
+with a SHA-256 manifest.
 
-```bash
-.venv/bin/python scripts/probe_transfer_levels.py     # within-session / cross-session / cross-animal
-.venv/bin/python scripts/probe_granularity.py         # readout granularity
-.venv/bin/python scripts/probe_behavior_transfer.py   # behaviour, per channel
-.venv/bin/python scripts/probe_physical_transfer.py   # physical-feature baseline
-```
+## What is checked
 
-Tests: `.venv/bin/python -m pytest tests/ -q`
+The split-half ceiling estimator is validated against simulations with known signal and
+noise across six regimes, agreeing with the attainable score to within 0.06.
 
----
+Stimulation trials are delivered under a quiescence criterion, so randomly sampled
+inter-trial windows carry up to three times the pre-stimulus firing rate of a real
+trial. Because predictions start from unperturbed initial conditions, that would have
+inflated every effect. Windows are matched to stimulation trials on a joint quantile
+grid of pre-stimulus rate and wheel speed, then trimmed to match on the mean, and any
+session still mismatched by more than a factor of 1.25 is dropped.
+
+Seeds use a stable checksum rather than Python's per-process hash, so two independent
+builds agree exactly and the results table reproduces bit for bit.
 
 ## Layout
 
 ```
 src/cadence/
-  model.py             CADENCE: shared F, shared state-dependent G, shared unit
-                       embedding, animal-specific residual dynamics
-  linear_response.py   observed-space fluctuation-response model (closed form)
-  training.py          training + the calibration protocol (unperturbed only)
-  experiment.py        leave-one-animal-out engine, baselines, controls, oracle
-  holdout.py           "previously unseen intervention" made precise
-  metrics.py           ΔR², validated split-half ceilings, bootstrap, permutation
-  baselines.py         manifold alignment, aligned group mean, unit encoding model
-  teacher.py           teacher-RNN generator: shared / heterogeneous / degenerate
-  figures.py           publication figures
-  data/                NWB loaders, containers, per-unit features
-scripts/               download, build, run, probe, figures, paper numbers
-paper/                 LaTeX source, auto-generated numbers.tex, figures
-results/               JSON results, tables, figures
-tests/                 metric and pipeline tests
+  model.py             the hierarchical model: shared dynamics, shared stimulus
+                       operator, animal-specific observation maps
+  linear_response.py   each animal's propagator from its own resting activity,
+                       convolved with a shared drive
+  synthetic_cortex.py  the simulated cortex used to test the mechanism
+  metrics.py           scoring, validated split-half ceilings, animal-level statistics
+  dose.py              the shared stimulus operator for low-dimensional readouts
+  data/                loaders, containers, per-unit features
+scripts/               download, build, analysis, probes, figures, paper
+paper/                 LaTeX source with auto-generated numbers and tables
+results/               JSON results and tables
 ```
-
-## Data
-
-[DANDI:001868](https://dandiarchive.org/dandiset/001868) — *Chronic
-electrophysiology and two-photon calcium imaging of mouse primary somatosensory
-cortex during intracortical microstimulation learning* (CC-BY-4.0). Raw data are
-never committed; `scripts/download_dandi.py` reconstructs them and writes a
-SHA-256 manifest.
-
-## Limitations
-
-One species, one task, one perturbation modality. Six animals bound the precision
-of the confidence intervals. Simultaneously recorded populations are small (8–33
-units) — our diagnosis predicts that unit-level transfer should improve with
-population size, which is the sharp, testable consequence of this work. Electrical
-microstimulation is coarse and not cell-type-specific.
 
 ## License
 
-MIT (code). The dataset is CC-BY-4.0 and belongs to its authors.
+MIT for the code. The dataset is CC-BY-4.0 and belongs to its authors.

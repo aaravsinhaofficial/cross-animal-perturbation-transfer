@@ -219,6 +219,129 @@ def paired_permutation_test(a, b, n_perm: int = 100000, seed: int = 0):
     return float(obs), p
 
 
+# ---------------------------------------------------------------------------
+# Animal-level inference.
+#
+# Sessions from one animal are not independent replicates of a claim about
+# animals. Treating them as such inflates significance (pseudoreplication), so
+# every headline number in this project is inferred at the animal level, with
+# session-level statistics reported only as secondary detail.
+# ---------------------------------------------------------------------------
+def cluster_bootstrap_ci(values, groups, n_boot: int = 20000, alpha: float = 0.05, seed: int = 0):
+    """Bootstrap that resamples *groups* (animals), not rows (sessions).
+
+    Each resampled animal contributes all of its sessions, so the interval
+    reflects between-animal variability.
+    """
+    v = np.asarray(values, float)
+    g = np.asarray(groups)
+    ok = np.isfinite(v)
+    v, g = v[ok], g[ok]
+    if v.size == 0:
+        return {"mean": float("nan"), "ci_lo": float("nan"), "ci_hi": float("nan"), "n_groups": 0}
+    uniq = list(dict.fromkeys(g.tolist()))
+    per = {u: v[g == u] for u in uniq}
+    # animal-weighted point estimate: each animal counts once
+    point = float(np.mean([per[u].mean() for u in uniq]))
+    rng = np.random.default_rng(seed)
+    means = np.empty(n_boot)
+    for i in range(n_boot):
+        pick = rng.choice(len(uniq), size=len(uniq), replace=True)
+        means[i] = np.mean([per[uniq[j]].mean() for j in pick])
+    return {
+        "mean": point,
+        "ci_lo": float(np.quantile(means, alpha / 2)),
+        "ci_hi": float(np.quantile(means, 1 - alpha / 2)),
+        "n_groups": len(uniq),
+        "per_group": {str(u): float(per[u].mean()) for u in uniq},
+    }
+
+
+def animal_sign_test(per_animal, mu: float = 0.0):
+    """Exact two-sided sign test over animals.
+
+    With six animals the smallest attainable p is 2/2^6 = 0.031, reached when all
+    six fall on the same side. The paper says so wherever this is quoted.
+    """
+    from scipy.stats import binomtest
+
+    v = np.asarray([x for x in per_animal if np.isfinite(x)], float)
+    n = v.size
+    if n == 0:
+        return {"n": 0, "n_positive": 0, "p": float("nan")}
+    # a value that is zero to numerical precision is a tie, not a success; without
+    # this the all-zero "the stimulus does nothing" row scores 6/6
+    k = int(np.sum(v > mu + 1e-9))
+    p = float(binomtest(k, n, 0.5, alternative="two-sided").pvalue) if n else float("nan")
+    return {"n": n, "n_positive": k, "p": p, "p_floor": 2.0 ** (-(n - 1))}
+
+
+def animal_permutation_test(per_animal_a, per_animal_b=None, seed: int = 0):
+    """Exact sign-flip permutation over animals (enumerated, not sampled)."""
+    import itertools
+
+    a = np.asarray(per_animal_a, float)
+    b = np.zeros_like(a) if per_animal_b is None else np.asarray(per_animal_b, float)
+    ok = np.isfinite(a) & np.isfinite(b)
+    d = (a - b)[ok]
+    n = d.size
+    if n == 0:
+        return {"mean_diff": float("nan"), "p": float("nan"), "n": 0}
+    obs = float(d.mean())
+    null = [float(np.mean(np.array(s) * d)) for s in itertools.product([-1, 1], repeat=n)]
+    null = np.asarray(null)
+    p = float(np.mean(np.abs(null) >= abs(obs) - 1e-15))
+    return {"mean_diff": obs, "p": p, "n": n, "p_floor": 2.0 ** (-(n - 1)), "exact": True}
+
+
+def mixed_effects_intercept(values, groups):
+    """Session-level estimate with an animal random intercept.
+
+    Answers "is the mean effect different from zero once between-animal variance is
+    accounted for", which is the right question when sessions are nested in animals.
+    """
+    try:
+        import pandas as pd
+        import statsmodels.formula.api as smf
+    except Exception as exc:  # pragma: no cover
+        return {"error": repr(exc)}
+    v = np.asarray(values, float)
+    g = np.asarray(groups)
+    ok = np.isfinite(v)
+    df = pd.DataFrame({"y": v[ok], "animal": g[ok]})
+    if df["animal"].nunique() < 3:
+        return {"error": "too few groups"}
+    try:
+        res = smf.mixedlm("y ~ 1", df, groups=df["animal"]).fit(reml=True)
+        return {
+            "estimate": float(res.params["Intercept"]),
+            "se": float(res.bse["Intercept"]),
+            "p": float(res.pvalues["Intercept"]),
+            "n_obs": len(df),
+            "n_groups": int(df["animal"].nunique()),
+        }
+    except Exception as exc:  # pragma: no cover
+        return {"error": repr(exc)}
+
+
+def animal_level_report(values, groups, seed: int = 0) -> dict:
+    """The full animal-level inference bundle for one method/readout."""
+    boot = cluster_bootstrap_ci(values, groups, seed=seed)
+    per = list(boot.get("per_group", {}).values())
+    return {
+        "animal_mean": boot["mean"],
+        "ci_lo": boot["ci_lo"],
+        "ci_hi": boot["ci_hi"],
+        "n_animals": boot["n_groups"],
+        "per_animal": boot.get("per_group", {}),
+        "sign_test": animal_sign_test(per),
+        "permutation": animal_permutation_test(per),
+        "mixed_effects": mixed_effects_intercept(values, groups),
+        "session_mean": float(np.nanmean(values)) if len(values) else float("nan"),
+        "n_sessions": int(np.sum(np.isfinite(values))),
+    }
+
+
 def wilcoxon_signed_rank(a, b):
     from scipy.stats import wilcoxon
 

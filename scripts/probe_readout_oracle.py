@@ -94,6 +94,7 @@ def main() -> int:
 
     modes = ("none", "gain", "gain+offset", "timecourse")
     res: dict[str, list[float]] = {m: [] for m in modes}
+    groups: list[str] = []
     per_animal: dict[str, dict[str, float]] = {m: {} for m in modes}
     for a in ds.animals:
         train = [s for s in ds.sets if s.animal != a]
@@ -107,6 +108,7 @@ def main() -> int:
             dl, _ = M.measured_delta(s.y[:, s.t0 :], s.cond, s.perturbed)
             A = stack(dl, conds)
             B = stack(pred, conds)
+            groups.append(s.animal)
             for m in modes:
                 r2 = M.delta_r2(A, apply_oracle(A, B, m))
                 res[m].append(r2)
@@ -119,15 +121,26 @@ def main() -> int:
     out = {}
     for m in modes:
         mean, lo, hi = M.bootstrap_ci(res[m])
+        rep = M.animal_level_report(res[m], groups)
         out[m] = {"delta_r2": mean, "ci": [lo, hi],
                   "sessions_above_zero": int(sum(x > 0 for x in res[m])),
-                  "n": len(res[m]), "per_animal": per_animal[m]}
+                  "n": len(res[m]), "per_animal": per_animal[m],
+                  "animal_mean": rep["animal_mean"],
+                  "animal_ci": [rep["ci_lo"], rep["ci_hi"]],
+                  "animals_positive": f"{rep['sign_test']['n_positive']}/{rep['sign_test']['n']}",
+                  "animal_p": rep["permutation"]["p"]}
         pa = " ".join(f"{k.replace('sub-ICMS','m')}={v:+.2f}" for k, v in per_animal[m].items())
-        print(f"{m:16s} {mean:+.3f} [{lo:+.3f},{hi:+.3f}]{'':4s} "
-              f"{out[m]['sessions_above_zero']:3d}/{len(res[m])}   {pa}")
+        print(f"{m:16s} animal {out[m]['animal_mean']:+.3f} "
+              f"[{out[m]['animal_ci'][0]:+.3f},{out[m]['animal_ci'][1]:+.3f}] "
+              f"pos {out[m]['animals_positive']} p={out[m]['animal_p']:.3f} | "
+              f"session {mean:+.3f}   {pa}")
     diff, p = M.paired_permutation_test(res["gain"], res["none"])
-    print(f"\ngain vs zero-shot: diff={diff:+.3f}  p_perm={p:.2e}")
-    out["test_gain_vs_none"] = {"mean_diff": diff, "p_perm": p}
+    at = M.animal_permutation_test(
+        [per_animal["gain"][a] for a in per_animal["gain"]],
+        [per_animal["none"][a] for a in per_animal["none"]])
+    print(f"\ngain vs zero-shot: session diff={diff:+.3f} p={p:.2e} | "
+          f"ANIMAL diff={at['mean_diff']:+.3f} p={at['p']:.3f} (n={at['n']}, floor {at['p_floor']:.3f})")
+    out["test_gain_vs_none"] = {"mean_diff": diff, "p_perm": p, "animal": at}
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(out, indent=1))
     print(f"wrote {args.out}")

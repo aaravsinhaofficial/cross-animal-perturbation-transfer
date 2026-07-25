@@ -1,9 +1,9 @@
 # Reproduce everything, in order. `make all` from a clean checkout.
 PY := .venv/bin/python
 
-.PHONY: all env data cache ladder teacher probes figures paper test lint clean
+.PHONY: all env data cache analysis cortex ladder teacher probes figures paper test lint clean
 
-all: cache ladder teacher figures paper
+all: cache analysis cortex figures paper
 
 env:
 	uv venv --python 3.12 .venv
@@ -20,7 +20,17 @@ data:
 cache: data
 	$(PY) scripts/build_icms_cache.py
 
-# the results table (Table 2 of the paper)
+# the results table, with animal-level statistics
+analysis:
+	$(PY) scripts/run_final_analysis.py
+	$(PY) scripts/probe_readout_oracle.py
+	$(PY) scripts/probe_unit_gain.py
+
+# the simulated cortex: does private recruitment explain the failure?
+cortex:
+	$(PY) scripts/run_cortex_sweep.py
+
+# the earlier session-level table, kept for reference
 ladder:
 	$(PY) scripts/run_icms_ladder.py
 
@@ -41,7 +51,7 @@ figures:
 	$(PY) scripts/make_figures.py
 
 paper: figures
-	$(PY) scripts/make_paper_numbers.py
+	$(PY) scripts/make_paper_numbers2.py
 	cd paper && pdflatex -interaction=nonstopmode main.tex >/dev/null \
 	  && pdflatex -interaction=nonstopmode main.tex >/dev/null
 	cp paper/main.pdf docs/paper.pdf
