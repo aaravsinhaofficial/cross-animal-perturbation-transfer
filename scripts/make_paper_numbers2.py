@@ -316,6 +316,13 @@ def main() -> int:
         if not rl.exists():
             continue
         r = json.loads(rl.read_text())
+        ro = r.get("rule_only_operator")
+        if ro:
+            M[f"{pre}Only"] = f3(ro["mean"])
+            M[f"{pre}OnlyMed"] = f3(ro["median"])
+            M[f"{pre}OnlyPos"] = str(ro["n_positive"])
+            M[f"{pre}OnlyN"] = str(ro["n"])
+            M[f"{pre}OnlyK"] = str(ro["n_params"])
         for k, suf in (("firing rate", "Rate"), ("selectivity", "Sel"),
                        ("preparatory ramp", "Ramp")):
             v = r.get(k)

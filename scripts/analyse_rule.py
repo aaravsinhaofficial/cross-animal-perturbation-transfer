@@ -120,6 +120,67 @@ def main() -> int:
               f"{st['p']:8.3f} {np.nanmean(vn):+8.3f} "
               f"{int(np.nansum(vn < 0)):>4d}/{len(vn):<4d}")
 
+    # --- can the rule alone predict, with nothing else in it? -----------------
+    # A minimal shared operator: the individual part of a neuron's response is a
+    # time course times its selectivity, plus a time course times its firing rate.
+    # Twelve shared numbers in total, fitted leave-one-animal-out, no position, no
+    # dose dependence, no network. If this recovers a useful share of what the full
+    # operator recovers, then the rule really is the whole of it.
+    ex = []
+    for s in ds.sets:
+        if s.n_obs < args.min_units:
+            continue
+        feat_idx, base_idx = I.control_split(s)
+        props = properties(s, feat_idx)
+        Y = s.y[:, s.t0 :]
+        base = np.nanmean(Y[base_idx], 0)
+        T = Y.shape[1]
+        B = I.raised_cosine(T, 6)
+        z = []
+        for n in ("selectivity", "firing rate"):
+            x = props[n].astype(float)
+            sd = np.std(x)
+            z.append((x - x.mean()) / sd if sd > 1e-9 else np.zeros_like(x))
+        for c in np.unique(s.cond[s.perturbed]):
+            m = np.flatnonzero(s.cond == c)
+            if len(m) < 6:
+                continue
+            y = I.centre(np.nanmean(Y[m], 0) - base)
+            sc = max(float(np.nanstd(Y[feat_idx].reshape(-1, s.n_obs), 0).mean()), 1e-3)
+            X = np.einsum("bt,pn->tnbp", B, np.stack(z)).reshape(T, s.n_obs, -1)
+            ex.append(dict(animal=s.animal, X=np.nan_to_num(X / 1.0).astype(np.float32),
+                           y=(np.nan_to_num(y) / sc).astype(np.float32)))
+    if ex:
+        K = ex[0]["X"].shape[-1]
+        blk = []
+        for e in ex:
+            Xf = e["X"].reshape(-1, K).astype(np.float64)
+            yf = e["y"].ravel().astype(np.float64)
+            w = 1.0 / max(len(yf), 1)
+            blk.append((w * Xf.T @ Xf, w * Xf.T @ yf))
+        an = sorted({e["animal"] for e in ex})
+        vals = []
+        for a in an:
+            XX = sum(b[0] for e, b in zip(ex, blk) if e["animal"] != a)
+            Xy = sum(b[1] for e, b in zip(ex, blk) if e["animal"] != a)
+            th = np.linalg.solve(XX + 1.0 * (np.trace(XX) / K) * np.eye(K), Xy)
+            n = de = 0.0
+            for e in ex:
+                if e["animal"] != a:
+                    continue
+                n += float(np.nansum((e["y"] - e["X"] @ th.astype(np.float32)) ** 2))
+                de += float(np.nansum(e["y"] ** 2))
+            vals.append(1.0 - n / de if de > 0 else np.nan)
+        v = np.array(vals)
+        st = M.animal_sign_test(list(v))
+        rep["rule_only_operator"] = dict(
+            n_params=K, mean=float(np.nanmean(v)), median=float(np.nanmedian(v)),
+            n_positive=int((v > 0).sum()), n=len(v), p=st["p"],
+            pooled=None, per_animal={a: float(x) for a, x in zip(an, v)})
+        print(f"\nthe rule on its own, {K} shared numbers, leave one animal out: "
+              f"mean {np.nanmean(v):+.4f}, median {np.nanmedian(v):+.4f}, "
+              f"{int((v > 0).sum())}/{len(v)} animals above zero, p = {st['p']:.4f}")
+
     out = Path(f"results/rule_{args.tag}.json")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(rep, indent=1, default=float))
