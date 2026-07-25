@@ -277,6 +277,31 @@ $\PopLRG$ $[\PopLRGLo, \PopLRGHi]$ for our best model, with \PopGroupPos{} and
 animals that is not enough to claim that population level effect sizes transfer
 reliably. The shape does, and the size is unresolved.
 
+\subsection{Aligning the animals first does not work}
+
+The obvious thing to try, and what much of the cross-animal literature does, is to find
+a common space from unperturbed activity, put every animal in it, and carry whatever you
+want to transfer through that space
+\citep{marble,candy,cca,procrustes,dsa}. If two animals' activity really is the same up
+to a change of basis, a perturbation response should survive the change of basis too.
+
+We built that baseline. For a held out animal and each training animal, reduce both mean
+control activities to their leading components over the scored window, find the
+orthogonal map that best takes one set of component time courses onto the other, and let
+that map carry the training animal's measured effect onto the held out animal's neurons.
+Average over training animals. Nothing from the held out animal's perturbation trials is
+used, so it obeys the same protocol as everything else here.
+
+It scores $\AlignAligned$, above zero in \AlignAlignedPos{} of \AlignAlignedN{}
+animals. That is not merely worse than the operator, it is worse than predicting that
+the perturbation does nothing, and worse than the stereotype by
+$\AlignDiff$ at $p = \AlignDiffP$.
+
+This is the paper's distinction in one number. An alignment is a statement about the
+geometry of ordinary activity. What a perturbation does is a different object, and
+carrying it through a map fitted to resting geometry destroys it. The operator does not
+align anything: it reads what each neuron is doing and applies a shared rule to it.
+
 \subsection{The same is true of every model we tried}
 
 On every readout we compared each model against the best of the simple alternatives,

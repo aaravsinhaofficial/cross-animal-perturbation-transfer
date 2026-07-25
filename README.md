@@ -48,6 +48,23 @@ replicates independently in each half of it: 17 of the first release's 19 animal
 animal. The ramp is a negative control inside the same analysis. Under current no such
 rule exists, which is exactly why nothing individual transfers there.
 
+## Aligning the animals first does not work
+
+The obvious thing to try, and what much of the cross-animal literature does, is to find
+a common space from unperturbed activity, put every animal in it, and carry the response
+through that space. We built it: reduce both animals' mean control activity to leading
+components, find the orthogonal map between them, and let that map carry the training
+animal's measured effect onto the held-out animal's neurons.
+
+It scores **−0.046, above zero in 6 of 20 animals**. Not merely worse than the operator:
+worse than predicting the perturbation does nothing, and worse than the stereotype by
+−0.074 (p = 0.024).
+
+That is the distinction in one number. An alignment is a statement about the geometry of
+ordinary activity. What a perturbation does is a different object, and carrying it
+through a map fitted to resting geometry destroys it. The operator aligns nothing; it
+reads what each neuron is doing and applies a shared rule to it.
+
 ## Why the second number is the interesting one
 
 A score on the whole response flatters everybody. A perturbation moves a population in

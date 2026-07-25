@@ -388,6 +388,19 @@ def main() -> int:
             M[pre + "Frac"] = f"{100*v['frac']:.0f}"
             M[pre + "Ceil"] = f2(v["ceiling"])
 
+    ab = Path("results/alignment_baseline_alm.json")
+    if ab.exists():
+        r = json.loads(ab.read_text())
+        for k, pre in (("aligned", "AlignAligned"), ("stereotype", "AlignStereo")):
+            if k in r:
+                M[pre] = f3(r[k]["animal_mean"])
+                M[pre + "Med"] = f3(r[k].get("median"))
+                M[pre + "Pos"] = str(r[k]["sign_test"]["n_positive"])
+                M[pre + "N"] = str(r[k]["sign_test"]["n"])
+        if "test_aligned_vs_stereotype" in r:
+            M["AlignDiff"] = f3(r["test_aligned_vs_stereotype"]["mean_diff"])
+            M["AlignDiffP"] = pv(r["test_aligned_vs_stereotype"]["p"])
+
     rb = Path("results/rule_by_release.json")
     if rb.exists():
         r = json.loads(rb.read_text())
@@ -557,6 +570,11 @@ def main() -> int:
             f"${m.get('AlmOpModel','--')}$ vs ${m.get('AlmOpStereo','--')}$",
             m.get("AlmOpModelPos", "--"), m.get("AlmOpModelN", "--"),
             m.get("AlmOpModelVsStereoP", "--"), "--")
+    if "AlignAlignedPos" in m:
+        row("Aligning the animals' activity and carrying the response through that "
+            "alignment is worse than predicting the perturbation does nothing",
+            f"${m['AlignAligned']}$", m["AlignAlignedPos"], m["AlignAlignedN"],
+            m.get("AlignDiffP", "--"), "--")
     if "RuleSelNeg" in m:
         row("How sharply a neuron distinguishes the two choices predicts how much "
             "the light suppresses it",

@@ -52,6 +52,7 @@ individual:
 	  --tag almall_fixed --ridge 1.0
 	$(PY) scripts/analyse_individuality.py --cache data/proc/alm.pkl data/proc/alm_wide.pkl \
 	  --tag almall
+	$(PY) scripts/run_alignment_baseline.py
 	$(PY) scripts/analyse_rule.py
 	$(PY) scripts/analyse_rule.py --cache data/proc/icms.pkl --tag icms
 	$(PY) scripts/run_behaviour_transfer.py --cache data/proc/alm.pkl \
