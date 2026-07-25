@@ -43,7 +43,7 @@ $\AlmOpModelVsStereoDiff$ at $p = \AlmOpModelVsStereoP$ over \AlmOpModelN{} anim
 the best measured mice it reaches $0.6$.
 
 The rule it exploits turns out to be simple enough to state without a model, and we
-state it as a measurement rather than an interpretation. Across \RuleSelN{} mice, how
+state it as a measurement, not as an interpretation of our model. Across \RuleSelN{} mice, how
 strongly a neuron distinguishes the two choices predicts how much the light will
 suppress it, in \RuleSelNeg{} of them ($r = \RuleSelR$, $p = \RuleSelP$), as does how
 fast it fires ($r = \RuleRateR$, \RuleRateNeg{}/\RuleRateN, $p = \RuleRateP$). How much
@@ -311,7 +311,7 @@ exactly zero here, not approximately zero, because its prediction does not vary 
 neurons and so has no $\delta$ at all. Anything above zero is prediction of individual
 structure in an animal whose perturbation trials were never read.
 
-Alongside it we compute how much of $\delta$ is measurable rather than noise. The
+Alongside it we compute how much of $\delta$ a recording can actually resolve. The
 effect is a difference of two trial means, so its noise variance is $v(1/n + 1/n_0)$
 with $v$ the trial to trial variance, $n$ perturbed trials and $n_0$ control trials,
 all of which we know. That gives the score a perfect predictor of the true $\delta$
@@ -364,8 +364,8 @@ understates what the operator does, because the score is a ratio and animals wit
 no measurable effect divide by almost nothing; pooling the errors instead, which is the
 usual way to combine and weights each animal by how much effect it actually has, gives
 $\AllIndPooledShared$ for the shared operator against $\AllIndPooledNull$ for the null.
-And the modest average is a statement about the recordings available today rather than
-about brains: the same analysis on recordings with hundreds of simultaneous neurons
+And the modest average says more about the recordings available today than about
+brains: the same analysis on recordings with hundreds of simultaneous neurons
 should recover a larger share.
 
 \section{What the shared rule is}
@@ -413,14 +413,14 @@ This is the whole paper in one comparison. A shared operator can only carry
 individuality if a neuron's ordinary activity reports how much a perturbation will move
 it. Under light it does, by a rule that holds in \RuleSelNeg{} of \RuleSelN{} animals.
 Under current it does not, which is what our simulated cortex said would have to be true
-for the transfer to fail there, and we can now check it directly rather than infer it.
+for the transfer to fail there, and we can now check it directly instead of inferring it.
 
 \section{From a predicted effect on neurons to a predicted change of mind}
 
 Silencing frontal cortex during the delay changes what the animal does next. If the
 operator has really captured the causal effect of the light, then the behavioural
 consequence should follow from the neural one, in an animal whose perturbation trials
-were never read. That is a chain we can build explicitly rather than assert.
+were never read. That is a chain we can build explicitly and then test.
 
 For a held out animal the operator predicts, neuron by neuron, how the light will move
 activity. We project that predicted movement onto the animal's own choice axis, which
@@ -475,7 +475,7 @@ fewer than half.
 This is the clearest practical statement in the paper. A study with five animals would
 not have found this effect and would have reported, with a straight face, that nothing
 transfers. The returns are still being collected at \CohortAllMaxN{} animals, which is
-an argument for cohorts rather than for deeper recordings in a handful of animals.
+an argument for cohorts over deeper recordings in a handful of animals.
 
 The same holds for the trained network, which cannot be refitted for every subset but
 can be compared between two runs that differ only in how many animals it had to learn
@@ -674,7 +674,7 @@ quantile grid of pre stimulus firing rate and wheel speed and then trimmed to ma
 the mean, and any session still mismatched by more than a factor of $1.25$ is dropped.
 The released audit reports \NAuditProblems{} remaining problems.
 
-Seeds are derived with a stable checksum rather than Python's per process hash, so two
+Seeds are derived with a stable checksum instead of Python's per process hash, so two
 independent builds of the analysis tensors agree exactly, and the results table
 reproduces bit for bit across re runs.
 
@@ -691,7 +691,7 @@ The similarity that people describe between animals is not only in the shape of 
 activity. Stimulating this part of cortex moves different mice in a way that is
 conserved enough to predict the behavioural consequence in an animal that has never
 been stimulated, and conserved enough to predict the shape of the population response.
-That is a statement about mechanism rather than appearance.
+That is a statement about mechanism, and mechanism is what a perturbation tests.
 
 The same rule stops short of the individual cell, and it stops short in a specific way.
 It knows when a neuron will respond and how that response grows with current. It does
