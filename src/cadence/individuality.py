@@ -295,14 +295,35 @@ class SharedOperator:
         animals = sorted({e["animal"] for e in self.ex if e["tag"] == test_tag})
         return {a: self.evaluate(a, theta) for a in animals}
 
-    def loao(self) -> dict:
+    def loao(self, fixed_ridge: float | None = None) -> dict:
         """Leave one animal out, with the ridge chosen inside the training animals.
 
-        For each held-out animal the ridge is selected by a further leave-one-out
-        over the remaining animals, so the held-out animal never influences any
-        choice made about the model.
+        For each held-out animal the ridge is selected by a further leave-one-out over
+        the remaining animals, so the held-out animal never influences any choice made
+        about the model.
+
+        With ``fixed_ridge`` the selection is skipped and one value is used for every
+        animal. That is worth having as an alternative because the selection optimises
+        a pooled error dominated by animals with a large effect, and can then choose a
+        ridge that is far too small for an animal whose effect is barely there.
         """
         self._prepare()
+        if fixed_ridge is not None:
+            out, preds = {}, {}
+            for a in sorted({e["animal"] for e in self.ex}):
+                th = self.fit({a}, fixed_ridge)
+                n = de = 0.0
+                for e in self.ex:
+                    if e["animal"] != a:
+                        continue
+                    p = e["X"] @ th
+                    preds[(e["key"], e["cond"])] = p
+                    n += float(np.nansum((e["y"] - p) ** 2))
+                    de += float(np.nansum(e["y"] ** 2))
+                out[a] = dict(delta_r2=1.0 - n / de if de > 0 else np.nan,
+                              sse=n, sst=de, ridge=fixed_ridge)
+            self.preds = preds
+            return out
         animals = sorted({e["animal"] for e in self.ex})
         out, preds = {}, {}
         for a in animals:

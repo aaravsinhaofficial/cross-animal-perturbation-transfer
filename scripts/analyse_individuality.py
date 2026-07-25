@@ -39,6 +39,9 @@ def main() -> int:
                     default=[Path("data/proc/alm.pkl")])
     ap.add_argument("--preds", type=Path, nargs="*", default=None)
     ap.add_argument("--tag", default="alm")
+    ap.add_argument("--ridge", type=float, default=None,
+                    help="use one ridge for every animal instead of "
+                         "selecting it inside the training animals")
     args = ap.parse_args()
 
     ds = pickle.load(args.cache[0].open("rb"))["dataset"]
@@ -50,7 +53,7 @@ def main() -> int:
     op = I.SharedOperator()
     for s in ds.sets:
         op.add(s)
-    shared = op.loao()
+    shared = op.loao(args.ridge)
 
     # --- the same analysis where the answer is known to be zero -------------
     # the stimulation trials are replaced by a second group of unperturbed trials, so
@@ -58,7 +61,7 @@ def main() -> int:
     nullop = I.SharedOperator()
     for s in ds.sets:
         nullop.add(s, null=True)
-    null = nullop.loao()
+    null = nullop.loao(args.ridge)
 
     # --- ceilings, per session then per animal ------------------------------
     ceil_rows, ceil_groups = [], []

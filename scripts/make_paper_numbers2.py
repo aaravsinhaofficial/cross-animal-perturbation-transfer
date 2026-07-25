@@ -229,7 +229,7 @@ def main() -> int:
                 M[f"{pre}{suf}P"] = pv(r[k]["p"])
 
     for tag, pre in (("alm", "AlmInd"), ("icms", "IcmsInd"),
-                     ("almall", "AllInd")):
+                     ("almall", "AllInd"), ("almall_fixed", "FixInd")):
         p = Path(f"results/individuality_{tag}.json")
         if not p.exists():
             continue
@@ -574,6 +574,12 @@ def main() -> int:
             "everything individual that is measurable",
             f"{m.get('SplitHiNetFrac','--')}\\% of ceiling",
             m["SplitHiNetPos"], m["SplitHiNetN"], m["SplitHiNetP"], "--")
+    if "FixIndSharedPos" in m:
+        row("The individual part of the response transfers, under light, across the "
+            "whole cohort",
+            f"pooled ${m.get('FixIndPooledShared','--')}$",
+            m["FixIndSharedPos"], m["FixIndSharedN"], m["FixIndSharedP"],
+            f"{m.get('FixIndNullPos','--')}/{m.get('FixIndNullN','--')}")
     if "AllIndQualRho" in m:
         row("How much of the individual part transfers is proportional to how well "
             "the animal was measured",

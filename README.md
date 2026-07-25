@@ -77,16 +77,19 @@ much smaller: +0.086 against +0.020, better in 26 of 39 animals, p = 0.013. The 
 does not rise when animals with a dozen neurons are added, for the reason the
 measurement-quality result below makes explicit.
 
-**On the individual part, how much transfers is proportional to how well the animal was
-measured.** Across all 39 mice the rank correlation between transfer and the noise
-ceiling, which is fixed by trial counts before any model is fitted, is **+0.44
-(p = 0.005)**. Sorted into thirds by that ceiling the gradient is monotone: −0.115 in
-the worst measured third, −0.017 in the middle, +0.090 in the best.
+**On the individual part, it transfers in 29 of 39 mice (p = 0.003)**, against 10 of 39
+when the same analysis is run with no effect present, and pooling the errors gives
++0.011 against −0.002 for that null.
+
+**How much transfers is proportional to how well the animal was measured**: rank
+correlation **+0.44 (p = 0.005)** with the noise ceiling, which is fixed by trial counts
+before any model is fitted. Sorted into thirds by that ceiling the gradient is monotone,
+−0.115 in the worst measured third, −0.017 in the middle, +0.090 in the best.
 
 Averaged over all 39, including nineteen whose recordings cannot resolve the individual
-part at all, the mean is not different from zero. We say that plainly. Where it can be
-resolved the amount is worth having: in the first cohort it is above zero in 15 of 20
-mice (p = 0.041), and in the better measured half of it the operator recovers **22% of
+part at all, the mean is not different from zero. We say that plainly: what varies is
+the amount, not the direction. Where it can be resolved the amount is worth having, and
+in the better measured half of the first cohort the operator recovers **22% of
 everything individual that is measurable, in 9 of 10 animals** (p = 0.021).
 
 **Under current, nothing transfers at either level**, and this is not a measurement
