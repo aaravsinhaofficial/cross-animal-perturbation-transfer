@@ -229,7 +229,8 @@ def main() -> int:
                 M[f"{pre}{suf}P"] = pv(r[k]["p"])
 
     for tag, pre in (("alm", "AlmInd"), ("icms", "IcmsInd"),
-                     ("almall", "AllInd"), ("almall_fixed", "FixInd")):
+                     ("almall", "AllInd"), ("almall_fixed", "FixInd"),
+                     ("icms_fixed", "IcmsFixInd")):
         p = Path(f"results/individuality_{tag}.json")
         if not p.exists():
             continue
@@ -591,12 +592,13 @@ def main() -> int:
             f"${m.get('AlmIndSharedMed','--')}$ median",
             m["AlmIndSharedPos"], m["AlmIndSharedN"], m["AlmIndSharedP"],
             f"${m.get('AlmIndNull','--')}$")
-    if "IcmsIndSharedPos" in m:
-        row("The individual part does not transfer, under current, though it is "
-            "better resolved there",
-            f"ceiling ${m.get('IcmsIndCeiling','--')}$",
-            m["IcmsIndSharedPos"], m["IcmsIndSharedN"], m["IcmsIndSharedP"],
-            f"${m.get('IcmsIndNull','--')}$")
+    if "IcmsFixIndSharedPos" in m:
+        row("It does not transfer under current, on the identical analysis, though "
+            "it is better resolved there",
+            f"ceiling ${m.get('IcmsFixIndCeiling','--')}$",
+            m["IcmsFixIndSharedPos"], m["IcmsFixIndSharedN"],
+            m["IcmsFixIndSharedP"], f"{m.get('IcmsFixIndNullPos','--')}/"
+            f"{m.get('IcmsFixIndNullN','--')}")
     if "CohortAllMaxPos" in m:
         row("Fitting the operator on more animals keeps helping, with no sign of "
             "flattening",

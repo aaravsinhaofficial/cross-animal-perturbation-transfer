@@ -1,0 +1,246 @@
+{
+ "stereotype": {
+  "animal_mean": 0.0,
+  "ci_lo": 0.0,
+  "ci_hi": 0.0,
+  "n_animals": 6,
+  "per_animal": {
+   "sub-ICMS100": 0.0,
+   "sub-ICMS101": 0.0,
+   "sub-ICMS83": 0.0,
+   "sub-ICMS92": 0.0,
+   "sub-ICMS93": 0.0,
+   "sub-ICMS98": 0.0
+  },
+  "sign_test": {
+   "n": 6,
+   "n_positive": 0,
+   "p": 0.03125,
+   "p_floor": 0.03125
+  },
+  "permutation": {
+   "mean_diff": 0.0,
+   "p": 1.0,
+   "n": 6,
+   "p_floor": 0.03125,
+   "exact": true,
+   "n_draws": null
+  },
+  "mixed_effects": {
+   "estimate": 0.0,
+   "se": NaN,
+   "p": NaN,
+   "n_obs": 6,
+   "n_groups": 6
+  },
+  "session_mean": 0.0,
+  "n_sessions": 6,
+  "median": 0.0
+ },
+ "no effect present": {
+  "animal_mean": -0.0044494100783365464,
+  "ci_lo": -0.00888673531766826,
+  "ci_hi": -0.0015192324895515474,
+  "n_animals": 6,
+  "per_animal": {
+   "sub-ICMS100": -0.01491284138804394,
+   "sub-ICMS101": -0.004810117245584555,
+   "sub-ICMS83": -0.0019308977869885169,
+   "sub-ICMS92": -0.00030102039161383765,
+   "sub-ICMS93": -0.001840872709304664,
+   "sub-ICMS98": -0.0029007109484837645
+  },
+  "sign_test": {
+   "n": 6,
+   "n_positive": 0,
+   "p": 0.03125,
+   "p_floor": 0.03125
+  },
+  "permutation": {
+   "mean_diff": -0.0044494100783365464,
+   "p": 0.03125,
+   "n": 6,
+   "p_floor": 0.03125,
+   "exact": true,
+   "n_draws": null
+  },
+  "mixed_effects": {
+   "error": "LinAlgError('Singular matrix')"
+  },
+  "session_mean": -0.0044494100783365464,
+  "n_sessions": 6,
+  "median": -0.0024158043677361407
+ },
+ "shared_operator": {
+  "animal_mean": -0.022493067676939964,
+  "ci_lo": -0.05082325343485553,
+  "ci_hi": 0.0070299572009414986,
+  "n_animals": 6,
+  "per_animal": {
+   "sub-ICMS100": -0.06653124482289074,
+   "sub-ICMS101": 0.025602716899380873,
+   "sub-ICMS83": -0.049638913874378465,
+   "sub-ICMS92": -0.03047082659169975,
+   "sub-ICMS93": 0.03048399528500978,
+   "sub-ICMS98": -0.04440413295706147
+  },
+  "sign_test": {
+   "n": 6,
+   "n_positive": 2,
+   "p": 0.6875,
+   "p_floor": 0.03125
+  },
+  "permutation": {
+   "mean_diff": -0.022493067676939964,
+   "p": 0.25,
+   "n": 6,
+   "p_floor": 0.03125,
+   "exact": true,
+   "n_draws": null
+  },
+  "mixed_effects": {
+   "estimate": -0.022493067676939964,
+   "se": NaN,
+   "p": NaN,
+   "n_obs": 6,
+   "n_groups": 6
+  },
+  "session_mean": -0.022493067676939964,
+  "n_sessions": 6,
+  "median": -0.03743747977438061
+ },
+ "learned_operator": {
+  "animal_mean": 0.013145508547671193,
+  "ci_lo": -0.008763723497599142,
+  "ci_hi": 0.03672728087571914,
+  "n_animals": 6,
+  "per_animal": {
+   "sub-ICMS100": 0.06453085588979605,
+   "sub-ICMS101": 0.02296930091360727,
+   "sub-ICMS83": 0.0069753973219447984,
+   "sub-ICMS92": -0.029974569529940584,
+   "sub-ICMS93": 0.01754564734124504,
+   "sub-ICMS98": -0.003173580650625418
+  },
+  "sign_test": {
+   "n": 6,
+   "n_positive": 4,
+   "p": 0.6875,
+   "p_floor": 0.03125
+  },
+  "permutation": {
+   "mean_diff": 0.013145508547671193,
+   "p": 0.4375,
+   "n": 6,
+   "p_floor": 0.03125,
+   "exact": true,
+   "n_draws": null
+  },
+  "mixed_effects": {
+   "estimate": 0.013145508547671193,
+   "se": NaN,
+   "p": NaN,
+   "n_obs": 6,
+   "n_groups": 6
+  },
+  "session_mean": 0.013145508547671193,
+  "n_sessions": 6,
+  "median": 0.01226052233159492
+ },
+ "pooled": {
+  "shared_operator": 0.00397141609579299,
+  "no effect present": -0.0032817641472124848,
+  "learned_operator": 0.00966336518027644
+ },
+ "ceiling": {
+  "animal_mean": 0.8948400139897679,
+  "ci_lo": 0.8610194237380773,
+  "ci_hi": 0.9282647215190246,
+  "n_animals": 6,
+  "per_animal": {
+   "sub-ICMS83": 0.9393436739325626,
+   "sub-ICMS92": 0.8391990014817726,
+   "sub-ICMS93": 0.9372272778719213,
+   "sub-ICMS98": 0.8368237051471702,
+   "sub-ICMS100": 0.8942965424144579,
+   "sub-ICMS101": 0.9221498830907228
+  },
+  "sign_test": {
+   "n": 6,
+   "n_positive": 6,
+   "p": 0.03125,
+   "p_floor": 0.03125
+  },
+  "permutation": {
+   "mean_diff": 0.8948400139897679,
+   "p": 0.03125,
+   "n": 6,
+   "p_floor": 0.03125,
+   "exact": true,
+   "n_draws": null
+  },
+  "mixed_effects": {
+   "estimate": 0.8940148840688613,
+   "se": 0.01929889803731848,
+   "p": 0.0,
+   "n_obs": 48,
+   "n_groups": 6
+  },
+  "session_mean": 0.8899125779491744,
+  "n_sessions": 48
+ },
+ "no effect present_fraction_of_ceiling": -0.004972296733243116,
+ "shared_operator_fraction_of_ceiling": -0.025136412459531746,
+ "learned_operator_fraction_of_ceiling": 0.014690345024983993,
+ "test_learned_vs_shared": {
+  "mean_diff": 0.035638576224611154,
+  "p": 0.21875,
+  "n": 6,
+  "p_floor": 0.03125,
+  "exact": true,
+  "n_draws": null
+ },
+ "per_animal_detail": {
+  "sub-ICMS100": {
+   "ceiling": 0.8942965424144579,
+   "shared": -0.06653124482289074,
+   "ridge": 1.0,
+   "learned": 0.06453085588979605
+  },
+  "sub-ICMS101": {
+   "ceiling": 0.9221498830907228,
+   "shared": 0.025602716899380873,
+   "ridge": 1.0,
+   "learned": 0.02296930091360727
+  },
+  "sub-ICMS83": {
+   "ceiling": 0.9393436739325626,
+   "shared": -0.049638913874378465,
+   "ridge": 1.0,
+   "learned": 0.0069753973219447984
+  },
+  "sub-ICMS92": {
+   "ceiling": 0.8391990014817726,
+   "shared": -0.03047082659169975,
+   "ridge": 1.0,
+   "learned": -0.029974569529940584
+  },
+  "sub-ICMS93": {
+   "ceiling": 0.9372272778719213,
+   "shared": 0.03048399528500978,
+   "ridge": 1.0,
+   "learned": 0.01754564734124504
+  },
+  "sub-ICMS98": {
+   "ceiling": 0.8368237051471702,
+   "shared": -0.04440413295706147,
+   "ridge": 1.0,
+   "learned": -0.003173580650625418
+  }
+ },
+ "ceiling_vs_transfer": {
+  "rho": 0.14285714285714288,
+  "p": 0.7871720116618076,
+  "n": 6
+ }
+}

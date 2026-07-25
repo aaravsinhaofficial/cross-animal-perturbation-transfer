@@ -93,8 +93,9 @@ in the better measured half of the first cohort the operator recovers **22% of
 everything individual that is measurable, in 9 of 10 animals** (p = 0.021).
 
 **Under current, nothing transfers at either level**, and this is not a measurement
-problem. The measurable maximum for the individual part there is 0.90, higher than in
-the light cohort, so it is sitting there clearly resolved and no rule we fit reaches it.
+problem. On the identical analysis, 2 of 6 animals are above zero (p = 0.69), and the
+measurable maximum for the individual part there is 0.895, higher than the 0.571 of the
+light cohort. It is sitting there clearly resolved and no rule we fit reaches it.
 
 ## The mistake we nearly made
 
