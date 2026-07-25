@@ -93,9 +93,12 @@ trials, where the answer is known to be zero, returns zero.
 Fitting the shared operator on random subsets of the training animals gives an orderly
 curve. One animal is not merely useless but far worse than predicting nothing, because a
 single animal's idiosyncrasies get mistaken for a rule and then applied confidently to
-somebody else. Five animals are still deeply negative. The curve crosses zero at around
-25 animals and is still rising at 38, positive in 28 of 39 mice (p = 0.0095), tracking
-the log of the cohort size at r = +0.80.
+somebody else. Five animals are still deeply negative. The average across animals only
+reaches zero at 38, tracking the log of the cohort size at r = +0.77 and still rising.
+
+That average is a mean of ratios, and one animal with almost no measurable effect holds
+it down, so the number to read is how many animals the operator helps in: at 38 it is
+above zero in 29 of 39 mice (p = 0.0034), and at five animals in fewer than half.
 
 A study with five animals would not have found this and would have reported that
 nothing transfers.

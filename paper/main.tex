@@ -461,12 +461,16 @@ part of the held out animal's response.
 
 The curve is orderly and it starts badly. One animal gives $\CohortAllMinVal$, which is
 not merely useless but far worse than predicting nothing at all, because a single
-animal's idiosyncrasies get mistaken for a rule and then applied confidently to
-somebody else. Five animals are still deeply negative. The curve crosses zero at around
-\CohortAllCross{} animals, and at \CohortAllMaxN{} it reaches $\CohortAllMaxVal$,
-positive in \CohortAllMaxPos{} of \CohortAllMaxN2{} mice ($p = \CohortAllMaxP$). Across
-the range the score tracks the logarithm of the cohort size at $r = \CohortAllCorr$, and
-it has not flattened.
+animal's idiosyncrasies get mistaken for a rule and then applied confidently to somebody
+else. Five animals are still deeply negative, and the average across animals only
+reaches zero at \CohortAllMaxN. Across the range it tracks the logarithm of the cohort
+size at $r = \CohortAllCorr$ and has not flattened.
+
+That average is a mean of ratios and one animal with almost no measurable effect can
+hold it down, so the number to read is how many animals the operator helps in. At
+\CohortAllMaxN{} animals it is above zero in \CohortAllMaxPos{} of
+\CohortAllMaxN2{} mice ($p = \CohortAllMaxP$); at five animals it is above zero in
+fewer than half.
 
 This is the clearest practical statement in the paper. A study with five animals would
 not have found this effect and would have reported, with a straight face, that nothing
