@@ -335,6 +335,24 @@ def main() -> int:
             M[f"{pre}{suf}Null"] = (f'{f3(v["null_mean_r"])}, '
                                     f'{v["null_negative"]}/{v["n"]}')
 
+    sp = Path("results/individuality_split_alm.json")
+    if sp.exists():
+        r = json.loads(sp.read_text())
+        for key, pre in (("well measured|learned", "SplitHiNet"),
+                         ("poorly measured|learned", "SplitLoNet"),
+                         ("well measured|shared", "SplitHiShared"),
+                         ("poorly measured|shared", "SplitLoShared")):
+            v = r.get(key)
+            if not v:
+                continue
+            M[pre] = f3(v["mean"])
+            M[pre + "Med"] = f3(v["median"])
+            M[pre + "Pos"] = str(v["pos"])
+            M[pre + "N"] = str(v["n"])
+            M[pre + "P"] = pv(v["p"])
+            M[pre + "Frac"] = f"{100*v['frac']:.0f}"
+            M[pre + "Ceil"] = f2(v["ceiling"])
+
     rb = Path("results/rule_by_release.json")
     if rb.exists():
         r = json.loads(rb.read_text())
@@ -519,6 +537,12 @@ def main() -> int:
         row("Under microstimulation, firing rate predicts nothing",
             f"$r = {m['RuleIcmsRateR']}$", m["RuleIcmsRateNeg"], m["RuleIcmsRateN"],
             m["RuleIcmsRateP"], m.get("RuleIcmsRateNull", "--"))
+    if "SplitHiNetPos" in m:
+        row("In the better measured half of the light cohort, split on a ceiling "
+            "fixed before any model is fitted, the operator recovers a fifth of "
+            "everything individual that is measurable",
+            f"{m.get('SplitHiNetFrac','--')}\\% of ceiling",
+            m["SplitHiNetPos"], m["SplitHiNetN"], m["SplitHiNetP"], "--")
     if "AlmIndSharedPos" in m:
         row("The individual part of the response transfers, under light",
             f"${m.get('AlmIndSharedMed','--')}$ median",

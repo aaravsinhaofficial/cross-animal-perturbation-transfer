@@ -70,10 +70,13 @@ perturbation trials were never read.
 for the average of the other mice, a paired difference of +0.095 at p = 3.5e-4 over 20
 animals, and on the best measured mice it reaches 0.6.
 
-**On the individual part, it still wins, but by much less.** A shared operator acting on
-each neuron's own ordinary activity lands above zero in 15 of 20 mice (exact sign test,
-p = 0.041), against a measurable maximum of 0.57. So a few per cent of what is
-individual about a neuron's response transfers, and most of it does not.
+**On the individual part, it still wins, and how much depends on the recording.** A
+shared operator acting on each neuron's own ordinary activity lands above zero in 15 of
+20 mice (exact sign test, p = 0.041), against a measurable maximum of 0.57. Split the
+animals in half by that maximum, which is fixed by trial counts and firing rates before
+any model is fitted, and in the better measured half the operator recovers **22% of
+everything individual that is measurable, in 9 of 10 animals** (p = 0.021). In the worse
+measured half it recovers nothing.
 
 **Under current, nothing transfers at either level**, and this is not a measurement
 problem. The measurable maximum for the individual part there is 0.90, higher than in

@@ -52,7 +52,10 @@ stereotype scores exactly zero. Individual structure transfers under light
 (\AlmIndSharedPos{} of \AlmIndSharedN{} mice, $p = \AlmIndSharedP$) and not under
 microstimulation of somatosensory cortex (\IcmsIndSharedPos{} of \IcmsIndSharedN),
 where it is better resolved (a measurable maximum of $\IcmsIndCeiling$ against
-$\AlmIndCeiling$). The same measurement says why: under current, a neuron's ongoing
+$\AlmIndCeiling$). In the half of the light cohort whose individual response is best
+resolved, split on that maximum before any model is fitted, the operator recovers
+\SplitHiNetFrac\% of it in \SplitHiNetPos{} of \SplitHiNetN{} animals
+($p = \SplitHiNetP$). The same measurement says why: under current, a neuron's ongoing
 activity says nothing about how much the stimulus will move it ($\RuleIcmsRateR$,
 \RuleIcmsRateNeg{}/\RuleIcmsRateN).
 
@@ -335,6 +338,19 @@ the ceiling, which is fixed by trial counts and firing rates before any model is
 at a rank correlation of $\AllIndQualRho$ ($p = \AllIndQualP$ over \AllAnimals{}
 animals). Animals whose individual response cannot be resolved contribute nothing, and
 animals where it can contribute a lot.
+
+So split the animals in half by that ceiling, which is decided before any model is
+fitted and has nothing to do with how well anything scored. In the better measured half
+the learned operator recovers $\SplitHiNet$ of the individual part, above zero in
+\SplitHiNetPos{} of \SplitHiNetN{} animals ($p = \SplitHiNetP$), which is
+\SplitHiNetFrac\% of everything measurable there. In the worse measured half it
+recovers $\SplitLoNet$ in \SplitLoNetPos{} of \SplitLoNetN. The shared linear operator
+behaves the same way, $\SplitHiShared$ against $\SplitLoShared$.
+
+A fifth of what is individual about a neuron's response to an intervention it has never
+received, read off from what that neuron does when nothing is happening, using
+coefficients fitted entirely in other animals. That is the size of the effect where the
+effect can be seen at all.
 
 Two things follow from that. Averaging a per animal score over the whole cohort
 understates what the operator does, because the score is a ratio and animals with almost
