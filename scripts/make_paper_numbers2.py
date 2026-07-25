@@ -335,6 +335,18 @@ def main() -> int:
             M[f"{pre}{suf}Null"] = (f'{f3(v["null_mean_r"])}, '
                                     f'{v["null_negative"]}/{v["n"]}')
 
+    rb = Path("results/rule_by_release.json")
+    if rb.exists():
+        r = json.loads(rb.read_text())
+        for prop, suf in (("selectivity", "Sel"), ("firing rate", "Rate")):
+            for rel, tag in (("000009 (first)", "A"), ("000010+11 (second)", "B")):
+                v = r.get(f"{prop}|{rel}")
+                if not v:
+                    continue
+                M[f"Rule{suf}{tag}"] = str(v["neg"])
+                M[f"Rule{suf}{tag}N"] = str(v["n"])
+                M[f"Rule{suf}{tag}P"] = pv(v["p"])
+
     sc = Path("results/cohort_scaling_alm.json")
     if sc.exists():
         cur = json.loads(sc.read_text())

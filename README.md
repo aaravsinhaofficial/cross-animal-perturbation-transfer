@@ -40,6 +40,10 @@ part of each neuron's response with properties read off its control trials.
 | how much it ramps | −0.003 | 19/38 | 1.00 |
 | how fast it fires, **under current** | −0.015 | 4/6 | 0.69 |
 
+The cohort is three separate releases collected years apart, and the selectivity result
+replicates independently in each half of it: 17 of the first release's 19 animals
+(p = 7e-4) and 15 of the later releases' 19 (p = 0.019).
+
 **The light takes most from the cells that have most**, by the same rule in nearly every
 animal. The ramp is a negative control inside the same analysis. Under current no such
 rule exists, which is exactly why nothing individual transfers there.
