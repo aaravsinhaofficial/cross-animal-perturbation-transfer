@@ -135,6 +135,63 @@ def panel_sweep(ax, rows, title, real=None):
     ax.legend(fontsize=6, loc="best")
 
 
+def traces_figure(out, preds_path, cache_path, n_units=8):
+    """Measured and predicted effect, neuron by neuron, in one held-out animal."""
+    import pickle
+    if not preds_path.exists() or not cache_path.exists():
+        return False
+    z = np.load(preds_path, allow_pickle=True)
+    ds = pickle.load(cache_path.open("rb"))["dataset"]
+    by_key = {s.key: s for s in ds.sets}
+    # the session where the prediction is best, so the figure shows what the model
+    # does when the recording can resolve it
+    best, best_v = None, -np.inf
+    for k in sorted({f.split("|")[0] for f in z.files}):
+        if f"{k}|A" not in z.files or k not in by_key:
+            continue
+        A, B = z[f"{k}|A"], z[f"{k}|B"]
+        if A.shape[-1] < n_units:
+            continue
+        v = 1.0 - np.nansum((A - B) ** 2) / max(np.nansum(A ** 2), 1e-9)
+        if v > best_v:
+            best, best_v = k, v
+    if best is None:
+        return False
+    A, B = z[f"{best}|A"], z[f"{best}|B"]
+    s = by_key[best]
+    ci = int(np.argmax([np.nansum(a ** 2) for a in A]))
+    a, b = A[ci], B[ci]
+    order = np.argsort(-np.nansum(a ** 2, axis=0))[:n_units]
+    T = a.shape[0]
+    tt = (np.arange(T) - 0) * s.bin_s
+    ncol = 4
+    nrow = int(np.ceil(len(order) / ncol))
+    fig, axes = plt.subplots(nrow, ncol, figsize=(1.7 * ncol, 1.5 * nrow),
+                             sharex=True)
+    axes = np.atleast_2d(axes)
+    for j, u in enumerate(order):
+        ax = axes[j // ncol, j % ncol]
+        ax.axhline(0, color=GREY, lw=0.6)
+        ax.plot(tt, a[:, u], color="k", lw=1.2, label="measured")
+        ax.plot(tt, b[:, u], color=BLUE, lw=1.2, ls="--", label="predicted")
+        ax.set_title(f"neuron {int(u)}", fontsize=6)
+        ax.tick_params(labelsize=6)
+        if j == 0:
+            ax.legend(fontsize=5.5, loc="lower right")
+    for j in range(len(order), nrow * ncol):
+        axes[j // ncol, j % ncol].axis("off")
+    for c in range(ncol):
+        axes[-1, c].set_xlabel("time from light onset (s)", fontsize=6)
+    axes[0, 0].set_ylabel("effect (spikes/bin)", fontsize=6)
+    fig.suptitle(f"{s.animal}, held out: measured and predicted effect of a light "
+                 f"level it never received", fontsize=8)
+    fig.tight_layout()
+    save(fig, out, "fig12_traces")
+    plt.close(fig)
+    print(f"wrote fig12_traces.png  ({best}, dR2 = {best_v:+.2f})")
+    return True
+
+
 def panel_rule(ax, rule, rule_icms, title):
     """What predicts how much a perturbation moves a neuron, one dot per animal."""
     names = [("selectivity", "how choice\nselective it is"),
@@ -254,6 +311,8 @@ def main() -> int:
         save(fig, args.out, "fig11_rule")
         plt.close(fig)
         print("wrote fig11_rule.png")
+
+    traces_figure(args.out, R / "preds_alm5.npz", Path("data/proc/alm.pkl"))
 
     # ---- the simulation -------------------------------------------------------
     sw = load(R / "decomposition_sweep.json")

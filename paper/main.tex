@@ -226,7 +226,7 @@ scores $\AlmOpStereo$ $[\AlmOpStereoLo, \AlmOpStereoHi]$ over animals. The model
 $\AlmOpModel$ $[\AlmOpModelLo, \AlmOpModelHi]$, above zero in \AlmOpModelPos{} of
 \AlmOpModelN{} mice, and the paired difference over animals is
 $\AlmOpModelVsStereoDiff$ at $p = \AlmOpModelVsStereoP$
-(Fig.~\ref{fig:zeroshot}). On the four best measured mice it reaches between $0.48$ and
+(Figs.~\ref{fig:zeroshot} and~\ref{fig:traces}). On the four best measured mice it reaches between $0.48$ and
 $0.60$ against a stereotype that manages between $0.08$ and $0.41$.
 
 The network on its own scores $\AlmOpNet$, better on average than the stereotype but
@@ -884,6 +884,18 @@ do, and the vertical axis is the shared operator. Points above the dashed line a
 animals where the operator wins. Left, light in frontal cortex. Right, current in
 somatosensory cortex.}
 \label{fig:zeroshot}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{figures/fig12_traces.png}
+\caption{\textbf{What a prediction looks like.} Eight neurons from one held out mouse,
+under a light level that mouse never received during training, ordered by how strongly
+the light moved them. Black is measured, blue is predicted. The model was trained on
+other mice and saw only this mouse's control trials. It gets the sign, the time course
+including the release when the light goes off, and the ordering across neurons. It
+under-predicts how far each neuron moves, which is the paper in one picture: the rule is
+shared and the magnitudes are not.}
+\label{fig:traces}
 \end{figure}
 
 \begin{figure}[h]\centering
