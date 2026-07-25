@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Brains share the rule, but not the wiring</title>
-<meta name="description" content="We trained a model on how electrical stimulation moves the brains of five mice, then asked it to predict what would happen in a sixth mouse it had only ever seen resting.">
+<meta name="description" content="A shared causal operator predicts individual neurons' responses to a perturbation in a mouse it has only ever seen resting, when the perturbation engages structure animals have in common, and fails when it does not.">
 <style>
 :root{
   --bg:#fff; --fg:#15181c; --muted:#5b6470; --rule:#e4e8ed;
@@ -61,35 +61,103 @@ footer{border-top:1px solid var(--rule);margin-top:60px;padding:26px 0 64px;
 <body>
 <header><div class="wrap">
   <h1>Brains share the rule, but not the wiring</h1>
-  <p class="lede">We trained a model on how electrical stimulation moves the brains of
-  five mice, then showed it a sixth mouse doing nothing special, just resting.</p>
+  <p class="lede">Show a model several animals being perturbed, then show it a new
+  animal doing nothing in particular. From that ordinary activity alone, what can it
+  say about a perturbation the animal has never received?</p>
   <div class="badges">
-    <span class="badge">6 mice, 48 sessions, 949 neurons</span>
-    <span class="badge">16,532 stimulation trials</span>
+    <span class="badge">26 mice, two ways of perturbing</span>
     <span class="badge">one mouse held out at a time</span>
+    <span class="badge"><a href="https://dandiarchive.org/dandiset/000009">DANDI:000009</a></span>
     <span class="badge"><a href="https://dandiarchive.org/dandiset/001868">DANDI:001868</a></span>
   </div>
 </div></header>
 
 <div class="wrap">
 
-<p>From that resting activity, plus the settings of the stimulus we were about to
-deliver, the model had to say what would happen next in an animal it had never seen
-perturbed.</p>
+<p>We ran that test on two cohorts and got two different answers. The difference
+between them is the result.</p>
 
 <div class="three">
-  <div class="item yes"><b>What the mouse would do</b>
-    <span>When it would notice the stimulus and report it, and how that changed with
-    stimulation strength. This worked, and it worked in every animal.</span></div>
-  <div class="item yes"><b>How the population would respond</b>
-    <span>The timing, the rise and fall, and the dependence on current all came
-    across.</span></div>
-  <div class="item no"><b>Not what any single neuron would do</b>
-    <span>At the level of individual cells the prediction was no better than saying
-    the stimulus does nothing.</span></div>
+  <div class="item yes"><b>Light in frontal cortex</b>
+    <span>20 mice, 109 sessions. Anterior lateral motor cortex silenced with light
+    during the delay of a decision task.</span></div>
+  <div class="item no"><b>Current in somatosensory cortex</b>
+    <span>6 mice, 48 sessions. A chronic probe delivering microstimulation the animal
+    has learned to report.</span></div>
+  <div class="item yes"><b>The same protocol for both</b>
+    <span>Train on the others, meet a new mouse, read only its control trials, predict
+    the whole time course.</span></div>
 </div>
 
-<h2>Why the last one fails</h2>
+<figure>
+  <img src="fig8_zeroshot.png" alt="Predicting individual neurons in a held-out mouse">
+  <figcaption>Each point is one mouse, held out in turn. Horizontal, the average of the
+  other mice at the same setting. Vertical, the shared operator. Points above the dashed
+  line are mice where the operator wins: 17 of 20 under light, and 4 of 6 under
+  current.</figcaption>
+</figure>
+
+<h2>A score on the whole response flatters everybody</h2>
+
+<p>A perturbation moves a population in a broadly stereotyped way, so a model can look
+good while handing every neuron the same answer. So we split the measured effect into
+the part the population shares and the part specific to one neuron, and scored models
+on the second part alone.</p>
+
+<pre><code>Delta_n(t)  =  mean over neurons of Delta(t)  +  delta_n(t)</code></pre>
+
+<p>A stereotype borrowed from other animals scores <b>exactly</b> zero on
+<code>delta</code>, not approximately zero, because its prediction does not vary across
+neurons. Anything above zero is prediction of individual structure in an animal whose
+perturbation trials were never read.</p>
+
+<p><b>On the whole response, under light, the model wins.</b> It scores +0.134 against
++0.039 for the average of the other mice, a paired difference of +0.095 at
+<i>p</i> = 3.5&times;10<sup>&minus;4</sup> over 20 animals, and on the best measured
+mice it reaches 0.6.</p>
+
+<p><b>On the individual part it still wins, by much less.</b> A shared operator acting
+on each neuron's own ordinary activity lands above zero in 15 of 20 mice (exact sign
+test, <i>p</i> = 0.041), against a measurable maximum of 0.57. A few per cent of what is
+individual about a neuron's response transfers, and most of it does not.</p>
+
+<p><b>Under current, it does not</b>, and this is not a measurement problem. The
+measurable maximum there is 0.90, higher than in the light cohort, so the individual
+part is sitting there clearly resolved and no rule we fit reaches it.</p>
+
+<figure>
+  <img src="fig9_decomposition.png" alt="The individual part of the response">
+  <figcaption>Every model scored on what is left of the effect after removing what the
+  whole recorded population does together. A stereotype borrowed from other animals is
+  at exactly zero there by construction, and the row marked &ldquo;no effect
+  present&rdquo; is the identical analysis with the perturbed trials replaced by
+  control trials. Panel <b>c</b> is the one worth staring at: how much transfers in a
+  mouse tracks how well that mouse could be measured, which is fixed by trial counts
+  before any model is fitted.</figcaption>
+</figure>
+
+<div class="caveat">
+<b>The mistake we nearly made.</b> The measured effect is the perturbed mean minus the
+control mean, and the model is handed each neuron's control activity as an input. If
+the same trials produce both, their noise enters the input and the target with opposite
+signs, and a model scores above zero knowing nothing at all. We caught this after it
+had already produced a result we liked. Splitting the control trials, so one half
+builds every input and the other half defines the target, cut the number roughly in
+half. Everything here is from the split version, and rerunning the whole analysis with
+the perturbed trials replaced by a second group of control trials returns zero.
+</div>
+
+<h2>How many animals an operator needs</h2>
+
+<p>Fitting the shared operator on random subsets of the training animals gives an
+orderly curve. One animal scores &minus;1.09, far worse than predicting nothing,
+because a single animal's idiosyncrasies get mistaken for a rule. Five animals still sit
+below zero. It first becomes useful at around eight, and by nineteen it reaches +0.05,
+still rising, tracking the log of the cohort size at <i>r</i> = +0.86.</p>
+
+<p>A study with five animals would have concluded that nothing transfers.</p>
+
+<h2>Why single neurons fail under current</h2>
 
 <p>This is the part we found most interesting. The shared rule actually gets each
 neuron's response shape right, meaning when it fires, how it ramps and decays, and how
@@ -134,6 +202,14 @@ resolution.</p>
   far it sits from the electrode.</figcaption>
 </figure>
 
+<figure>
+  <img src="fig10_sweep.png" alt="Simulated cortex, recruitment sweep">
+  <figcaption>The same split run on a cortex where we control the mechanism. Making
+  recruitment private costs about 40% of the recoverable individual part and never
+  drives it to zero. Both real cohorts sit below anything the simulator produces.
+  </figcaption>
+</figure>
+
 <h2>A simulated cortex, and a correction to what we expected</h2>
 
 <p>We built a cortex where we control the thing we think matters. When the electrode
@@ -157,13 +233,19 @@ simultaneously recorded populations are likely another. Our sessions have betwee
   the range in the real mice.</figcaption>
 </figure>
 
-<h2>Six animals is the sample size</h2>
+<h2>Animals are the sample size</h2>
 
 <p>The claim is about animals. Several sessions from one mouse are still one mouse, so
 every headline number here is inferred at the animal level, with a
-bootstrap that resamples animals and an exact sign flip permutation over the six. With
-six animals the smallest p value such a test can return is 0.031, reached when all six
-fall on the same side.</p>
+bootstrap that resamples animals and an exact test over them. With six animals the
+smallest p value such a test can return is 0.031, reached when all six fall on the same
+side; with twenty it is 1.9&times;10<sup>&minus;6</sup>.</p>
+
+<p>A per animal score divides by that animal's own effect energy, so an animal whose
+effect is barely there can return a wildly negative number and drag a mean around with
+it. The headline test is therefore an exact sign test over animals, which asks whether
+the operator helps in an animal more often than not and cannot be moved by one extreme
+value.</p>
 
 <div class="caveat">
 <b>A correction we made to our own work.</b> An earlier version reported session level
@@ -191,26 +273,35 @@ individual, which is itself worth knowing.</p>
 
 <h2>What we could not settle</h2>
 
-<p>Six animals is the binding constraint on almost everything. This is one species, one
-cortical area, one task and one way of perturbing. Electrical microstimulation is coarse
-and does not respect cell type, so an optogenetic perturbation aimed at a defined
-population may have more conserved structure at the single cell level than we found.</p>
+<p>The fraction of the individual part that transfers under light is a few per cent of
+what is measurable. It is not zero and it is not most of it, and we cannot yet say
+whether the rest is genuinely private or simply beyond the operator we wrote.</p>
+
+<p>Our simulated cortex never drives transfer of the individual part all the way to
+zero, and the microstimulation cohort sits below its worst case. So private recruitment
+is part of the story there and not all of it. The missing piece is a second mechanism:
+under light a neuron's ongoing rate says how much the perturbation will move it, and
+under current it does not. That is checkable directly, by measuring responsiveness and
+ongoing rate in the same cells under both kinds of perturbation.</p>
 
 <h2>Reproducing</h2>
 <pre><code>git clone https://github.com/aaravsinhaofficial/cross-animal-perturbation-transfer
 cd cross-animal-perturbation-transfer
 make env      # python 3.12 venv and dependencies
-make cache    # download the data (7.5 GB, CC-BY-4.0), build tensors, run the audit
-make analysis # the results table, with animal-level statistics
-make cortex   # the simulated cortex sweep
-make paper    # figures, numbers and the PDF</code></pre>
+make cache      # download both dandisets, build tensors, run the audit
+make analysis   # the results table, with animal-level statistics
+make operator   # leave-one-animal-out training of the shared operator
+make individual # the split into shared and individual parts
+make cortex     # the simulated cortex sweeps
+make paper      # figures, numbers and the PDF</code></pre>
 
 </div>
 <footer><div class="wrap">
   Code MIT licensed.
   <a href="https://github.com/aaravsinhaofficial/cross-animal-perturbation-transfer">Source on GitHub</a>.
   <a href="paper.pdf">Paper (PDF)</a>.
-  Data: <a href="https://dandiarchive.org/dandiset/001868">DANDI:001868</a>, CC-BY-4.0.
+  Data: <a href="https://dandiarchive.org/dandiset/000009">DANDI:000009</a> and
+  <a href="https://dandiarchive.org/dandiset/001868">DANDI:001868</a>, CC-BY-4.0.
 </div></footer>
 </body>
 </html>

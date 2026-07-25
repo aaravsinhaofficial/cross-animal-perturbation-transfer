@@ -1,9 +1,9 @@
 # Reproduce everything, in order. `make all` from a clean checkout.
 PY := .venv/bin/python
 
-.PHONY: all env data cache analysis cortex ladder teacher probes figures paper test lint clean
+.PHONY: all env data cache analysis operator individual cohort cortex ladder teacher probes figures paper test lint clean
 
-all: cache analysis cortex figures paper
+all: cache analysis operator individual cohort cortex figures paper
 
 env:
 	uv venv --python 3.12 .venv
@@ -12,13 +12,16 @@ env:
 	VIRTUAL_ENV=.venv uv pip install --python $(PY) torch \
 	  --index-url https://download.pytorch.org/whl/cu128
 
-# 7.5 GB of public NWB (CC-BY-4.0) plus a SHA-256 manifest
+# public NWB (CC-BY-4.0) plus a SHA-256 manifest: 7.5 GB of microstimulation and
+# 13 GB of optogenetic silencing
 data:
 	$(PY) scripts/download_dandi.py --out data/raw/dandi001868
+	$(PY) scripts/download_dandiset.py --dandiset 000009 --out data/raw/dandi000009
 
 # analysis tensors + the leakage / covariate-matching audit
 cache: data
 	$(PY) scripts/build_icms_cache.py
+	$(PY) scripts/build_alm_cache.py
 
 # the results table, with animal-level statistics
 analysis:
@@ -26,9 +29,27 @@ analysis:
 	$(PY) scripts/probe_readout_oracle.py
 	$(PY) scripts/probe_unit_gain.py
 
+# leave-one-animal-out training of the shared operator, both cohorts
+operator:
+	$(PY) scripts/train_operator2.py --cache data/proc/alm.pkl  --tag alm5  --seeds 0 1 2 3 4
+	$(PY) scripts/train_operator2.py --cache data/proc/icms.pkl --tag icms5 --seeds 0 1 2 3 4
+
+# the split into what the population shares and what belongs to one neuron
+individual:
+	$(PY) scripts/analyse_individuality.py --cache data/proc/alm.pkl  --tag alm \
+	  --preds results/preds_alm5.npz
+	$(PY) scripts/analyse_individuality.py --cache data/proc/icms.pkl --tag icms \
+	  --preds results/preds_icms5.npz
+
+# how the operator improves as animals are added
+cohort:
+	$(PY) scripts/run_cohort_scaling.py --cache data/proc/alm.pkl  --tag alm
+	$(PY) scripts/run_cohort_scaling.py --cache data/proc/icms.pkl --tag icms --draws 8
+
 # the simulated cortex: does private recruitment explain the failure?
 cortex:
 	$(PY) scripts/run_cortex_sweep.py
+	$(PY) scripts/run_decomposition_sweep.py --n-animals 8
 
 # the earlier session-level table, kept for reference
 ladder:
@@ -49,6 +70,7 @@ probes:
 
 figures:
 	$(PY) scripts/make_figures.py
+	$(PY) scripts/make_figures2.py
 
 paper: figures
 	$(PY) scripts/make_paper_numbers2.py

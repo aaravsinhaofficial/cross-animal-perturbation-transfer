@@ -35,3 +35,7 @@ results/logs/
 paper/*.aux
 paper/*.log
 paper/*.out
+
+# per-neuron prediction dumps, rebuilt by scripts/train_operator2.py
+results/preds_*.npz
+results/logs/

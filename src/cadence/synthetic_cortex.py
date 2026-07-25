@@ -57,13 +57,22 @@ class CortexConfig:
     w_scale: float = 0.55
     w_sigma_um: float = 260.0
     animal_het: float = 0.25              # size of the animal-specific circuit part
-    recruit: str = "sparse"               # 'local' | 'sparse'
+    recruit: str = "sparse"               # 'local' | 'sparse' | 'mix'
+    # For 'mix', how much of the drive goes to a scattered set redrawn for every
+    # animal and contact rather than to the smooth profile every animal shares.
+    # 0 is a rule the animals hold in common, 1 is wiring that belongs to one implant.
+    recruit_private: float = 0.5
     recruit_sigma_um: float = 220.0       # width for 'local'
     sparse_sigma_um: float = 900.0        # width for 'sparse' (deliberately wide)
     sparsity: float = 0.12                # fraction of neurons the electrode drives
     drive_scale: float = 0.9
     saturation: float = 6.0               # amplitude at which the drive saturates
     obs_gain: float = 1.1
+    # spread of per-neuron observation gain. With this above zero a cell's own
+    # ongoing rate predicts how strongly it reacts, which is a second thing the
+    # animals can share besides where the perturbation lands. Setting it to zero
+    # leaves position as the only shared structure.
+    obs_gain_cv: float = 0.3
     obs_bias: float = -0.15
     rate_scale: float = 2.2
     noise: float = 0.25
@@ -90,17 +99,28 @@ def _build_animal(cfg: CortexConfig, rng: np.random.Generator):
     return z, A
 
 
-def _recruitment(cfg: CortexConfig, z, contact, rng: np.random.Generator):
-    if cfg.recruit == "local":
-        r = np.exp(-((z - contact) / cfg.recruit_sigma_um) ** 2)
-    elif cfg.recruit == "sparse":
-        env = np.exp(-((z - contact) / cfg.sparse_sigma_um) ** 2)
-        hit = rng.random(len(z)) < cfg.sparsity
-        r = hit * env * rng.gamma(2.0, 0.5, len(z))
-    else:
-        raise ValueError(cfg.recruit)
+def _unit(r, n_z):
     n = np.linalg.norm(r)
-    return r / n * np.sqrt(len(z)) if n > 0 else r
+    return r / n * np.sqrt(n_z) if n > 0 else r
+
+
+def _recruitment(cfg: CortexConfig, z, contact, rng: np.random.Generator):
+    shared = _unit(np.exp(-((z - contact) / cfg.recruit_sigma_um) ** 2), len(z))
+    env = np.exp(-((z - contact) / cfg.sparse_sigma_um) ** 2)
+    hit = rng.random(len(z)) < cfg.sparsity
+    private = _unit(hit * env * rng.gamma(2.0, 0.5, len(z)), len(z))
+    if cfg.recruit == "local":
+        return shared
+    if cfg.recruit == "sparse":
+        return private
+    if cfg.recruit == "mix":
+        # the private half carries no position structure at all, so at p = 1 there is
+        # nothing about who gets driven that another animal could tell you
+        scattered = _unit(rng.random(len(z)) < cfg.sparsity, len(z))
+        scattered = _unit(scattered * rng.gamma(2.0, 0.5, len(z)), len(z))
+        p = float(np.clip(cfg.recruit_private, 0.0, 1.0))
+        return _unit((1.0 - p) * shared + p * scattered, len(z))
+    raise ValueError(cfg.recruit)
 
 
 def build_cortex_dataset(cfg: CortexConfig) -> Dataset:
@@ -112,7 +132,7 @@ def build_cortex_dataset(cfg: CortexConfig) -> Dataset:
         g_animal = float(np.exp(rng.normal(0, cfg.animal_gain_cv)))
         sel = np.sort(rng.choice(cfg.n_neurons, size=min(cfg.n_obs, cfg.n_neurons),
                                  replace=False))
-        gains = cfg.obs_gain * np.exp(rng.normal(0, 0.3, len(sel)))
+        gains = cfg.obs_gain * np.exp(rng.normal(0, cfg.obs_gain_cv, len(sel)))
         bias = rng.normal(cfg.obs_bias, 0.1, len(sel))
         recruit = {c: _recruitment(cfg, z, c, rng) for c in cfg.contacts_um}
 

@@ -31,31 +31,48 @@
 
 \begin{abstract}
 \noindent
-We trained a model on how electrical stimulation moves the brains of five mice, and
-then showed it a sixth mouse doing nothing special, just resting. From that resting
-activity, plus the settings of the stimulus we were about to deliver, the model had to
-say what would happen next in an animal it had never seen perturbed.
+Take a model that has watched several mice being perturbed, then show it a new mouse
+doing nothing in particular. From that ordinary activity, plus the settings of a
+perturbation about to be delivered, the model has to say what will happen next in an
+animal it has never seen perturbed.
 
-Two things came through. The model predicted what the mouse would do, meaning when it
-would notice the stimulus and report it, and how that changed with stimulation
-strength. It also predicted how the recorded population as a whole would respond,
-including the timing and the rise and fall. What it could not predict was the response
-of any individual neuron.
+In \AlmAnimals{} mice whose frontal cortex was silenced with light, it works down to
+individual neurons. The model scores $\AlmOpModel$ against $\AlmOpStereo$ for the
+average of the other mice, which is the strongest simple thing to do, a difference of
+$\AlmOpModelVsStereoDiff$ at $p = \AlmOpModelVsStereoP$ over \AlmOpModelN{} animals. On
+the best measured mice it reaches $0.6$.
 
-The reason turned out to be specific and measurable. The shared rule already gets each
-neuron's response shape right, meaning when the neuron fires, how its response ramps
-and decays, and how it grows with current. The only thing it gets wrong is how
-strongly each neuron responds, which is a single number per cell. Handing the model
-that one number per cell, and changing nothing else, raises the neural score from
-$\RoNone$ to $\RoGain$ in every one of the \NAnimals{} mice. That number turned out to
-be essentially unguessable from resting activity, and we show why: low current
-stimulation does not light up a neat sphere of nearby cells, it grabs a sparse
-scattered set that depends on where that particular electrode happened to land. In a
-simulated cortex where we can switch that mechanism on and off, switching it on
-reproduces the failure, and recording more neurons at once repairs it.
+There is a catch in that number, and chasing it down is most of this paper. A
+perturbation moves a population in a broadly stereotyped way, that stereotyped part
+dominates any score on the whole response, and a model can score well on it while
+knowing nothing about individual neurons. So we split the measured effect into the part
+every recorded neuron shares and the part specific to a single neuron, and scored
+models on the second part alone. A stereotype scores exactly zero there, not
+approximately zero, because it hands every neuron the same answer. Anything above zero
+is prediction of individual structure.
 
-So the shared dynamics that people describe across animals really is causal. It lives
-above the single cell scale. Individuality is in the neurons.
+Under light, a shared operator acting on each neuron's own ordinary activity lands above
+zero in \AlmIndSharedPos{} of \AlmIndSharedN{} mice ($p = \AlmIndSharedP$, median
+$\AlmIndSharedMed$), against a measurable maximum of $\AlmIndCeiling$. When \NAnimals{}
+mice had their somatosensory cortex stimulated through an implanted electrode instead,
+the same operator reached \IcmsIndSharedPos{} of \IcmsIndSharedN{} animals, and this
+was not a measurement problem: the measurable maximum there is $\IcmsIndCeiling$,
+higher than under light. The individual part is sitting there clearly resolved and no
+rule we fit touches it.
+
+What is individual and transfers is a small fraction of what is individual and
+measurable, and it moves in ways an experimenter controls. Fitting the operator on more
+animals helps in an orderly way, from $\CohortMinVal$ with one animal, which is far
+worse than predicting nothing, to $\CohortMaxVal$ with \CohortMaxN, still rising. And
+how much transfers in an animal tracks how well that animal's individual response could
+be measured at all, at a rank correlation of $\AlmIndQualRho$
+($p = \AlmIndQualP$).
+
+A simulated cortex where the mechanism is a knob says the difference between the two
+cohorts is about what the perturbation grabs. So a shared causal rule does reach single
+cells, when the perturbation engages structure the animals have in common, and how far
+it reaches is currently set by how many animals and how many neurons anyone has
+measured.
 \end{abstract}
 
 \section{The question}
@@ -79,8 +96,22 @@ in the behaviour, before that stimulus is ever delivered to that animal.
 
 \section{What we measured}
 
-We used a public dataset of intracortical microstimulation in mouse somatosensory
-cortex \citep{icms_learning}. \NAnimals{} mice learned to report a stimulus delivered
+We used two public datasets in which many mice received a perturbation described by
+numbers chosen by the experimenter, so that an unseen intervention has a meaning a
+model can be given.
+
+\paragraph{Light in frontal cortex.}
+\AlmAnimals{} mice performed a delayed response task while anterior lateral motor
+cortex was silenced with light on a subset of trials \citep{alm_svoboda}. The
+perturbation is described by its power, from \AlmPowerMin{} to \AlmPowerMax\,mW, and
+by where the galvanometers pointed the beam. We kept \AlmSessions{} sessions,
+\AlmUnits{} neurons, \AlmStimTrials{} light trials and \AlmCtrlTrials{} control
+trials, binned at \AlmBinMs\,ms and aligned to the moment the light came on. This is
+the larger cohort and it carries the statistics: with \AlmAnimals{} animals an exact
+test can reach $p = \AlmPFloor$.
+
+\paragraph{Current in somatosensory cortex.}
+\NAnimals{} mice learned to report a stimulus delivered
 through a chronically implanted probe by turning a wheel. The stimulus is described by
 numbers we know in advance, which makes it easy to say what an unseen intervention
 means: the current, from \AmpMin{} to \AmpMax\,\textmu A across \NAmps{} levels, and
@@ -108,18 +139,92 @@ how high any model could possibly score, by splitting trials in half and compari
 two halves. That ceiling sits at $\CeilUnitMed$ for neurons and $\CeilBehMed$ for
 behaviour, so the measurements themselves are not what limits us.
 
-\paragraph{Six animals is the sample size.}
+\paragraph{Nothing the model reads shares a trial with what it predicts.}
+The effect is the perturbed mean minus the control mean, and the model is handed each
+neuron's control activity as an input. If the same trials produced both, their noise
+enters the input and the target with opposite signs, and a model can score above zero
+without knowing anything. So the control trials of every recording are split in two.
+One half builds every input the model sees. The other half defines the effect it is
+scored against. We found this mattered: before the split, the shared operator scored
+about twice as high on the quantity in Section~\ref{sec:individual}, and half of that
+was noise. As a check, we reran the whole analysis with the perturbed trials replaced
+by a second group of control trials, so the answer is known to be zero, and it returns
+$\AlmIndNull$ (\AlmIndNullPos{} of \AlmIndNullN{} animals above zero).
+
+\paragraph{Animals are the sample size.}
 The claim here is about animals. Several sessions from one mouse are still one mouse, so
 every headline number is inferred at the animal level.
 Confidence intervals come from a bootstrap that resamples animals and carries all of
 their sessions along, and significance comes from an exact sign flip permutation over
-the \NAnimals{} animals. With six animals the smallest p value that test can ever
+animals. With six animals the smallest p value that test can ever
 return is $\PFloor$, reached when all six fall on the same side, and we say so
-wherever it appears. Session level numbers appear alongside as secondary detail, and
+wherever it appears; with \AlmAnimals{} it is $\AlmPFloor$. Session level numbers
+appear alongside as secondary detail, and
 an earlier version of this work reported them as the headline, which overstated the
 evidence.
 
+\section{The model}
+
+The model is one operator shared by every animal, applied to whatever the new animal
+happens to be doing. For a neuron $n$ in animal $i$ we write the effect of the
+perturbation as
+\[
+\widehat{\Delta}_n(t) \;=\; \underbrace{g(t,\theta)}_{\text{shared with everyone}}
+\;+\; \underbrace{\textstyle\sum_k m_{nk}(t)\, r_{nk}(t)}_{\text{acting on this neuron's own activity}}
+\;+\; a_n(t),
+\]
+where $\theta$ collects the perturbation settings the experimenter chose, $g$ is the
+average response of the other animals at that setting, and $r_{nk}$ are channels
+measured from this neuron on control trials: its mean firing, how much that firing has
+grown since the alignment point, and the difference between the two trial types, which
+is what the neuron knows about the upcoming choice. The gains $m$ and the additive
+term $a$ come from a set transformer that attends across the neurons recorded together,
+so what a neuron is predicted to do can depend on the population it sits in. Every
+weight in it is shared across animals. Everything animal specific enters through
+$r_{nk}$, which costs nothing from the protocol because control trials are all we are
+allowed.
+
+Writing the model as a correction to $g$ matters more than the architecture does. Our
+first version had to learn the average response and the individual departures from it
+at the same time, and its errors on the easy part buried whatever it learned about the
+hard part. Starting from $g$, with the corrections initialised to zero, means every
+parameter is spent on the question we care about.
+
+For a held out animal, $g$ is built from the other animals and the network is trained
+on them, with one further animal set aside to decide when to stop. The held out animal
+contributes its control trials and the settings of a perturbation it has not yet
+received.
+
 \section{What transferred}
+
+\subsection{Individual neurons, scored on the whole response}
+
+In the light cohort the model predicts individual neurons in a mouse it has never seen
+perturbed, and it beats the strongest simple alternative. The average of the other mice
+scores $\AlmOpStereo$ $[\AlmOpStereoLo, \AlmOpStereoHi]$ over animals. The model scores
+$\AlmOpModel$ $[\AlmOpModelLo, \AlmOpModelHi]$, above zero in \AlmOpModelPos{} of
+\AlmOpModelN{} mice, and the paired difference over animals is
+$\AlmOpModelVsStereoDiff$ at $p = \AlmOpModelVsStereoP$
+(Fig.~\ref{fig:zeroshot}). On the four best measured mice it reaches between $0.48$ and
+$0.60$ against a stereotype that manages between $0.08$ and $0.41$.
+
+The network on its own scores $\AlmOpNet$, better on average than the stereotype but
+not reliably so ($p = \AlmOpNetVsStereoP$), because it fails badly on the animals whose
+response is barely resolvable. What closes that gap is deciding how far to trust it
+using two quantities that need no labels: how resolvable this animal's response is,
+which follows from trial counts and firing rates, and how much independently seeded
+copies of the network disagree with each other. Neither reads a perturbation trial from
+the held out animal.
+
+In the microstimulation cohort the same machinery gives $\IcmsOpModel$ against
+$\IcmsOpStereo$ for the stereotype, a difference of $\IcmsOpModelVsStereoDiff$ at
+$p = \IcmsOpModelVsStereoP$, which with six animals is nothing.
+
+There is a catch in all of this, and it is the reason for the next section. A
+perturbation moves a population in a broadly stereotyped way, that stereotyped part
+dominates any score on the whole response, and a model can score well on it while
+knowing nothing about individual neurons. Scoring the whole response cannot tell the
+two apart.
 
 \subsection{Behaviour}
 
@@ -151,30 +256,104 @@ $\PopLRG$ $[\PopLRGLo, \PopLRGHi]$ for our best model, with \PopGroupPos{} and
 animals that is not enough to claim that population level effect sizes transfer
 reliably. The shape does, and the size is unresolved.
 
-\subsection{Our model does not beat the simple baselines}
+\subsection{The same is true of every model we tried}
 
-It is worth stating this plainly, because it is easy to hide. On every readout we
-compared the model against the best of the simple alternatives, using a paired test
-over animals. Nowhere does it win. For behaviour the difference is $\CmpBehDiff$ against a smooth curve in current and
-time, at $p = \CmpBehP$, and for the neural readouts the differences are similarly
-small and inconsistent in sign. The interesting quantity in this dataset
-turns out to be how conserved the response already is, rather than how well a
-dynamical model can exploit an individual's resting activity. Where the model does earn
-its place is in taking the shared rule apart, which is the next section.
+On every readout we compared each model against the best of the simple alternatives,
+using a paired test over animals, and nowhere does one win. For behaviour the
+difference is $\CmpBehDiff$ against a smooth curve in current and time, at
+$p = \CmpBehP$, and for the neural readouts the differences are small and inconsistent
+in sign. This holds for a smooth function of the physical variables, a manifold
+alignment style group average, a model built from each animal's own spontaneous
+dynamics, and the network. On single neurons in the microstimulation cohort the score
+is $\UnitGroup$ for the average of the other mice (\UnitGroupPos{} animals above zero,
+$p = \UnitGroupP$) and $\UnitLR$ for the dynamical model (\UnitLRPos{} animals,
+$p = \UnitLRP$), against a ceiling of $\CeilUnitMed$ for the same quantity.
 
-\subsection{Single neurons}
+The conserved part of the response is large and the models all find it. Nothing about
+that tells us whether any of them knows anything about an individual neuron, which is
+the next section.
 
-Individual neurons do not transfer. The score is $\UnitGroup$ for the average of the
-other mice (\UnitGroupPos{} animals above zero, $p = \UnitGroupP$) and $\UnitLR$ for
-the dynamical model (\UnitLRPos{} animals, $p = \UnitLRP$). This is not a limit of the measurement, since the ceiling for the same
-quantity is $\CeilUnitMed$, and it is not a limit of one particular model, since a
-smooth function of physical variables, a manifold alignment style group average, and a
-model built from each animal's own spontaneous dynamics all land in the same place.
+\section{The part that is individual}
+\label{sec:individual}
+
+A score on the whole response is a blunt instrument, and it is blunt in a way that
+flatters everyone. A perturbation moves a population in a broadly stereotyped way, so a
+model can score respectably while handing every neuron the same answer. To ask whether
+anything genuinely individual carries across animals, split the measured effect into
+the part the recorded population shares and the part specific to one neuron:
+\[
+\Delta_n(t) \;=\; \overline{\Delta}(t) \;+\; \delta_n(t),
+\qquad \overline{\Delta}(t) = \frac{1}{N}\sum_m \Delta_m(t),
+\]
+and score models on $\delta$ alone. A stereotype borrowed from other animals gets
+exactly zero here, not approximately zero, because its prediction does not vary across
+neurons and so has no $\delta$ at all. Anything above zero is prediction of individual
+structure in an animal whose perturbation trials were never read.
+
+Alongside it we compute how much of $\delta$ is measurable rather than noise. The
+effect is a difference of two trial means, so its noise variance is $v(1/n + 1/n_0)$
+with $v$ the trial to trial variance, $n$ perturbed trials and $n_0$ control trials,
+all of which we know. That gives the score a perfect predictor of the true $\delta$
+would reach.
+
+One more thing about the statistics. A per animal score divides by that animal's own
+effect energy, so an animal whose effect is barely there can return a wildly negative
+number and drag a mean around with it. The headline test is therefore an exact sign
+test over animals, which asks whether the operator helps in an animal more often than
+not and cannot be moved by one extreme value. The mean and its interval are reported
+next to it.
+
+\paragraph{Under light, individuality transfers.}
+A shared operator acting on each neuron's own control activity is above zero in
+\AlmIndSharedPos{} of \AlmIndSharedN{} mice ($p = \AlmIndSharedP$), with a median of
+$\AlmIndSharedMed$ and a mean of $\AlmIndShared$
+$[\AlmIndSharedLo, \AlmIndSharedHi]$, against a measurable maximum of
+$\AlmIndCeiling$. So about \AlmIndFrac\% of what is individual about a neuron's response
+to an intervention it has never received can be read off from what that neuron does when
+nothing is happening, using coefficients fitted entirely in other animals. It is a small
+fraction of what is there, and it is not zero, and the null control says the procedure
+returns $\AlmIndNull$ when there is nothing to find.
+
+The network recovers more of it on average, $\AlmIndNet$ against a ceiling of
+$\AlmIndCeiling$, which is \AlmIndNetFrac\% rather than \AlmIndFrac\%. It is less
+consistent from animal to animal, \AlmIndNetPos{} of \AlmIndNetN{} rather than
+\AlmIndSharedPos, so the smaller and steadier number is the one we would defend.
+
+\paragraph{Under current, it does not.}
+The same analysis on the microstimulation cohort puts \IcmsIndSharedPos{} of
+\IcmsIndSharedN{} animals above zero ($p = \IcmsIndSharedP$), with a mean of
+$\IcmsIndShared$. This is not a measurement problem. The measurable maximum there is
+$\IcmsIndCeiling$, higher than in the light cohort, so the individual part is sitting
+there clearly resolved and no rule we fit reaches it.
+
+That contrast is the result. The same decomposition, the same operator, the same
+protocol, applied to two ways of pushing on a cortex, and individuality transfers in
+one and not the other.
+
+\section{How many animals an operator needs}
+
+If what carries between animals really is one operator, fitting it on more animals
+should make it better on a new one. We fitted the shared operator on random subsets of
+the training animals, at every size from one upwards, and scored it on the individual
+part of the held out animal's response.
+
+The curve is orderly and it starts badly. One animal gives $\CohortMinVal$, which is
+far worse than predicting nothing at all, because a single animal's idiosyncrasies get
+mistaken for a rule. Five animals still sit below zero. The operator first becomes
+useful at around eight, and by \CohortMaxN{} it reaches $\CohortMaxVal$, positive in
+\AlmIndSharedPos{} of \AlmIndSharedN{} mice. Across the range the score tracks the
+logarithm of the cohort size at $r = \CohortCorr$, and it has not flattened.
+
+So small cohorts cannot answer this question. A study with five
+animals would have concluded that nothing transfers. And the returns are still there to
+be collected, which is an argument for cohorts rather than for deeper recordings in a
+handful of animals.
 
 \section{Where the failure comes from}
 
 Knowing that single neurons fail is less useful than knowing what is missing, so we
-took the shared rule apart.
+took the shared rule apart. Everything in this section is the microstimulation cohort,
+where the failure is.
 
 \paragraph{One number per neuron.}
 We froze the shared rule at the value fitted on the other animals and changed nothing
@@ -244,7 +423,7 @@ interval width of $\CxLocalWidth$ to $\CxSparseWidth$. At the population sizes f
 our mice the private setting is at its most unstable, with intervals that comfortably
 span zero.
 
-Two things follow, and the second one is a correction to what we expected. Private
+The reading is not the one we expected. Private
 recruitment does clearly damage single neuron transfer, costing about $\CxGap$ in score
 at matched population size and making the result far less reliable from animal to
 animal. But it does not by itself abolish transfer in this simulation, so it is not a
@@ -256,6 +435,34 @@ The clean trend in the shared setting is the useful part for planning. When the 
 governing who gets driven is shared, recording more neurons at once helps in a very
 regular way. Our mice have between \MinUnits{} and \MaxUnits{} neurons per session, at
 the bottom of the range we simulated.
+
+\subsection{Two things a perturbation can share}
+
+Running the decomposition of Section~\ref{sec:individual} on the same simulated cortex
+says something the score on the whole response could not. There are two separate ways a
+perturbation can carry individual structure between animals, and they can be switched
+on and off one at a time.
+
+The first is where the perturbation lands. Turning the recruitment from a smooth rule
+of position into a scattered set redrawn for each animal takes the recovered fraction
+of the individual part from $\SweepSharedFrac$\% to $\SweepPrivateFrac$\%.
+
+The second is how strongly a cell reacts given what it was already doing, and it is the
+one that surprised us. In the simulation a cell's ongoing firing rate reports how
+strongly the network drives it, so it also reports how much any perturbation will move
+it, and that is a rule every animal obeys. It survives private recruitment. We tried to
+switch it off by making every simulated cell equally responsive, and the recovered
+fraction went up rather than down, because removing that variation makes position a
+cleaner cue. There is no setting of this simulator in which private recruitment alone
+drives transfer of the individual part to zero.
+
+The microstimulation cohort sits below the worst case the simulator can produce. So
+private recruitment is part of the story there and not all of it, and the missing piece
+is the second mechanism: for electrical stimulation, a neuron's ongoing rate does not
+say how much the stimulus will move it. Under light it does, which is what the beam
+suppressing exactly the cells that were ramping hardest would look like. That is a
+statement about mechanism which a future experiment can check directly, by measuring
+responsiveness and ongoing rate in the same cells under both kinds of perturbation.
 
 \section{When can transfer work at all}
 
@@ -298,9 +505,21 @@ reaches a given cell, and in this preparation they are not.
 Several of the checks below changed a number in this paper, which is why they are worth
 listing.
 
+The one that changed the most was the overlap between the control trials the model
+reads and the control trials that define its target. We had a positive result before we
+noticed it. Splitting those trials in two, so that no trial appears on both sides, cut
+the recovered fraction of the individual part roughly in half, and everything reported
+here is from the split version. The check that would have caught it earlier is the null
+control we now run alongside every fit: replace the perturbed trials with a second group
+of control trials, so the answer is known to be zero, and confirm the procedure returns
+zero. It does, at $\AlmIndNull$ under light and $\IcmsIndNull$ under current. Before
+the split it did not.
+
 The split half ceiling estimator was validated against simulations with known signal
 and noise across six regimes of noise level and trial count, agreeing with the
-attainable score to within $0.06$.
+attainable score to within $0.06$. The ceiling for the individual part is computed a
+second, independent way, analytically from trial counts and firing rates, and the two
+agree.
 
 Stimulation trials are delivered under a quiescence criterion, so inter trial windows
 sampled at random carry up to three times the pre stimulus firing rate of a real trial.
@@ -335,32 +554,55 @@ not know how much any particular neuron will respond, and for electrical stimula
 that is because the set of neurons the electrode reaches belongs to the implant rather
 than to the species.
 
-For anyone calibrating a stimulation protocol, the practical reading is that the
-behavioural and population level effects seen in one animal are a reasonable guide to
-the next, and the effect on any named cell is not.
+Under light it does not stop there. A shared operator reading each neuron's own
+ordinary activity recovers part of what is individual about that neuron's response,
+in most of the animals, and the amount it recovers grows with the size of the cohort it
+was fitted on and with how well each animal was measured. Both of those are things an
+experiment can change.
+
+The practical reading is mostly about how to ask. Scoring a cross-animal model on the
+whole response tells you almost nothing, because the stereotyped part dominates it and
+a stereotype costs nothing to build, so the split used here, or something like it, is
+what makes the question answerable at all. Cohorts below about eight animals cannot see
+the effect and would report that nothing transfers. For anyone calibrating a
+stimulation protocol, the behavioural and population level effects seen in one animal
+remain a reasonable guide to the next, while the effect on any named cell is a guide
+only when the perturbation acts through something the animals hold in common.
 
 \section{What we could not settle}
 
-Six animals is the binding constraint on almost everything here. The smallest p value
-available from an exact test over six animals is $\PFloor$, so results that hold in all
-six are as strong as this design allows, and results that hold in four or five are
-suggestive at best. The population level effect sizes fall in the second category.
+The positive result is small. A few per cent of the measurable individual part is real
+and repeatable across animals, and it is a long way from the whole of it. We cannot yet
+say how much of the remainder is genuinely private wiring and how much is beyond the
+operator we happened to write, and the honest position is that both contribute.
 
-This is one species, one cortical area, one task and one way of perturbing. Electrical
-microstimulation is coarse and does not respect cell type, and an optogenetic
-perturbation that targets a defined population may well have more conserved structure
-at the single cell level than we found here.
+Six animals is the binding constraint on everything in the microstimulation cohort.
+The smallest p value available from an exact test over six animals is $\PFloor$, so
+results that hold in all six are as strong as that design allows, and results that hold
+in four or five are suggestive at best.
 
-The clearest next step follows from the simulation. Our account says single neuron
-transfer is limited by how well each animal's own dynamics can be pinned down from
-resting activity, and that this improves with the number of neurons recorded at once.
-A dataset with hundreds of simultaneously recorded neurons and parameterised
-perturbations in many animals would settle it, and would also lift the animal count
-that limits the statistics here.
+Our simulated cortex never drives transfer of the individual part to zero, at any
+setting we could find, and the microstimulation cohort sits below its worst case. So
+private recruitment is part of the account there and not all of it. The piece we cannot
+see directly is whether a neuron's ongoing rate reports how much a perturbation will
+move it, which our simulator assumes and which the light cohort behaves as though it
+obeys. Measuring responsiveness and ongoing rate in the same cells under both kinds of
+perturbation would settle that, and it does not need a new dataset so much as a new
+analysis of one.
+
+The ceiling on the result itself would lift with things an experimenter chooses. The cohort curve has not flattened at twenty animals. And how
+much transfers in an animal tracks how well that animal was measured, so recordings
+with hundreds of simultaneous neurons should recover a larger fraction than the
+\AlmUnits{} neurons spread over \AlmSessions{} sessions that we had.
+
+Finally, this is two cohorts, one species, two cortical areas and two ways of
+perturbing. The contrast we report is between those two, and a third perturbation could
+easily land somewhere we did not anticipate.
 
 \section*{Data and code}
 
-The dataset is public \citep{icms_learning}. Everything in this paper is rebuilt by
+Both datasets are public \citep{alm_svoboda, icms_learning}. Everything in this paper is
+rebuilt by
 \texttt{make all}, from downloading the raw files with a checksummed manifest through
 the leakage audit, the results table, the simulations, the figures and the numbers
 quoted in the text, which are generated directly from the result files.
@@ -394,6 +636,9 @@ Robust neuronal dynamics in premotor cortex during experimental population contr
 \bibitem[Histed et al.(2009)]{histed} M.~H.~Histed, V.~Bonin, and R.~C.~Reid.
 Direct activation of sparse, distributed populations of cortical neurons by electrical
 microstimulation. \emph{Neuron}, 63:508--522, 2009.
+\bibitem[Li et al.(2015)]{alm_svoboda} N.~Li, T.-W.~Chen, Z.~V.~Guo, C.~R.~Gerfen,
+and K.~Svoboda. A motor cortex circuit for motor planning and movement.
+\emph{Nature} 519:51--56, 2015. DANDI Archive, dandiset 000009.
 \bibitem[Kim et al.(2026)]{icms_learning} R.~Kim et al.
 Chronic electrophysiology and two-photon calcium imaging of mouse primary
 somatosensory cortex during intracortical microstimulation learning.
@@ -469,6 +714,49 @@ sensitive to how recruitment is arranged.
 \textbf{c}, The shaded band marks the range of simultaneously recorded neurons in the
 real dataset.}
 \label{fig:cortex}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{figures/fig8_zeroshot.png}
+\caption{\textbf{Predicting the whole response of individual neurons in an animal never
+seen perturbed.} Each point is one animal, held out in turn. The horizontal axis is the
+average of the other animals at the same setting, which is the strongest simple thing to
+do, and the vertical axis is the shared operator. Points above the dashed line are
+animals where the operator wins. Left, light in frontal cortex. Right, current in
+somatosensory cortex.}
+\label{fig:zeroshot}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{figures/fig9_decomposition.png}
+\caption{\textbf{The part of the response that belongs to one neuron.}
+Every model is scored on $\delta$, what is left of the effect after removing what the
+whole recorded population does together. A stereotype borrowed from other animals is at
+exactly zero there by construction.
+\textbf{a}, Light in frontal cortex. Each dot is one mouse, the thick bar is the median,
+and the row marked ``no effect present'' is the identical analysis with the light trials
+replaced by a second group of control trials, so the answer is known to be zero.
+\textbf{b}, Current in somatosensory cortex, on the same axis. The measurable maximum is
+higher here and nothing transfers.
+\textbf{c}, How much transfers in a mouse against how well that mouse's individual
+response could be measured at all, a quantity fixed by trial counts and firing rates
+before any model is fitted.
+\textbf{d}, The operator fitted on random subsets of the training animals. One animal is
+much worse than predicting nothing; the curve crosses zero near eight and has not
+flattened at nineteen. Shading is the standard error over held out animals.}
+\label{fig:decomposition}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=0.62\textwidth]{figures/fig10_sweep.png}
+\caption{\textbf{What the split means, checked against a cortex where we know the
+answer.} Turning the recruitment from a smooth rule of position into a scattered set
+redrawn for each animal costs about \SweepSharedFrac{} minus \SweepPrivateFrac{} per
+cent of the recoverable individual part, and making every simulated cell equally
+responsive does not help, so private recruitment alone never drives the simulation to
+zero. Dashed lines are the two real cohorts, both of which sit below anything the
+simulator produces.}
+\label{fig:sweep}
 \end{figure}
 
 \end{document}

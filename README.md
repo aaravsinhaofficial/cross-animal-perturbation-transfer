@@ -1,115 +1,132 @@
 # Brains share the rule, but not the wiring
 
-We trained a model on how electrical stimulation moves the brains of five mice, then
-showed it a sixth mouse doing nothing special, just resting. From that resting
-activity, plus the settings of the stimulus we were about to deliver, the model had to
-say what would happen next in an animal it had never seen perturbed.
+Show a model several animals being perturbed. Then show it a new animal doing nothing
+in particular. From that ordinary activity, plus the settings of a perturbation about
+to be delivered, the model has to say what will happen next in an animal it has never
+seen perturbed.
 
-## What came through
+We ran that test on two cohorts of mice and got two different answers. The difference
+between them is the result.
 
-**What the mouse would do.** When it would notice the stimulus and report it, and how
-that changed with stimulation strength. This worked, and it worked in every animal.
+## Two ways of pushing on a cortex
 
-**How its neural population as a whole would respond.** The timing, the rise and fall,
-and the dependence on current all came across.
+**Light in frontal cortex.** 20 mice, 109 sessions, anterior lateral motor cortex
+silenced with light during the delay period of a decision task
+([DANDI:000009](https://dandiarchive.org/dandiset/000009)).
 
-**But not what any individual neuron would do.**
+**Current in somatosensory cortex.** 6 mice, 48 sessions, a chronically implanted probe
+delivering microstimulation the animal has learned to report
+([DANDI:001868](https://dandiarchive.org/dandiset/001868)).
 
-## Why the last one fails
+Both perturbations are described by numbers the experimenter chose, so an unseen
+intervention has a meaning the model can be handed.
 
-This is the part we found most interesting. The shared rule actually gets each neuron's
-response shape right, meaning when it fires, how it ramps and decays, and how it scales
-with current. The only thing it gets wrong is how strongly each neuron responds, which
-is one number per cell.
+## Why the second number is the interesting one
 
-Hand the model that one number per cell and change nothing else, and the neural score
-jumps from 0.035 to 0.422, in every one of the six mice. A single scalar cannot invent
-structure in time or across currents, because each neuron's predicted time course is
-already fixed by the shared rule. So the rule was right and the amplitude was wrong.
+A score on the whole response flatters everybody. A perturbation moves a population in
+a broadly stereotyped way, so a model can look good while handing every neuron the same
+answer. So we split the measured effect into the part the population shares and the
+part specific to one neuron,
 
-That amplitude turned out to be essentially unguessable. We tried predicting it from
-everything we could measure without stimulating, including each neuron's depth, its
-distance from the electrode, its firing statistics and its spontaneous coupling to the
-cells near the contact. Across all 949 neurons the correlation was 0.174, and the
-improvement did not survive a test over animals.
+```
+Delta_n(t)  =  mean over neurons of Delta(t)  +  delta_n(t)
+```
 
-The reason is that low current stimulation does not light up a neat sphere of nearby
-cells. It grabs a sparse, scattered set that depends on where that particular electrode
-happened to land in that particular brain. Pooled over every session, how much a neuron
-responds is essentially unrelated to how far it sits from the contact (r = −0.013).
-There is no species level rule to learn at that resolution.
+and score models on `delta` alone. A stereotype borrowed from other animals scores
+exactly zero here, not approximately zero, because its prediction does not vary across
+neurons. Anything above zero is prediction of individual structure in an animal whose
+perturbation trials were never read.
 
-## A simulated cortex, and a correction to what we expected
+## What we found
 
-We built a cortex where we control the thing we think matters. When the electrode
-drives neurons by a rule shared across animals, single neuron transfer works at every
-population size we tried, and it improves very regularly as more neurons are recorded
-(correlation of 0.99 between the score and the log of the population size). When the
-electrode instead drives a scattered set private to each implant, the average score
-falls from 0.68 to 0.41, the trend with population size becomes erratic, and the spread
-across animals roughly triples.
+**On the whole response, under light, the model wins.** It scores +0.134 against +0.039
+for the average of the other mice, a paired difference of +0.095 at p = 3.5e-4 over 20
+animals, and on the best measured mice it reaches 0.6.
 
-So private recruitment does clearly damage single neuron transfer and makes it much less
-reliable from animal to animal. It does not abolish it in simulation, which means it is
-one contributing cause in the real mice rather than the whole story. Small
-simultaneously recorded populations are likely another: our sessions have between 8 and
-33 neurons, at the bottom of the range we simulated.
+**On the individual part, it still wins, but by much less.** A shared operator acting on
+each neuron's own ordinary activity lands above zero in 15 of 20 mice (exact sign test,
+p = 0.041), against a measurable maximum of 0.57. So a few per cent of what is
+individual about a neuron's response transfers, and most of it does not.
 
-## Six animals is the sample size
+**Under current, nothing transfers at either level**, and this is not a measurement
+problem. The measurable maximum for the individual part there is 0.90, higher than in
+the light cohort, so it is sitting there clearly resolved and no rule we fit reaches it.
 
-The claim is about animals. Several sessions from one mouse are still one mouse, so
-every headline number is inferred at the animal level, with a
-bootstrap that resamples animals and an exact sign flip permutation over the six. With
-six animals the smallest p value such a test can return is 0.031, reached when all six
-fall on the same side, and we say so wherever it appears.
+## The mistake we nearly made
 
-An earlier version of this work reported session level statistics as the headline,
-which overstated the evidence. Correcting it changed the behavioural p value from
-7×10⁻¹⁵ to 0.031 and removed any claim that population level effect sizes transfer
-reliably.
+The measured effect is the perturbed mean minus the control mean, and the model is
+handed each neuron's control activity as an input. If the same trials produce both,
+their noise enters the input and the target with opposite signs, and a model scores
+above zero knowing nothing at all.
 
-## The honest comparison
+We caught this after it had already produced a result we liked. Splitting the control
+trials, so one half builds every input and the other half defines the target, cut the
+headline number roughly in half. Every number here is from the split version, and the
+whole analysis rerun with the perturbed trials replaced by a second group of control
+trials, where the answer is known to be zero, returns zero.
 
-Averaging the other five mice predicts the sixth about as well as our dynamical model
-does. Adding the new mouse's resting activity made the behavioural prediction worse.
-The behavioural consequence of stimulating this part of cortex is conserved enough
-across individuals that it does not need a model of the individual, which is itself
-worth knowing.
+## How many animals an operator needs
 
-## What we could not settle
+Fitting the shared operator on random subsets of the training animals gives an orderly
+curve. One animal scores −1.09, which is far worse than predicting nothing, because a
+single animal's idiosyncrasies get mistaken for a rule. Five animals still sit below
+zero. It first becomes useful at around eight, and by nineteen it reaches +0.05, still
+rising, tracking the log of the cohort size at r = +0.86.
 
-Six animals is the binding constraint. One species, one cortical area, one task, one
-way of perturbing. Electrical microstimulation is coarse and does not respect cell
-type, so an optogenetic perturbation aimed at a defined population may have more
-conserved structure at the single cell level than we found.
+A study with five animals would have concluded that nothing transfers.
+
+## A simulated cortex
+
+Turning the recruitment from a smooth rule of position into a scattered set redrawn for
+each animal costs about 40% of the recoverable individual part. It does not drive it to
+zero, because in the simulation a cell's ongoing rate reports how strongly the network
+drives it and therefore how much a perturbation will move it, and that rule survives
+private recruitment.
+
+The microstimulation cohort sits below the worst case the simulator can produce. So
+private recruitment is part of the story there and not all of it: for electrical
+stimulation, a neuron's ongoing rate does not say how much the stimulus will move it,
+and under light it does.
+
+## Animals are the sample size
+
+Several sessions from one mouse are still one mouse, so every headline number is
+inferred at the animal level, with a bootstrap that resamples animals and an exact sign
+flip permutation over them. With six animals the smallest p value such a test can return
+is 0.031; with twenty it is 1.9e-6.
+
+An earlier version of this work reported session level statistics as the headline, which
+overstated the evidence. Correcting it changed the behavioural p value from 7e-15 to
+0.031.
 
 ## Reproducing
 
 ```bash
 make env        # python 3.12 venv and dependencies
-make cache      # download DANDI:001868 (7.5 GB, CC-BY-4.0), build tensors, audit
+make cache      # download both dandisets, build tensors, audit
 make analysis   # the results table, with animal-level statistics
-make cortex     # the simulated cortex sweep
+make operator   # leave-one-animal-out training of the shared operator
+make individual # the decomposition into shared and individual parts
+make cortex     # the simulated cortex sweeps
 make paper      # figures, numbers and the PDF
 make test       # tests
 ```
 
-Data: [DANDI:001868](https://dandiarchive.org/dandiset/001868), chronic
-electrophysiology in mouse somatosensory cortex during intracortical microstimulation
-learning (CC-BY-4.0). Raw files are never committed; the download script rebuilds them
-with a SHA-256 manifest.
+Raw files are never committed; the download scripts rebuild them with a SHA-256
+manifest.
 
 ## What is checked
 
 The split-half ceiling estimator is validated against simulations with known signal and
-noise across six regimes, agreeing with the attainable score to within 0.06.
+noise across six regimes, agreeing with the attainable score to within 0.06. The noise
+ceiling for the individual part is computed two independent ways, analytically from
+trial counts and by splitting trials, and they agree.
 
-Stimulation trials are delivered under a quiescence criterion, so randomly sampled
-inter-trial windows carry up to three times the pre-stimulus firing rate of a real
-trial. Because predictions start from unperturbed initial conditions, that would have
-inflated every effect. Windows are matched to stimulation trials on a joint quantile
-grid of pre-stimulus rate and wheel speed, then trimmed to match on the mean, and any
-session still mismatched by more than a factor of 1.25 is dropped.
+Stimulation trials in the microstimulation cohort are delivered under a quiescence
+criterion, so randomly sampled inter-trial windows carry up to three times the
+pre-stimulus firing rate of a real trial. Windows are matched to stimulation trials on a
+joint quantile grid of pre-stimulus rate and wheel speed, then trimmed to match on the
+mean, and any session still mismatched by more than a factor of 1.25 is dropped.
 
 Seeds use a stable checksum rather than Python's per-process hash, so two independent
 builds agree exactly and the results table reproduces bit for bit.
@@ -118,14 +135,15 @@ builds agree exactly and the results table reproduces bit for bit.
 
 ```
 src/cadence/
+  operator2.py         the shared operator, written as a correction to the stereotype
+  individuality.py     the split into shared and individual parts, and the ceiling
   model.py             the hierarchical model: shared dynamics, shared stimulus
                        operator, animal-specific observation maps
   linear_response.py   each animal's propagator from its own resting activity,
                        convolved with a shared drive
   synthetic_cortex.py  the simulated cortex used to test the mechanism
   metrics.py           scoring, validated split-half ceilings, animal-level statistics
-  dose.py              the shared stimulus operator for low-dimensional readouts
-  data/                loaders, containers, per-unit features
+  data/                loaders for both cohorts, containers, per-unit features
 scripts/               download, build, analysis, probes, figures, paper
 paper/                 LaTeX source with auto-generated numbers and tables
 results/               JSON results and tables
@@ -133,4 +151,4 @@ results/               JSON results and tables
 
 ## License
 
-MIT for the code. The dataset is CC-BY-4.0 and belongs to its authors.
+MIT for the code. The datasets are CC-BY-4.0 and belong to their authors.

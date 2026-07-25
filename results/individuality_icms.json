@@ -1,0 +1,230 @@
+{
+ "stereotype": {
+  "animal_mean": 0.0,
+  "ci_lo": 0.0,
+  "ci_hi": 0.0,
+  "n_animals": 6,
+  "per_animal": {
+   "sub-ICMS100": 0.0,
+   "sub-ICMS101": 0.0,
+   "sub-ICMS83": 0.0,
+   "sub-ICMS92": 0.0,
+   "sub-ICMS93": 0.0,
+   "sub-ICMS98": 0.0
+  },
+  "sign_test": {
+   "n": 6,
+   "n_positive": 0,
+   "p": 0.03125,
+   "p_floor": 0.03125
+  },
+  "permutation": {
+   "mean_diff": 0.0,
+   "p": 1.0,
+   "n": 6,
+   "p_floor": 0.03125,
+   "exact": true
+  },
+  "mixed_effects": {
+   "estimate": 0.0,
+   "se": NaN,
+   "p": NaN,
+   "n_obs": 6,
+   "n_groups": 6
+  },
+  "session_mean": 0.0,
+  "n_sessions": 6
+ },
+ "no effect present": {
+  "animal_mean": -0.0015319588214277962,
+  "ci_lo": -0.003374100699618965,
+  "ci_hi": -0.00039651511166449716,
+  "n_animals": 6,
+  "per_animal": {
+   "sub-ICMS100": -0.005910776825530872,
+   "sub-ICMS101": -0.001525601713960878,
+   "sub-ICMS83": -0.0005831979293409173,
+   "sub-ICMS92": -0.0001130114020724271,
+   "sub-ICMS93": -0.0004933360035801471,
+   "sub-ICMS98": -0.0005658290540815347
+  },
+  "sign_test": {
+   "n": 6,
+   "n_positive": 0,
+   "p": 0.03125,
+   "p_floor": 0.03125
+  },
+  "permutation": {
+   "mean_diff": -0.0015319588214277962,
+   "p": 0.03125,
+   "n": 6,
+   "p_floor": 0.03125,
+   "exact": true
+  },
+  "mixed_effects": {
+   "estimate": -0.0015319588214277962,
+   "se": 4.967544532823508e-12,
+   "p": 0.0,
+   "n_obs": 6,
+   "n_groups": 6
+  },
+  "session_mean": -0.0015319588214277962,
+  "n_sessions": 6
+ },
+ "shared_operator": {
+  "animal_mean": 0.0018818917888604643,
+  "ci_lo": -0.019517293829250198,
+  "ci_hi": 0.019095171525029875,
+  "n_animals": 6,
+  "per_animal": {
+   "sub-ICMS100": 0.013738516843238568,
+   "sub-ICMS101": 0.023985791495767073,
+   "sub-ICMS83": -0.04533540268482916,
+   "sub-ICMS92": -0.0029345759413261785,
+   "sub-ICMS93": 0.026593765584166595,
+   "sub-ICMS98": -0.0047567445638541095
+  },
+  "sign_test": {
+   "n": 6,
+   "n_positive": 3,
+   "p": 1.0,
+   "p_floor": 0.03125
+  },
+  "permutation": {
+   "mean_diff": 0.0018818917888604643,
+   "p": 0.90625,
+   "n": 6,
+   "p_floor": 0.03125,
+   "exact": true
+  },
+  "mixed_effects": {
+   "estimate": 0.0018818917888604643,
+   "se": NaN,
+   "p": NaN,
+   "n_obs": 6,
+   "n_groups": 6
+  },
+  "session_mean": 0.0018818917888604643,
+  "n_sessions": 6
+ },
+ "learned_operator": {
+  "animal_mean": 0.013145508547671193,
+  "ci_lo": -0.008763723497599142,
+  "ci_hi": 0.03672728087571914,
+  "n_animals": 6,
+  "per_animal": {
+   "sub-ICMS100": 0.06453085588979605,
+   "sub-ICMS101": 0.02296930091360727,
+   "sub-ICMS83": 0.0069753973219447984,
+   "sub-ICMS92": -0.029974569529940584,
+   "sub-ICMS93": 0.01754564734124504,
+   "sub-ICMS98": -0.003173580650625418
+  },
+  "sign_test": {
+   "n": 6,
+   "n_positive": 4,
+   "p": 0.6875,
+   "p_floor": 0.03125
+  },
+  "permutation": {
+   "mean_diff": 0.013145508547671193,
+   "p": 0.4375,
+   "n": 6,
+   "p_floor": 0.03125,
+   "exact": true
+  },
+  "mixed_effects": {
+   "estimate": 0.013145508547671193,
+   "se": NaN,
+   "p": NaN,
+   "n_obs": 6,
+   "n_groups": 6
+  },
+  "session_mean": 0.013145508547671193,
+  "n_sessions": 6
+ },
+ "ceiling": {
+  "animal_mean": 0.8948400139897679,
+  "ci_lo": 0.8610194237380773,
+  "ci_hi": 0.9282647215190246,
+  "n_animals": 6,
+  "per_animal": {
+   "sub-ICMS83": 0.9393436739325626,
+   "sub-ICMS92": 0.8391990014817726,
+   "sub-ICMS93": 0.9372272778719213,
+   "sub-ICMS98": 0.8368237051471702,
+   "sub-ICMS100": 0.8942965424144579,
+   "sub-ICMS101": 0.9221498830907228
+  },
+  "sign_test": {
+   "n": 6,
+   "n_positive": 6,
+   "p": 0.03125,
+   "p_floor": 0.03125
+  },
+  "permutation": {
+   "mean_diff": 0.8948400139897679,
+   "p": 0.03125,
+   "n": 6,
+   "p_floor": 0.03125,
+   "exact": true
+  },
+  "mixed_effects": {
+   "estimate": 0.8940148840688613,
+   "se": 0.01929889803731848,
+   "p": 0.0,
+   "n_obs": 48,
+   "n_groups": 6
+  },
+  "session_mean": 0.8899125779491744,
+  "n_sessions": 48
+ },
+ "no effect present_fraction_of_ceiling": -0.00171199186164837,
+ "shared_operator_fraction_of_ceiling": 0.002103048320861055,
+ "learned_operator_fraction_of_ceiling": 0.014690345024983993,
+ "test_learned_vs_shared": {
+  "mean_diff": 0.011263616758810728,
+  "p": 0.4375,
+  "n": 6,
+  "p_floor": 0.03125,
+  "exact": true
+ },
+ "per_animal_detail": {
+  "sub-ICMS100": {
+   "ceiling": 0.8942965424144579,
+   "shared": 0.013738516843238568,
+   "ridge": 10.0,
+   "learned": 0.06453085588979605
+  },
+  "sub-ICMS101": {
+   "ceiling": 0.9221498830907228,
+   "shared": 0.023985791495767073,
+   "ridge": 10.0,
+   "learned": 0.02296930091360727
+  },
+  "sub-ICMS83": {
+   "ceiling": 0.9393436739325626,
+   "shared": -0.04533540268482916,
+   "ridge": 10.0,
+   "learned": 0.0069753973219447984
+  },
+  "sub-ICMS92": {
+   "ceiling": 0.8391990014817726,
+   "shared": -0.0029345759413261785,
+   "ridge": 10.0,
+   "learned": -0.029974569529940584
+  },
+  "sub-ICMS93": {
+   "ceiling": 0.9372272778719213,
+   "shared": 0.026593765584166595,
+   "ridge": 10.0,
+   "learned": 0.01754564734124504
+  },
+  "sub-ICMS98": {
+   "ceiling": 0.8368237051471702,
+   "shared": -0.0047567445638541095,
+   "ridge": 10.0,
+   "learned": -0.003173580650625418
+  }
+ }
+}
