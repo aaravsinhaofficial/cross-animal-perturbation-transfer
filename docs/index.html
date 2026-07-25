@@ -99,9 +99,9 @@ spikes, not its behaviour, not even its pre-stimulus window. Only the interventi
   <div class="card"><div class="n good">+0.321</div>
     <div class="l">still positive when the stimulation <b>amplitude is also unseen</b>
     in every training animal</div></div>
-  <div class="card"><div class="n">+0.147</div>
-    <div class="l"><b>population rate</b> &mdash; partial transfer, high shape
-    correlation (<i>r</i>&nbsp;=&nbsp;0.67)</div></div>
+  <div class="card"><div class="n good">+0.289</div>
+    <div class="l"><b>population rate</b>, once the animal's responsiveness is itself
+    predicted from its spontaneous propagator (<i>p</i>&nbsp;=&nbsp;10<sup>&minus;5</sup>)</div></div>
   <div class="card"><div class="n bad">+0.003</div>
     <div class="l"><b>single units</b> &mdash; indistinguishable from
     &ldquo;the intervention does nothing&rdquo; (<i>p</i>&nbsp;=&nbsp;0.92)</div></div>
@@ -119,6 +119,7 @@ noise ceiling for the same readout.</p>
 <tr><td>single units</td><td>+0.329</td><td>+0.172</td><td>+0.003</td><td>+0.011</td><td>0.914</td></tr>
 <tr><td>depth bands</td><td>+0.572</td><td>+0.359</td><td>+0.115</td><td>+0.072</td><td>0.938</td></tr>
 <tr><td>population rate</td><td>+0.965</td><td>+0.598</td><td>+0.147</td><td>+0.164</td><td>0.953</td></tr>
+<tr class="hi"><td>population rate <i>+ predicted gain</i></td><td>&mdash;</td><td>&mdash;</td><td><b>+0.289</b></td><td>&mdash;</td><td>0.953</td></tr>
 <tr><td>wheel speed</td><td>+0.833</td><td>&minus;0.113</td><td>+0.045</td><td>+0.016</td><td>0.370</td></tr>
 <tr class="hi"><td>detection probability</td><td>+0.970</td><td>+0.194</td><td><b>+0.577</b></td><td><b>+0.321</b></td><td>0.968</td></tr>
 </tbody></table>
@@ -139,7 +140,34 @@ noise ceiling for the same readout.</p>
   split-half noise ceilings.</figcaption>
 </figure>
 
-<h2>Why single units fail &mdash; and it is not the causal operator</h2>
+<h2>Responsiveness is legible in spontaneous activity</h2>
+
+<p>Population-level transfer was limited by <em>gain</em>, not shape. Linear-response
+theory says that gain should be readable from the animal's own spontaneous propagator:
+the response to an injected current is set by the integrated impulse response
+&sum;<sub>k</sub>&nbsp;A<sub>i</sub><sup>k</sup>. Regressing the gain the shared
+operator needs on properties of that propagator &mdash; spectral radius, norms of
+&sum;A<sup>k</sup> and (I&minus;A)<sup>&minus;1</sup>, baseline rate, Fano factor,
+mean correlation, participation ratio &mdash; lifts the population response from
+&Delta;R&sup2;&nbsp;=&nbsp;0.005 to <b>0.289</b> [0.174,&nbsp;0.397],
+<i>p</i>&nbsp;=&nbsp;10<sup>&minus;5</sup>, about half the 0.571 attainable with the
+gain known exactly. Predicted and required gains correlate at
+<i>r</i><sub>log</sub>&nbsp;=&nbsp;0.42. Shrinkage is chosen by <b>nested</b>
+leave-one-animal-out <em>inside</em> the training animals, and only unperturbed
+activity is used &mdash; so this is a genuine strengthening of the zero-shot
+prediction, not an oracle. A single global constant reaches only 0.113, so the gain
+really is animal-specific.</p>
+
+<figure>
+  <img src="fig6_operator.png" alt="The recovered shared operator">
+  <figcaption><b>The recovered shared operator.</b> <b>a</b>, Fitted drive vs. offset
+  from the stimulating contact and time. <b>b</b>, The recovered dose function
+  reproduces the measured non-monotonicity &mdash; net suppression at 1&ndash;2&nbsp;&micro;A,
+  a peak near 5&nbsp;&micro;A, a decline above. <b>c</b>, Consistency of the operator
+  across leave-one-animal-out refits. <b>d</b>, Required vs. predicted gain.</figcaption>
+</figure>
+
+<h2>Why single units still fail &mdash; and it is not the causal operator</h2>
 
 <p>The model factorises the dynamics into a species-invariant part and an
 individual part:</p>

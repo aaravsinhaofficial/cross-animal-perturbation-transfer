@@ -42,6 +42,9 @@ def main() -> int:
     ])
     ap.add_argument("--levels", type=Path, default=Path("results/tables/transfer_levels_fr.json"))
     ap.add_argument("--readout", type=Path, default=Path("results/tables/readout_oracle.json"))
+    ap.add_argument("--gain", type=Path, default=Path("results/tables/gain_from_spontaneous.json"))
+    ap.add_argument("--gain-unit", type=Path,
+                    default=Path("results/tables/gain_from_spontaneous_unit.json"))
     ap.add_argument("--out", type=Path, default=Path("paper/numbers.tex"))
     args = ap.parse_args()
 
@@ -140,6 +143,25 @@ def main() -> int:
         if t:
             M["ReadoutGainDiff"] = fmt(t["mean_diff"])
             M["ReadoutGainP"] = pval(t["p_perm"])
+
+    # ---- responsiveness predicted from spontaneous activity ----
+    for path, pre in ((args.gain, "GainPop"), (args.gain_unit, "GainUnit")):
+        if not path.exists():
+            continue
+        g = json.loads(path.read_text())
+        for k, t in (("none", "None"), ("global", "Global"),
+                     ("predicted", "Pred"), ("oracle", "Oracle")):
+            if k not in g:
+                continue
+            M[pre + t] = fmt(g[k]["delta_r2"])
+            M[pre + t + "Lo"] = fmt(g[k]["ci"][0])
+            M[pre + t + "Hi"] = fmt(g[k]["ci"][1])
+            M[pre + t + "Pos"] = f"{g[k]['sessions_above_zero']}/{g[k]['n']}"
+        if "gain_pred_corr_log" in g:
+            M[pre + "R"] = fmt(g["gain_pred_corr_log"])
+        t = g.get("test_predicted_vs_none")
+        if t:
+            M[pre + "P"] = pval(t["p_perm"])
 
     # ---- teacher ----
     for p in args.teacher:

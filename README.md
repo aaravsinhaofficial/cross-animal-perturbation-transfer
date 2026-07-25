@@ -32,6 +32,7 @@ model; `1` is perfect.
 | readout | in-sample | new session | **new animal** | new animal + unseen amplitude | ceiling |
 |---|---|---|---|---|---|
 | single units | +0.329 | +0.172 | **+0.003** | +0.011 | 0.914 |
+| population rate *+ predicted gain* | — | — | **+0.289** | — | 0.953 |
 | depth bands | +0.572 | +0.359 | **+0.115** | +0.072 | 0.938 |
 | population rate | +0.965 | +0.598 | **+0.147** | +0.164 | 0.953 |
 | wheel speed | +0.833 | −0.113 | **+0.045** | +0.016 | 0.370 |
@@ -46,9 +47,16 @@ The answer is **granularity-dependent**, and that is the finding:
   Positive in **all 6 animals** and 43/48 sessions. Still positive
   (**ΔR² = 0.321**) when the stimulation amplitude is *also* deleted from every
   training animal — a new individual *and* a new intervention setting.
-- **Coarse-grained neural activity transfers partially.** Population rate:
-  ΔR² = 0.147 with a high shape correlation *r* = 0.669 — the time course and dose
-  dependence are conserved, the overall gain varies between animals.
+- **Coarse-grained neural activity transfers once responsiveness is predicted.** The
+  population time course and dose dependence are conserved (*r* = 0.669) but the
+  overall gain varies between animals. That gain turns out to be readable from the
+  animal's *own spontaneous propagator* — exactly the fluctuation–response prediction
+  — which lifts the population response from ΔR² = 0.005 to **ΔR² = 0.289**
+  [0.174, 0.397], *p* = 1×10⁻⁵, about half the 0.571 attainable with the gain known
+  exactly. Shrinkage is chosen by **nested** leave-one-animal-out inside the training
+  animals, and only unperturbed activity is used, so this is a real strengthening of
+  the zero-shot prediction rather than an oracle. A single *global* constant achieves
+  only 0.113, so the improvement is genuinely animal-specific.
 - **Single units do not transfer.** ΔR² = 0.003, indistinguishable from the
   no-effect model (*p* = 0.92), despite a 0.914 ceiling and despite being
   well predicted within a session (0.329) and partly within animal across

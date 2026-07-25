@@ -529,9 +529,10 @@ def fig_behavior(ds, traces: dict, out: Path):
 # ---------------------------------------------------------------------------
 # Figure 6 -- the recovered shared operator
 # ---------------------------------------------------------------------------
-def fig_operator(kernel: dict, out: Path):
+def fig_operator(kernel: dict, out: Path, gain: dict | None = None):
     use_style()
-    fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.4))
+    ncol = 4 if gain else 3
+    fig, axes = plt.subplots(1, ncol, figsize=(2.4 * ncol, 2.4))
 
     ax = axes[0]; panel_label(ax, "a")
     K = np.asarray(kernel["depth_time"])
@@ -549,8 +550,8 @@ def fig_operator(kernel: dict, out: Path):
     ax.plot(kernel["amp_grid"], kernel["amp_gain"], color=C["cadence"], marker="o", ms=2.5)
     ax.axhline(0, color="#999999", lw=0.7)
     ax.set_xlabel("amplitude (µA)")
-    ax.set_ylabel("operator gain (a.u.)")
-    ax.set_title("Recovered dose function", loc="left")
+    ax.set_ylabel("drive at the contact (a.u.)")
+    ax.set_title("Dose function recovers the\nmeasured non-monotonicity", loc="left", fontsize=7.5)
 
     ax = axes[2]; panel_label(ax, "c")
     lab = kernel["consistency_labels"]
@@ -561,5 +562,21 @@ def fig_operator(kernel: dict, out: Path):
     ax.set_ylabel("cosine between animals")
     ax.set_ylim(0, 1)
     ax.set_title("Operator consistency", loc="left")
+
+    if gain:
+        ax = axes[3]; panel_label(ax, "d")
+        gp = np.asarray(gain["gains"]["predicted"], float)
+        gt = np.asarray(gain["gains"]["required"], float)
+        ok = np.isfinite(gp) & np.isfinite(gt) & (gp > 0) & (gt > 0)
+        ax.plot(gt[ok], gp[ok], "o", ms=3.2, color=C["cadence"], alpha=0.75,
+                markeredgewidth=0)
+        lim = [0.0, max(gt[ok].max(), gp[ok].max()) * 1.1]
+        ax.plot(lim, lim, ls=(0, (2, 2)), lw=0.9, color="#888888")
+        ax.set_xlim(lim); ax.set_ylim(lim)
+        ax.set_xlabel("gain the operator needs")
+        ax.set_ylabel("gain predicted from\nspontaneous activity")
+        ax.set_title(f"Responsiveness is legible\n$r_{{\\log}}$={gain['gain_pred_corr_log']:+.2f}, "
+                     f"$\\Delta R^2$ {gain['none']['delta_r2']:+.2f}$\\to$"
+                     f"{gain['predicted']['delta_r2']:+.2f}", loc="left", fontsize=7.5)
     fig.tight_layout()
     save(fig, out, "fig6_operator")

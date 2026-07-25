@@ -66,6 +66,12 @@
 \providecommand{\TDegenLo}{--}\providecommand{\TDegenHi}{--}\providecommand{\TDegenBeh}{--}
 \providecommand{\TDegenCtrlPerm}{--}\providecommand{\TDegenCtrlScr}{--}
 \providecommand{\THeteroCtrlPerm}{--}\providecommand{\THeteroCtrlScr}{--}
+\providecommand{\GainPopNone}{--}\providecommand{\GainPopGlobal}{--}
+\providecommand{\GainPopPred}{--}\providecommand{\GainPopPredLo}{--}
+\providecommand{\GainPopPredHi}{--}\providecommand{\GainPopPredPos}{--}
+\providecommand{\GainPopOracle}{--}\providecommand{\GainPopR}{--}\providecommand{\GainPopP}{--}
+\providecommand{\GainUnitNone}{--}\providecommand{\GainUnitPred}{--}
+\providecommand{\GainUnitOracle}{--}\providecommand{\GainUnitR}{--}\providecommand{\GainUnitP}{--}
 \providecommand{\ReadoutNone}{--}\providecommand{\ReadoutNoneLo}{--}\providecommand{\ReadoutNoneHi}{--}
 \providecommand{\ReadoutNonePos}{--}
 \providecommand{\ReadoutGain}{--}\providecommand{\ReadoutGainLo}{--}\providecommand{\ReadoutGainHi}{--}
@@ -117,9 +123,11 @@ strongly to a completely new animal ($\Delta R^2 = \DetXAni$, $95\%$ CI
 $[\DetXAniLo, \DetXAniHi]$, $\DetXAniFrac$ of the noise ceiling, $p = \DetP$, the floor of the
 exact paired test at $n=\NSessions$),
 and remains positive when the amplitude is also unseen ($\Delta R^2 =
-\DetXAniUnseen$). Coarse-grained neural responses transfer partially (population
-rate: $\Delta R^2 = \PopXAni$, $r = \PopXAniR$; depth bands: $\Delta R^2 =
-\BandXAni$, $p = \BandP$). Single-unit responses do not transfer
+\DetXAniUnseen$). Coarse-grained neural responses transfer once the animal's
+responsiveness is itself predicted from its spontaneous activity, as linear-response
+theory suggests it should be: the population response reaches $\Delta R^2 =
+\GainPopPred$ $[\GainPopPredLo, \GainPopPredHi]$ ($p = \GainPopP$), about half the
+$\GainPopOracle$ attainable with the gain known exactly. Single-unit responses do not transfer
 ($\Delta R^2 = \UnitXAni$, $p = \UnitP$) even though they are well estimated
 (ceiling $\UnitXAniCeil$) and largely predictable within a session
 ($\Delta R^2 = \UnitIn$). We then localise that failure precisely: holding the
@@ -184,6 +192,12 @@ survives a
 deliberately symmetric flow once observation maps are tied across animals through
 shared per-unit features, because that removes the freedom the symmetry would
 otherwise exploit (Section~\ref{sec:teacher}).
+\item \textbf{Responsiveness is legible in spontaneous activity.} Regressing the
+gain the shared operator needs on properties of the animal's own spontaneous
+propagator -- with the shrinkage chosen by nested leave-one-animal-out -- lifts
+population-level transfer from $\GainPopNone$ to $\GainPopPred$ ($p = \GainPopP$),
+using no intervention data from the held-out animal. This is the fluctuation--response
+prediction, tested.
 \item \textbf{A decomposition that localises the failure.} With the shared operator
 held fixed, one scalar per unit fitted on the held-out animal lifts $\Delta R^2$ from
 $\ReadoutNone$ to $\ReadoutGain$ ($\ReadoutGainPos$ sessions positive). The operator
@@ -556,6 +570,37 @@ missing quantity is the correspondence between an individual neuron and the
 conserved latent state, and that correspondence is not recoverable from
 spontaneous activity in $\approx 20$ simultaneously recorded units.
 
+\subsection{Recovering the missing scalar from spontaneous activity}\label{sec:gain}
+
+Section~\ref{sec:icms} left the population-level response transferring with a high
+shape correlation but a modest $\Delta R^2$, the gap being animal-specific gain. That
+gain is exactly the quantity linear-response theory says should be legible in
+spontaneous activity: the size of the response to an injected current is set by the
+integrated impulse response of the animal's own propagator. We therefore regress the
+gain the shared operator needs on predictors computed from unperturbed trials only --
+the spectral radius of $A_i$, the norms of $\sum_k A_i^k$ and $(I-A_i)^{-1}$, baseline
+rate, Fano factor, mean pairwise correlation, participation ratio and the population
+autocorrelation -- leave-one-animal-out, with the shrinkage chosen by a \emph{nested}
+leave-one-animal-out loop inside the training animals so the held-out animal
+influences nothing.
+
+It works, at the population level. Predicted gain raises the population response from
+$\Delta R^2 = \GainPopNone$ to $\GainPopPred$
+$[\GainPopPredLo, \GainPopPredHi]$ ($\GainPopPredPos$ sessions,
+$p = \GainPopP$ against no rescaling), roughly half of the $\GainPopOracle$ attainable
+if the gain were known exactly; the predicted and required gains correlate at
+$r = \GainPopR$ across held-out sessions. A single \emph{global} constant fitted on
+the other animals achieves only $\GainPopGlobal$, so the improvement is genuinely
+animal-specific and not a rescaling of everyone. Nothing but unperturbed activity and
+the intervention parameters is used, so this is a legitimate strengthening of the
+zero-shot prediction rather than an oracle.
+
+It does not rescue single units, and the reason is diagnostic. At unit level a
+session-level gain lifts $\Delta R^2$ only from $\GainUnitNone$ to $\GainUnitPred$,
+and even a session gain known exactly caps out at $\GainUnitOracle$ -- far below the
+$\ReadoutGain$ reachable with one scalar \emph{per unit} (Table~\ref{tab:oracle}).
+What single units need is not one number per animal but one per neuron.
+
 \subsection{Why single units are hard}\label{sec:whyhard}
 
 Two independent lines of evidence localise the failure, and neither implicates the
@@ -641,6 +686,13 @@ teacher experiments show the complementary point -- that tying observation maps
 across animals through shared per-unit features is what makes any transfer possible,
 and that transfer is then bounded by how much those features say about a unit's
 causal coupling.
+
+There is also something encouraging in how the population-level gap closed. The
+missing quantity was an animal's overall responsiveness, and it turned out to be
+readable from that animal's spontaneous propagator (Section~\ref{sec:gain}) -- a
+fluctuation--response relation holding well enough across individuals to be useful.
+The same logic fails one level down only because it would need a separate number per
+neuron, and neurons are where individuality lives.
 
 A practical reading: a stimulation protocol calibrated in one animal can be
 expected to reproduce its behavioural and population-level effect in the next, and
@@ -767,6 +819,21 @@ and generalisation level; dashed lines are noise ceilings. Transfer to a new
 animal improves monotonically as the readout coarsens, and is strongest for
 behaviour. \textbf{b}, Per-animal detection-probability transfer.}
 \label{fig:ladder}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{figures/fig6_operator.pdf}
+\caption{\textbf{The recovered shared operator.} \textbf{a}, The fitted drive as a
+function of a unit's offset from the stimulating contact and of time: positive during
+the train, with a post-offset undershoot. \textbf{b}, The recovered dose function
+reproduces the measured non-monotonicity -- net suppression at 1--2\,\textmu A, a peak
+near 5\,\textmu A and a decline above it. \textbf{c}, Cosine similarity between the
+operator refitted with each animal left out and the operators from the others.
+\textbf{d}, The gain the operator needs versus the gain predicted from that animal's
+spontaneous propagator alone (leave-one-animal-out, shrinkage chosen by nested
+leave-one-animal-out); this is the fluctuation--response relation that lifts
+population-level transfer from $\GainPopNone$ to $\GainPopPred$.}
+\label{fig:operator}
 \end{figure}
 
 \begin{figure}[h]\centering

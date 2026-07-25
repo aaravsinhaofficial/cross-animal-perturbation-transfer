@@ -108,7 +108,9 @@ def operator_kernel(ds) -> dict:
         temporal = sum(psi[l] * (th[j, l] @ B) for l in range(n_a))
         K += np.outer(spatial, temporal)
 
-    # dose function: total drive vs amplitude
+    # dose function: mean drive injected at the contact *during* the stimulus train
+    # (integrating the whole window would mix in the post-offset undershoot)
+    n_stim = max(int(round(0.7 / ds.bin_s)), 1)
     grid = np.linspace(1.0, 10.0, 40)
     gain = []
     for a in grid:
@@ -116,7 +118,7 @@ def operator_kernel(ds) -> dict:
         g = 0.0
         for j in range(n_s):
             temporal = sum(p[l] * (th[j, l] @ B) for l in range(n_a))
-            g += temporal.sum()
+            g += temporal[:n_stim].mean()          # spatial profiles peak at dz = 0
         gain.append(g)
 
     # consistency: cosine between leave-one-animal-out refits
@@ -192,7 +194,9 @@ def main() -> int:
         print("fig6 operator")
         k = operator_kernel(ds)
         Path("results/tables/operator_kernel.json").write_text(json.dumps(k))
-        F.fig_operator(k, args.out)
+        gp = Path("results/tables/gain_from_spontaneous.json")
+        gain = json.loads(gp.read_text()) if gp.exists() else None
+        F.fig_operator(k, args.out, gain=gain)
     return 0
 
 
