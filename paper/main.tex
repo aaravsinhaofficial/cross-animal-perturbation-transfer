@@ -32,58 +32,35 @@
 \begin{abstract}
 \noindent
 Take a model that has watched several mice being perturbed, then show it a new mouse
-doing nothing in particular. From that ordinary activity, plus the settings of a
-perturbation about to be delivered, the model has to say what will happen next in an
-animal it has never seen perturbed.
+doing nothing in particular. From that ordinary activity and the settings of a
+perturbation about to be delivered, it has to say what happens next in an animal it has
+never seen perturbed.
 
-In \AlmAnimals{} mice whose frontal cortex was silenced with light, it works down to
-individual neurons. The model scores $\AlmOpModel$ against $\AlmOpStereo$ for the
-average of the other mice, which is the strongest simple thing to do, a difference of
-$\AlmOpModelVsStereoDiff$ at $p = \AlmOpModelVsStereoP$ over \AlmOpModelN{} animals. On
-the best measured mice it reaches $0.6$.
+In \AlmOpModelN{} mice whose frontal cortex was silenced with light, this works down to
+individual neurons: $\Delta R^2 = \AlmOpModel$ against $\AlmOpStereo$ for the average of
+the other mice, a difference of $\AlmOpModelVsStereoDiff$ at
+$p = \AlmOpModelVsStereoP$, reaching $0.6$ in the best measured animals. The rule it
+exploits can be stated without a model. Across \RuleSelN{} mice the light suppresses
+most the cells that most sharply distinguish the two choices ($r = \RuleSelR$,
+\RuleSelNeg{}/\RuleSelN, $p = \RuleSelP$) and the cells that fire fastest
+($r = \RuleRateR$, \RuleRateNeg{}/\RuleRateN, $p = \RuleRateP$), while how much a cell
+ramps predicts nothing, a negative control inside the same analysis.
 
-The rule it exploits turns out to be simple enough to state without a model, and we
-state it as a measurement, not as an interpretation of our model. Across \RuleSelN{} mice, how
-strongly a neuron distinguishes the two choices predicts how much the light will
-suppress it, in \RuleSelNeg{} of them ($r = \RuleSelR$, $p = \RuleSelP$), as does how
-fast it fires ($r = \RuleRateR$, \RuleRateNeg{}/\RuleRateN, $p = \RuleRateP$). How much
-it ramps predicts nothing, which is a negative control inside the same analysis. The
-light takes most from the cells that have most, by the same rule in nearly every animal.
+A score on the whole response is dominated by a component every neuron shares, so we
+split the effect into that component and the part specific to one neuron, on which a
+stereotype scores exactly zero. Individual structure transfers under light
+(\AlmIndSharedPos{} of \AlmIndSharedN{} mice, $p = \AlmIndSharedP$) and not under
+microstimulation of somatosensory cortex (\IcmsIndSharedPos{} of \IcmsIndSharedN),
+where it is better resolved (a measurable maximum of $\IcmsIndCeiling$ against
+$\AlmIndCeiling$). The same measurement says why: under current, a neuron's ongoing
+activity says nothing about how much the stimulus will move it ($\RuleIcmsRateR$,
+\RuleIcmsRateNeg{}/\RuleIcmsRateN).
 
-The score on the whole response has a catch in it, though, and chasing that down is
-most of this paper. A perturbation moves a population in a broadly stereotyped way, that stereotyped part
-dominates any score on the whole response, and a model can score well on it while
-knowing nothing about individual neurons. So we split the measured effect into the part
-every recorded neuron shares and the part specific to a single neuron, and scored
-models on the second part alone. A stereotype scores exactly zero there, not
-approximately zero, because it hands every neuron the same answer. Anything above zero
-is prediction of individual structure.
-
-Under light, a shared operator acting on each neuron's own ordinary activity lands above
-zero in \AlmIndSharedPos{} of \AlmIndSharedN{} mice ($p = \AlmIndSharedP$, median
-$\AlmIndSharedMed$), against a measurable maximum of $\AlmIndCeiling$. When \NAnimals{}
-mice had their somatosensory cortex stimulated through an implanted electrode instead,
-the same operator reached \IcmsIndSharedPos{} of \IcmsIndSharedN{} animals, and this
-was not a measurement problem: the measurable maximum there is $\IcmsIndCeiling$,
-higher than under light. The individual part is sitting there clearly resolved and no
-rule we fit touches it.
-
-What is individual and transfers is a small fraction of what is individual and
-measurable, and it moves in ways an experimenter controls. Fitting the operator on more
-animals helps in an orderly way, from $\CohortMinVal$ with one animal, which is far
-worse than predicting nothing, to $\CohortMaxVal$ with \CohortMaxN, still rising. And
-how much transfers in an animal tracks how well that animal's individual response could
-be measured at all, at a rank correlation of $\AlmIndQualRho$
-($p = \AlmIndQualP$).
-
-The contrast between the two cohorts is not a mystery once the rule is measured. Under
-current, how fast a neuron fires says nothing about how much it moves ($\RuleIcmsRateR$,
-\RuleIcmsRateNeg{}/\RuleIcmsRateN, $p = \RuleIcmsRateP$), so there is no rule of that kind
-to share, which is exactly the condition our simulated cortex says would break transfer.
-
-So a shared causal rule does reach single cells, when the perturbation engages structure
-the animals have in common, and how far it reaches is currently set by how many animals
-and how many neurons anyone has measured.
+How much transfers grows with the size of the cohort the operator was fitted on and
+with how well each animal was measured, and fitting it on one animal is far worse than
+predicting nothing at all. So a shared causal rule does reach single cells, when the
+perturbation engages structure the animals have in common, and how far it reaches is
+set by what has been measured so far.
 \end{abstract}
 
 \IfFileExists{glance.tex}{\input{glance}}{}

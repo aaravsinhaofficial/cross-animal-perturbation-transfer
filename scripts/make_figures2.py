@@ -262,7 +262,10 @@ def main() -> int:
     args.out.mkdir(parents=True, exist_ok=True)
 
     # ---- the main zero-shot result -------------------------------------------
-    alm = load(R / "operator_alm5.json")
+    # prefer the full cohort when it is available, since more animals is a better
+    # test of the same claim
+    alm = load(R / "operator_almall.json") or load(R / "operator_alm5.json")
+    n_alm = len(alm["group"]["per_animal"]) if alm else 0
     icms = load(R / "operator_icms5.json")
     if alm:
         fig, axes = plt.subplots(1, 2 if icms else 1, figsize=(6.8 if icms else 3.4, 3.0))
@@ -270,7 +273,7 @@ def main() -> int:
         key = "blend" if "blend" in alm else "operator"
         panel_per_animal(axes[0], alm, key, "group",
                          "shared operator", "stereotype from other animals",
-                         "photoinhibition of frontal cortex, 20 mice")
+                         f"photoinhibition of frontal cortex, {n_alm} mice")
         if icms:
             k2 = "blend" if "blend" in icms else "operator"
             panel_per_animal(axes[1], icms, k2, "group",
@@ -282,13 +285,14 @@ def main() -> int:
         print("wrote fig8_zeroshot.png")
 
     # ---- the decomposition ----------------------------------------------------
-    ia = load(R / "individuality_alm.json")
+    ia = load(R / "individuality_almall.json") or load(R / "individuality_alm.json")
     ii = load(R / "individuality_icms.json")
-    scal = load(R / "cohort_scaling_alm.json")
+    scal = load(R / "cohort_scaling_almall.json") or load(R / "cohort_scaling_alm.json")
     if ia:
         fig, axes = plt.subplots(2, 2, figsize=(6.9, 5.4))
         lim = (-0.5, 0.42)
-        panel_delta(axes[0, 0], ia, "light in frontal cortex, 20 mice", lim)
+        n_ia = ia["shared_operator"]["sign_test"]["n"]
+        panel_delta(axes[0, 0], ia, f"light in frontal cortex, {n_ia} mice", lim)
         if ii:
             panel_delta(axes[0, 1], ii, "current in somatosensory cortex, 6 mice",
                         lim)
