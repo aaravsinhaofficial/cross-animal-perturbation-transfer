@@ -98,14 +98,20 @@ def panel_delta(ax, res, title, xlim=None):
 
 
 def panel_scaling(ax, curve, title):
+    """One animal is catastrophically worse than predicting nothing, and the part that
+    matters is the approach to zero, so the vertical axis is linear near zero and
+    logarithmic beyond it."""
     n = np.array([c["n_animals"] for c in curve])
     m = np.array([c["delta_r2"] for c in curve])
     s = np.array([c["sem"] for c in curve])
     ax.fill_between(n, m - s, m + s, color=BLUE, alpha=0.2, lw=0)
     ax.plot(n, m, "-o", color=BLUE, ms=3, lw=1.2)
     ax.axhline(0, color=GREY, lw=0.6)
+    ax.set_yscale("symlog", linthresh=0.05, linscale=0.7)
+    ax.set_yticks([-10, -1, -0.1, 0, 0.05])
+    ax.set_yticklabels(["-10", "-1", "-0.1", "0", "+0.05"])
     ax.set_xscale("log")
-    show = [v for v in n if v in (1, 2, 3, 5, 8, 12, 19, 20)]
+    show = [v for v in n if v in (1, 2, 3, 5, 8, 12, 19, 20, 25, 30, 38)]
     ax.set_xticks(show); ax.set_xticklabels([str(v) for v in show])
     ax.minorticks_off()
     ax.set_xlabel("animals the operator was fitted on")
@@ -285,8 +291,9 @@ def main() -> int:
         print("wrote fig8_zeroshot.png")
 
     # ---- the decomposition ----------------------------------------------------
-    ia = load(R / "individuality_almall.json") or load(R / "individuality_alm.json")
-    ii = load(R / "individuality_icms.json")
+    # the same procedure the text reports: one ridge fixed in advance, both cohorts
+    ia = load(R / "individuality_almall_fixed.json") or load(R / "individuality_alm_fixed.json")
+    ii = load(R / "individuality_icms_fixed.json") or load(R / "individuality_icms.json")
     scal = load(R / "cohort_scaling_almall.json") or load(R / "cohort_scaling_alm.json")
     if ia:
         fig, axes = plt.subplots(2, 2, figsize=(6.9, 5.4))
@@ -296,7 +303,8 @@ def main() -> int:
         if ii:
             panel_delta(axes[0, 1], ii, "current in somatosensory cortex, 6 mice",
                         lim)
-        panel_quality(axes[1, 0], ia["per_animal_detail"],
+        qa = load(R / "individuality_almall.json") or ia
+        panel_quality(axes[1, 0], qa["per_animal_detail"],
                       "what transfers versus what is measurable")
         if scal:
             panel_scaling(axes[1, 1], scal, "more animals, better operator")
