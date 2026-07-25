@@ -472,6 +472,62 @@ def main() -> int:
         t += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
         (args.out.parent / "tables.tex").write_text("\n".join(t) + "\n")
         print(f"wrote {args.out.parent / 'tables.tex'}")
+    # ---------- everything at a glance ----------
+    g = [r"\begin{table}[t]\centering\small",
+         r"\caption{Every headline claim, the animals it is measured over, and the "
+         r"test. Animal-level throughout: an exact sign test over animals, which "
+         r"cannot be moved by one extreme value. The last column is the same analysis "
+         r"run where the answer is known to be zero.}",
+         r"\label{tab:glance}",
+         r"\begin{tabular}{p{5.6cm}lccl}", r"\toprule",
+         r"claim & measure & animals & $p$ & null \\", r"\midrule"]
+
+    def row(desc, measure, pos, n, p, null):
+        g.append(f"{desc} & {measure} & {pos}/{n} & {p} & {null} \\\\")
+
+    m = M
+    if "AlmOpModelPos" in m:
+        row("A shared operator predicts single-neuron responses to an unseen "
+            "perturbation better than the average of the other animals",
+            f"${m.get('AlmOpModel','--')}$ vs ${m.get('AlmOpStereo','--')}$",
+            m.get("AlmOpModelPos", "--"), m.get("AlmOpModelN", "--"),
+            m.get("AlmOpModelVsStereoP", "--"), "--")
+    if "RuleSelNeg" in m:
+        row("How sharply a neuron distinguishes the two choices predicts how much "
+            "the light suppresses it",
+            f"$r = {m['RuleSelR']}$", m["RuleSelNeg"], m["RuleSelN"], m["RuleSelP"],
+            m.get("RuleSelNull", "--"))
+        row("How fast a neuron fires predicts how much the light suppresses it",
+            f"$r = {m['RuleRateR']}$", m["RuleRateNeg"], m["RuleRateN"],
+            m["RuleRateP"], m.get("RuleRateNull", "--"))
+        row("How much a neuron ramps predicts nothing (negative control)",
+            f"$r = {m['RuleRampR']}$", m["RuleRampNeg"], m["RuleRampN"],
+            m["RuleRampP"], m.get("RuleRampNull", "--"))
+    if "RuleIcmsRateNeg" in m:
+        row("Under microstimulation, firing rate predicts nothing",
+            f"$r = {m['RuleIcmsRateR']}$", m["RuleIcmsRateNeg"], m["RuleIcmsRateN"],
+            m["RuleIcmsRateP"], m.get("RuleIcmsRateNull", "--"))
+    if "AlmIndSharedPos" in m:
+        row("The individual part of the response transfers, under light",
+            f"${m.get('AlmIndSharedMed','--')}$ median",
+            m["AlmIndSharedPos"], m["AlmIndSharedN"], m["AlmIndSharedP"],
+            f"${m.get('AlmIndNull','--')}$")
+    if "IcmsIndSharedPos" in m:
+        row("The individual part does not transfer, under current, though it is "
+            "better resolved there",
+            f"ceiling ${m.get('IcmsIndCeiling','--')}$",
+            m["IcmsIndSharedPos"], m["IcmsIndSharedN"], m["IcmsIndSharedP"],
+            f"${m.get('IcmsIndNull','--')}$")
+    if "CohortAllMaxPos" in m:
+        row("Fitting the operator on more animals keeps helping, with no sign of "
+            "flattening",
+            f"$r = {m.get('CohortAllCorr','--')}$ with $\\log n$",
+            m["CohortAllMaxPos"], m.get("CohortAllMaxN2", "--"),
+            m.get("CohortAllMaxP", "--"), "--")
+    g += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
+    gp = args.out.parent / "glance.tex"
+    gp.write_text("\n".join(g) + "\n")
+    print(f"wrote {gp}")
     return 0
 
 
