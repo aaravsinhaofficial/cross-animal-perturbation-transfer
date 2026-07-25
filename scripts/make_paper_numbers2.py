@@ -228,9 +228,12 @@ def main() -> int:
                 M[f"{pre}{suf}Diff"] = f3(r[k]["mean_diff"])
                 M[f"{pre}{suf}P"] = pv(r[k]["p"])
 
-    for tag, pre in (("alm", "AlmInd"), ("icms", "IcmsInd"),
-                     ("almall", "AllInd"), ("almall_fixed", "FixInd"),
-                     ("icms_fixed", "IcmsFixInd")):
+    # every cohort goes through the same procedure, a single ridge fixed in advance;
+    # the per-animal-selection versions are kept under their own names for the
+    # comparison in the text
+    for tag, pre in (("alm_fixed", "AlmInd"), ("icms_fixed", "IcmsInd"),
+                     ("almall", "AllIndSel"), ("almall_fixed", "AllInd"),
+                     ("icms_fixed", "IcmsFixInd"), ("almall_fixed", "FixInd")):
         p = Path(f"results/individuality_{tag}.json")
         if not p.exists():
             continue

@@ -41,13 +41,19 @@ operator:
 	$(PY) scripts/compare_cohort_size.py
 
 # the split into what the population shares and what belongs to one neuron
+# every cohort through the same procedure, one ridge fixed in advance, plus the
+# per-animal-selection variant on the full cohort for the comparison in the text
 individual:
-	$(PY) scripts/analyse_individuality.py --cache data/proc/alm.pkl  --tag alm \
-	  --preds results/preds_alm5.npz
-	$(PY) scripts/analyse_individuality.py --cache data/proc/icms.pkl --tag icms \
-	  --preds results/preds_icms5.npz
+	$(PY) scripts/analyse_individuality.py --cache data/proc/alm.pkl --tag alm_fixed \
+	  --ridge 1.0 --preds results/preds_alm5.npz
+	$(PY) scripts/analyse_individuality.py --cache data/proc/icms.pkl --tag icms_fixed \
+	  --ridge 1.0 --preds results/preds_icms5.npz
 	$(PY) scripts/analyse_individuality.py --cache data/proc/alm.pkl data/proc/alm_wide.pkl \
-	  --tag almall --preds results/preds_almall.npz
+	  --tag almall_fixed --ridge 1.0
+	$(PY) scripts/analyse_individuality.py --cache data/proc/alm.pkl data/proc/alm_wide.pkl \
+	  --tag almall
+	$(PY) scripts/analyse_rule.py
+	$(PY) scripts/analyse_rule.py --cache data/proc/icms.pkl --tag icms
 	$(PY) scripts/run_behaviour_transfer.py --cache data/proc/alm.pkl \
 	  --preds results/preds_alm5.npz --tag alm
 

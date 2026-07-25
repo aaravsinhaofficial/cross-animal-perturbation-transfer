@@ -370,7 +370,10 @@ one ridge for every animal, fixed in advance, which is also what the cohort-size
 above uses at every point.
 
 Choosing the ridge separately for each held-out animal, by a further leave-one-out
-inside the training animals, gives \AllIndSharedPos{} of \AllIndSharedN{} instead. The
+inside the training animals, gives \AllIndSelSharedPos{} of \AllIndSelSharedN{}
+instead. On the first cohort alone, whose recordings are all reasonably large, the two
+procedures agree exactly (\AlmIndSharedPos{} of \AlmIndSharedN{} either way), so they
+part company only where the effect is barely measurable. The
 selection optimises a pooled error dominated by animals with a large effect and then
 hands a far too small ridge to an animal whose effect is barely there, which is where
 the large negative scores come from. We report both, and the simpler procedure is the
