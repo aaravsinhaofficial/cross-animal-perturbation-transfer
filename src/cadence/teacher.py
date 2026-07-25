@@ -263,7 +263,6 @@ def build_synthetic_dataset(cfg: SyntheticConfig) -> tuple[Dataset, dict]:
     """Simulate ``cfg.n_animals`` animals and return trial tensors plus a
     ground-truth bundle for the recovery analyses."""
     torch.manual_seed(cfg.seed)
-    rng = np.random.default_rng(cfg.seed)
     task = TaskConfig()
     device = cfg.device
 

@@ -64,7 +64,6 @@ def group_average(train, s, conds, measured):
         return {}
     amps = np.array(sorted(by))
     stack = np.stack([np.nanmean(by[a], 0) for a in amps])
-    T = s.T - s.t0
     out = {}
     for c in conds:
         a = float(s.meta["cond_amp"][c])

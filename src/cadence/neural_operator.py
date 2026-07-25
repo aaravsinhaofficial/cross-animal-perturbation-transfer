@@ -103,7 +103,6 @@ def session_scale(s) -> float:
 
 def session_tensors(s, cfg: OperatorConfig, measured):
     """Returns (neuron features, stimulus features per condition, targets)."""
-    T = s.T - s.t0
     yc = s.y[~s.perturbed][:, s.t0 :]
     ctrl = _smooth(np.nanmean(yc, 0), cfg.smooth_control)             # (T, n_obs)
     ctrl_sd = np.nanstd(yc, 0).mean(0) + 1e-6                          # (n_obs,)

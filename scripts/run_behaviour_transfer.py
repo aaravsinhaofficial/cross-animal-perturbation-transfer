@@ -89,7 +89,6 @@ def main() -> int:
     ds = pickle.load(args.cache[0].open("rb"))["dataset"]
     for c in args.cache[1:]:
         ds.sets = list(ds.sets) + list(pickle.load(c.open("rb"))["dataset"].sets)
-    by_key = {s.key: s for s in ds.sets}
 
     pred = {}
     for p in args.preds:
