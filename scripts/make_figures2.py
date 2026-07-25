@@ -200,7 +200,8 @@ def traces_figure(out, preds_path, cache_path, n_units=8):
 
 def panel_rule(ax, rule, rule_icms, title):
     """What predicts how much a perturbation moves a neuron, one dot per animal."""
-    names = [("selectivity", "how choice\nselective it is"),
+    names = [("selectivity given rate", "choice selectivity,\nfiring rate removed"),
+             ("selectivity", "how choice\nselective it is"),
              ("firing rate", "how fast\nit fires"),
              ("preparatory ramp", "how much\nit ramps")]
     names = [(k, lab) for k, lab in names if k in rule]

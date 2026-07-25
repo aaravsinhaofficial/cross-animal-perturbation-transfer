@@ -337,8 +337,14 @@ def main() -> int:
             M[f"{pre}OnlyPos"] = str(ro["n_positive"])
             M[f"{pre}OnlyN"] = str(ro["n"])
             M[f"{pre}OnlyK"] = str(ro["n_params"])
+        rv = r.get("rate_vs_selectivity")
+        if rv:
+            M[f"{pre}RateSelR"] = f3(rv["mean_r"])
+            M[f"{pre}RateSelPos"] = str(rv["n_positive"])
+            M[f"{pre}RateSelN"] = str(rv["n"])
         for k, suf in (("firing rate", "Rate"), ("selectivity", "Sel"),
-                       ("preparatory ramp", "Ramp")):
+                       ("preparatory ramp", "Ramp"),
+                       ("selectivity given rate", "SelGivenRate")):
             v = r.get(k)
             if not v or not np.isfinite(v.get("mean_r", np.nan)):
                 continue
@@ -391,15 +397,18 @@ def main() -> int:
     ab = Path("results/alignment_baseline_alm.json")
     if ab.exists():
         r = json.loads(ab.read_text())
-        for k, pre in (("aligned", "AlignAligned"), ("stereotype", "AlignStereo")):
+        for k, pre in (("aligned", "AlignAligned"), ("stereotype", "AlignStereo"),
+                       ("aligned_rotation_only", "AlignRotOnly")):
             if k in r:
                 M[pre] = f3(r[k]["animal_mean"])
                 M[pre + "Med"] = f3(r[k].get("median"))
                 M[pre + "Pos"] = str(r[k]["sign_test"]["n_positive"])
                 M[pre + "N"] = str(r[k]["sign_test"]["n"])
-        if "test_aligned_vs_stereotype" in r:
-            M["AlignDiff"] = f3(r["test_aligned_vs_stereotype"]["mean_diff"])
-            M["AlignDiffP"] = pv(r["test_aligned_vs_stereotype"]["p"])
+        for k, pre in (("test_aligned_vs_stereotype", "Align"),
+                       ("test_aligned_rotation_only_vs_stereotype", "AlignRot")):
+            if k in r:
+                M[pre + "Diff"] = f3(r[k]["mean_diff"])
+                M[pre + "DiffP"] = pv(r[k]["p"])
 
     rb = Path("results/rule_by_release.json")
     if rb.exists():
@@ -571,15 +580,18 @@ def main() -> int:
             m.get("AlmOpModelPos", "--"), m.get("AlmOpModelN", "--"),
             m.get("AlmOpModelVsStereoP", "--"), "--")
     if "AlignAlignedPos" in m:
-        row("Aligning the animals' activity and carrying the response through that "
-            "alignment is worse than predicting the perturbation does nothing",
+        row("Aligning the animals' activity and carrying the response through the "
+            "alignment is no better than the stereotype, and both are worse than "
+            "the operator",
             f"${m['AlignAligned']}$", m["AlignAlignedPos"], m["AlignAlignedN"],
             m.get("AlignDiffP", "--"), "--")
     if "RuleSelNeg" in m:
-        row("How sharply a neuron distinguishes the two choices predicts how much "
-            "the light suppresses it",
-            f"$r = {m['RuleSelR']}$", m["RuleSelNeg"], m["RuleSelN"], m["RuleSelP"],
-            m.get("RuleSelNull", "--"))
+        row("How sharply a neuron distinguishes the two choices appears to predict "
+            "suppression, but the effect is a firing-rate confound and vanishes when "
+            "rate is regressed out",
+            f"$r = {m['RuleSelR']} \\to {m.get('RuleSelGivenRateR','--')}$",
+            m.get("RuleSelGivenRateNeg", "--"), m.get("RuleSelGivenRateN", "--"),
+            m.get("RuleSelGivenRateP", "--"), m.get("RuleSelNull", "--"))
         row("How fast a neuron fires predicts how much the light suppresses it",
             f"$r = {m['RuleRateR']}$", m["RuleRateNeg"], m["RuleRateN"],
             m["RuleRateP"], m.get("RuleRateNull", "--"))

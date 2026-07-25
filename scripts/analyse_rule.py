@@ -85,25 +85,52 @@ def main() -> int:
         ds.sets = list(ds.sets) + list(pickle.load(c.open("rb"))["dataset"].sets)
     print(f"{len(ds.sets)} sessions, {len(ds.animals)} animals")
 
-    names = ["firing rate", "preparatory ramp", "selectivity"]
+    names = ["firing rate", "preparatory ramp", "selectivity",
+             "selectivity given rate"]
     per: dict[str, dict[str, list]] = {n: {} for n in names}
     per_null: dict[str, dict[str, list]] = {n: {} for n in names}
+    rate_sel = []
     for s in ds.sets:
         if s.n_obs < args.min_units:
             continue
         feat_idx, base_idx = I.control_split(s)
         props = properties(s, feat_idx)
+        rate, sel = props["firing rate"], props["selectivity"]
+        if np.std(rate) > 1e-9 and np.std(sel) > 1e-9:
+            rate_sel.append(float(np.corrcoef(rate, sel)[0, 1]))
         for null, store in ((False, per), (True, per_null)):
             for d in response(s, feat_idx, base_idx, null=null):
                 for n in names:
+                    if n == "selectivity given rate":
+                        continue
                     x = props[n]
                     if np.std(x) < 1e-9 or np.std(d) < 1e-9:
                         continue
                     store[n].setdefault(s.animal, []).append(
                         float(np.corrcoef(x, d)[0, 1]))
+                # Selectivity is measured in spikes, so a fast neuron has a large
+                # one whatever its tuning, and the two are correlated across cells.
+                # Regressing firing rate out of both asks whether selectivity says
+                # anything the rate does not.
+                if min(np.std(rate), np.std(sel), np.std(d)) > 1e-9:
+                    def resid(a, b):
+                        b = b - b.mean()
+                        a = a - a.mean()
+                        return a - b * float(np.dot(a, b)) / float(np.dot(b, b))
+                    sr, dr = resid(sel, rate), resid(d, rate)
+                    if min(np.std(sr), np.std(dr)) > 1e-9:
+                        store["selectivity given rate"].setdefault(
+                            s.animal, []).append(float(np.corrcoef(sr, dr)[0, 1]))
 
     rep = {}
-    print(f"\n{'property':20s} {'r':>7s} {'animals<0':>10s} {'sign p':>8s} "
+    if rate_sel:
+        rep["rate_vs_selectivity"] = dict(
+            mean_r=float(np.mean(rate_sel)), n=len(rate_sel),
+            n_positive=int(np.sum(np.array(rate_sel) > 0)))
+        print(f"\nselectivity against firing rate across recordings: "
+              f"r = {np.mean(rate_sel):+.3f}, positive in "
+              f"{int(np.sum(np.array(rate_sel) > 0))}/{len(rate_sel)}")
+    print(f"\n{'property':26s} {'r':>7s} {'animals<0':>10s} {'sign p':>8s} "
           f"{'null r':>8s} {'null<0':>8s}")
     print("-" * 68)
     for n in names:
@@ -116,7 +143,7 @@ def main() -> int:
                       null_mean_r=float(np.nanmean(vn)),
                       null_negative=int(np.nansum(vn < 0)),
                       per_animal={a: float(np.nanmean(per[n][a])) for a in an})
-        print(f"{n:20s} {np.nanmean(v):+7.3f} {int((v < 0).sum()):>4d}/{len(v):<4d} "
+        print(f"{n:26s} {np.nanmean(v):+7.3f} {int((v < 0).sum()):>4d}/{len(v):<4d} "
               f"{st['p']:8.3f} {np.nanmean(vn):+8.3f} "
               f"{int(np.nansum(vn < 0)):>4d}/{len(vn):<4d}")
 

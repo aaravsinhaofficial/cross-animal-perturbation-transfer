@@ -35,17 +35,22 @@ part of each neuron's response with properties read off its control trials.
 
 | property of the neuron | correlation | animals negative | p |
 |---|---|---|---|
-| how choice selective it is | −0.171 | 32/38 | 2.4e-5 |
 | how fast it fires | −0.221 | 28/38 | 0.005 |
+| how choice selective it is (raw) | −0.171 | 32/38 | 2.4e-5 |
+| **the same, with firing rate regressed out** | **−0.049** | **20/38** | **0.87** |
 | how much it ramps | −0.003 | 19/38 | 1.00 |
 | how fast it fires, **under current** | −0.015 | 4/6 | 0.69 |
 
-The cohort is three separate releases collected years apart, and the selectivity result
-replicates independently in each half of it: 17 of the first release's 19 animals
-(p = 7e-4) and 15 of the later releases' 19 (p = 0.019).
+**The selectivity result is a firing-rate confound and we are reporting it as one.**
+Selectivity here is the difference in spikes between the two trial types, so a fast
+neuron has a large one whatever its tuning; across recordings the two correlate at
++0.564, positive in 165 of 168. Regress rate out and nothing is left. We had this in the
+abstract before we ran the control.
 
-**The light takes most from the cells that have most**, by the same rule in nearly every
-animal. The ramp is a negative control inside the same analysis. Under current no such
+What survives is that **the light takes most from the cells that fire fastest**, and that
+should be read modestly: optogenetic silencing of this kind is close to divisive, so if
+Δ = −(1−g)·r then a negative correlation between Δ and r follows from arithmetic. We
+recovered a known property of the method. The ramp is a negative control inside the same analysis. Under current no such
 rule exists, which is exactly why nothing individual transfers there.
 
 ## Aligning the animals first does not work
@@ -56,14 +61,16 @@ through that space. We built it: reduce both animals' mean control activity to l
 components, find the orthogonal map between them, and let that map carry the training
 animal's measured effect onto the held-out animal's neurons.
 
-It scores **−0.046, above zero in 6 of 20 animals**. Not merely worse than the operator:
-worse than predicting the perturbation does nothing, and worse than the stereotype by
-−0.074 (p = 0.024).
+Our first version used a rotation with no scale term and scored −0.046, worse than
+predicting nothing. **That was an artefact of the implementation**: a rotation carries the
+training animal's units along with its geometry. Adding the least-squares scale gives
+**+0.023, 11 of 20 animals, indistinguishable from the stereotype** (−0.005, p = 0.844).
 
-That is the distinction in one number. An alignment is a statement about the geometry of
-ordinary activity. What a perturbation does is a different object, and carrying it
-through a map fitted to resting geometry destroys it. The operator aligns nothing; it
-reads what each neuron is doing and applies a shared rule to it.
+So the honest statement is weaker than the one we first wrote. Aligning and transferring
+is about as good as ignoring the alignment and using the average of the other animals,
+and both are worse than the operator. Geometry alone is not enough, but it is not
+actively harmful, and any claim that it is should be checked for a missing scale
+parameter first.
 
 ## Why the second number is the interesting one
 

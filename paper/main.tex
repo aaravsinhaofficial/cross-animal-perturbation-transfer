@@ -46,12 +46,16 @@ never seen perturbed.
 In \AlmOpModelN{} mice whose frontal cortex was silenced with light, this works down to
 individual neurons: $\Delta R^2 = \AlmOpModel$ against $\AlmOpStereo$ for the average of
 the other mice, a difference of $\AlmOpModelVsStereoDiff$ at
-$p = \AlmOpModelVsStereoP$, reaching $\AlmOpTop$ in the best measured animals. The rule it
-exploits can be stated without a model. Across \RuleSelN{} mice the light suppresses
-most the cells that most sharply distinguish the two choices ($r = \RuleSelR$,
-\RuleSelNeg{}/\RuleSelN, $p = \RuleSelP$) and the cells that fire fastest
-($r = \RuleRateR$, \RuleRateNeg{}/\RuleRateN, $p = \RuleRateP$), while how much a cell
-ramps predicts nothing, a negative control inside the same analysis.
+$p = \AlmOpModelVsStereoP$, reaching $\AlmOpTop$ in the best measured animals. The rule
+it exploits can be stated without a model: across \RuleRateN{} mice the light takes most
+from the cells that fire fastest ($r = \RuleRateR$, \RuleRateNeg{}/\RuleRateN,
+$p = \RuleRateP$), while how much a cell ramps predicts nothing, a negative control
+inside the same analysis. A neuron's choice selectivity appears to predict suppression
+as well, but selectivity measured in spikes is a proxy for rate and the effect vanishes
+once rate is regressed out ($r = \RuleSelGivenRateR$,
+\RuleSelGivenRateNeg{}/\RuleSelGivenRateN, $p = \RuleSelGivenRateP$). We report that
+because we believed the uncorrected version first. What survives is close to a known
+property of the method, which scales activity down rather than subtracting from it.
 
 A score on the whole response is dominated by a component every neuron shares, so we
 split the effect into that component and the part specific to one neuron, on which a
@@ -292,15 +296,19 @@ that map carry the training animal's measured effect onto the held out animal's 
 Average over training animals. Nothing from the held out animal's perturbation trials is
 used, so it obeys the same protocol as everything else here.
 
-It scores $\AlignAligned$, above zero in \AlignAlignedPos{} of \AlignAlignedN{}
-animals. That is not merely worse than the operator, it is worse than predicting that
-the perturbation does nothing, and worse than the stereotype by
-$\AlignDiff$ at $p = \AlignDiffP$.
+Our first version of it used a rotation with no scale term, and scored
+$\AlignRotOnly$, below zero and worse than the stereotype at $p = \AlignRotDiffP$. That
+number was an artefact of the implementation. A rotation carries the training animal's
+units along with its geometry, so the prediction is wrong by however much the two animals
+differ in amplitude. Adding the least-squares scale that belongs with the rotation gives
+$\AlignAligned$, above zero in \AlignAlignedPos{} of \AlignAlignedN{} animals and
+indistinguishable from the stereotype ($\AlignDiff$, $p = \AlignDiffP$).
 
-This is the paper's distinction in one number. An alignment is a statement about the
-geometry of ordinary activity. What a perturbation does is a different object, and
-carrying it through a map fitted to resting geometry destroys it. The operator does not
-align anything: it reads what each neuron is doing and applies a shared rule to it.
+So the honest statement is weaker than the one we first wrote down. Aligning the animals
+and carrying the response through the alignment is about as good as ignoring the
+alignment and using the average of the other animals, and both are worse than the
+operator. Geometry alone is not enough, but it is not actively harmful either, and any
+claim that it is should be checked for a missing scale parameter first.
 
 \subsection{The same is true of every model we tried}
 
@@ -458,7 +466,8 @@ with an exact sign test. The control trials supplying the properties are disjoin
 the ones defining the response, and the whole thing is repeated with the perturbed
 trials replaced by control trials as a null.
 
-Two of the three carry, and one does not (Fig.~\ref{fig:rule}).
+Two of the three carry and one does not, and then a control removes most of what the
+first two seemed to say (Fig.~\ref{fig:rule}).
 
 \begin{center}\small
 \begin{tabular}{lcccc}
@@ -472,10 +481,27 @@ how much it ramps & $\RuleRampR$ & \RuleRampNeg{}/\RuleRampN & \RuleRampP & \Rul
 \end{tabular}
 \end{center}
 
-The light takes most from the cells that have most: the fastest firing ones, and the
-ones that most sharply distinguish the two choices. The ramp on its own carries nothing,
-which is a useful negative control inside the same analysis, since an artefact of
-measurement would not know the difference between a ramp and a selectivity.
+The light takes most from the cells that fire fastest, and apparently also from the ones
+that most sharply distinguish the two choices. The ramp carries nothing, which is a
+useful negative control inside the same analysis.
+
+The apparent selectivity effect does not survive. We measured selectivity as the
+difference in spikes between the two trial types, so a fast neuron has a large one
+whatever its tuning, and across recordings selectivity and firing rate correlate at
+$\RuleRateSelR$, positive in \RuleRateSelPos{} of \RuleRateSelN. Regressing firing
+rate out of both leaves $\RuleSelGivenRateR$, negative in \RuleSelGivenRateNeg{} of
+\RuleSelGivenRateN{} animals ($p = \RuleSelGivenRateP$), which is chance. What we
+measured was the rate effect wearing a second name. We report it because we published
+the uncorrected version to ourselves first and because the confound is easy to
+reproduce, not because it is a result.
+
+That leaves the rate effect, and it should be read modestly. Optogenetic silencing of
+this kind is close to divisive: it scales a neuron's activity down rather than
+subtracting a fixed amount \citep{alm_wide_b}. If the effect is $\Delta_n = -(1-g) r_n$
+then a negative correlation between $\Delta$ and $r$ follows from arithmetic before any
+biology is involved. Our measurement is consistent with that and does not go beyond it.
+The honest summary is that we recovered a known property of the method, in 28 of 38
+animals, and that the more interesting claim we thought we had is a confound.
 
 The cohort is three separate releases of the same experiment, collected years apart,
 and the selectivity result replicates independently in each half of it: \RuleSelA{} of
@@ -1002,14 +1028,15 @@ shared and the magnitudes are not.}
 
 \begin{figure}[h]\centering
 \includegraphics[width=0.72\textwidth]{figures/fig11_rule.png}
-\caption{\textbf{The shared rule, measured rather than fitted.} Each dot is one animal:
-the correlation, computed inside that animal's recordings, between the individual part
-of a neuron's response and a property read off its control trials. Thick bars are
-medians. The light suppresses the cells that most sharply distinguish the two choices
-and the cells that fire fastest, in nearly every animal. How much a cell ramps predicts
-nothing, which is a negative control inside the same analysis. Under microstimulation
-(orange) there is no such relationship, which is why nothing individual transfers
-there.}
+\caption{\textbf{The shared rule, measured rather than fitted, and a confound in it.}
+Each dot is one animal: the correlation, computed inside that animal's recordings,
+between the individual part of a neuron's response and a property read off its control
+trials. Thick bars are medians. The light suppresses the cells that fire fastest. It
+appears to suppress the choice-selective cells too, but selectivity measured in spikes
+is a proxy for firing rate, and the top row shows that regressing rate out of both
+leaves nothing. How much a cell ramps predicts nothing either, a negative control inside
+the same analysis. Under microstimulation (orange) there is no relationship at all,
+which is why nothing individual transfers there.}
 \label{fig:rule}
 \end{figure}
 

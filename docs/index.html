@@ -118,20 +118,23 @@ part of each neuron's response with properties read off its control trials.</p>
 
 <figure>
   <img src="fig11_rule.png" alt="What predicts how much a perturbation moves a neuron">
-  <figcaption>Each dot is one animal. The light suppresses the cells that most sharply
-  distinguish the two choices (32 of 38 mice, <i>p</i> = 2&times;10<sup>&minus;5</sup>)
-  and the cells that fire fastest (28 of 38, <i>p</i> = 0.005). How much a cell ramps
-  predicts nothing, a negative control inside the same analysis. Under microstimulation
-  there is no such relationship.</figcaption>
+  <figcaption>Each dot is one animal. The light suppresses the cells that fire fastest
+  (28 of 38 mice, <i>p</i> = 0.005). It appears to suppress the choice-selective cells
+  too (32 of 38), but selectivity measured in spikes is a proxy for firing rate and that
+  effect vanishes once rate is regressed out (20 of 38, <i>p</i> = 0.87). How much a cell
+  ramps predicts nothing, a negative control. Under microstimulation there is no
+  relationship at all.</figcaption>
 </figure>
 
-<p>The cohort is three separate releases collected years apart, and the selectivity
-result replicates independently in each half of it: 17 of the first release's 19 animals
-(<i>p</i> = 7&times;10<sup>&minus;4</sup>) and 15 of the later releases' 19
-(<i>p</i> = 0.019).</p>
+<p><b>The selectivity result is a firing-rate confound and we report it as one.</b>
+Selectivity here is a difference in spikes, so a fast neuron has a large one whatever its
+tuning; the two correlate at +0.564 across 165 of 168 recordings. Regress rate out and
+nothing is left. This was in our abstract before we ran the control.</p>
 
-<p><b>The light takes most from the cells that have most</b>, by the same rule in nearly
-every animal. Under current, no such rule exists, and that is exactly why nothing
+<p>What survives is that <b>the light takes most from the cells that fire fastest</b>,
+and that should be read modestly: silencing of this kind is close to divisive, so a
+negative correlation follows from arithmetic. We recovered a known property of the
+method. Under current, no such rule exists, and that is exactly why nothing
 individual transfers there.</p>
 
 <h2>Aligning the animals first does not work</h2>
@@ -142,14 +145,17 @@ response through that space. We built it: reduce both animals' mean control acti
 leading components, find the orthogonal map between them, and let that map carry the
 training animal's measured effect onto the held-out animal's neurons.</p>
 
-<p>It scores <b>&minus;0.046, above zero in 6 of 20 animals</b>. Not merely worse than
-the operator: worse than predicting the perturbation does nothing, and worse than the
-stereotype by &minus;0.074 (<i>p</i> = 0.024).</p>
+<p>Our first version used a rotation with no scale term and scored &minus;0.046, worse
+than predicting nothing. <b>That was an artefact of the implementation</b>: a rotation
+carries the training animal's units along with its geometry. Adding the least-squares
+scale gives <b>+0.023, 11 of 20 animals, indistinguishable from the stereotype</b>
+(&minus;0.005, <i>p</i> = 0.844).</p>
 
-<p>That is the distinction in one number. An alignment is a statement about the geometry
-of ordinary activity. What a perturbation does is a different object, and carrying it
-through a map fitted to resting geometry destroys it. The operator aligns nothing; it
-reads what each neuron is doing and applies a shared rule to it.</p>
+<p>So the honest statement is weaker than the one we first wrote. Aligning and
+transferring is about as good as ignoring the alignment and using the average of the
+other animals, and both are worse than the operator. Geometry alone is not enough, but it
+is not actively harmful, and any claim that it is should be checked for a missing scale
+parameter first.</p>
 
 <h2>A score on the whole response flatters everybody</h2>
 

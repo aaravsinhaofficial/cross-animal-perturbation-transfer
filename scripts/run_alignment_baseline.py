@@ -52,11 +52,20 @@ def profile(s, feat_idx, n_comp):
     return u[:, :k] * sv[:k], vt[:k].T                      # (T,k), (n_obs,k)
 
 
-def orthogonal_map(a, b):
-    """The rotation taking the columns of ``a`` onto the columns of ``b``."""
+def orthogonal_map(a, b, scaled=True):
+    """The map taking the columns of ``a`` onto the columns of ``b``.
+
+    A rotation alone has no scale, so a prediction carried through it keeps the
+    training animal's units and is wrong by whatever the two animals differ in
+    amplitude. That is a property of the implementation and not of alignment as an
+    idea, so the least-squares scale of Schoenemann and Carroll is included by
+    default. Leaving it out is available for comparison and is not a fair baseline.
+    """
     m = a.T @ b
-    u, _, vt = np.linalg.svd(m)
-    return u @ vt
+    u, sv, vt = np.linalg.svd(m)
+    R = u @ vt
+    c = float(sv.sum() / max(float(np.sum(a * a)), 1e-12)) if scaled else 1.0
+    return R, c
 
 
 def measured(s):
@@ -94,7 +103,7 @@ def main() -> int:
         pre[s.key] = dict(s=s, time=got[0], load=got[1], meas=dl,
                           amp={c: float(s.meta["cond_amp"][c]) for c in dl})
 
-    rows = {"aligned": [], "stereotype": []}
+    rows = {"aligned": [], "aligned_rotation_only": [], "stereotype": []}
     groups = []
     for s in ds.sets:
         me = pre.get(s.key)
@@ -103,7 +112,7 @@ def main() -> int:
         k = me["time"].shape[1]
         for c, truth in me["meas"].items():
             amp = me["amp"][c]
-            preds, stereo = [], []
+            preds, rot_only, stereo = [], [], []
             for key, other in pre.items():
                 if other["s"].animal == s.animal:
                     continue
@@ -115,17 +124,24 @@ def main() -> int:
                 dj = other["meas"][cj]                       # (T, n_j)
                 # into the training animal's components, rotate into ours, back out
                 zj = dj @ other["load"][:, :kk]              # (T, kk)
-                R = orthogonal_map(other["time"][:, :kk], me["time"][:, :kk])
-                preds.append(zj @ R @ me["load"][:, :kk].T)  # (T, n_i)
+                back = me["load"][:, :kk].T
+                R, c = orthogonal_map(other["time"][:, :kk], me["time"][:, :kk])
+                preds.append(c * (zj @ R @ back))            # (T, n_i)
+                R0, _ = orthogonal_map(other["time"][:, :kk], me["time"][:, :kk],
+                                       scaled=False)
+                rot_only.append(zj @ R0 @ back)
                 stereo.append(np.tile(dj.mean(1)[:, None], (1, s.n_obs)))
             if not preds:
                 continue
             P = np.mean(preds, 0)
+            P0 = np.mean(rot_only, 0)
             G = np.mean(stereo, 0)
             e = float(np.nansum(truth ** 2))
             if e <= 0:
                 continue
             rows["aligned"].append(1.0 - float(np.nansum((truth - P) ** 2)) / e)
+            rows["aligned_rotation_only"].append(
+                1.0 - float(np.nansum((truth - P0) ** 2)) / e)
             rows["stereotype"].append(1.0 - float(np.nansum((truth - G) ** 2)) / e)
             groups.append(s.animal)
 
@@ -141,11 +157,13 @@ def main() -> int:
               f"[{r['ci_lo']:+.2f},{r['ci_hi']:+.2f}]".rjust(17) +
               f" {r['sign_test']['n_positive']:>4d}/{r['sign_test']['n']:<4d} "
               f"{r['sign_test']['p']:8.3f}")
-    ks = sorted(set(rep["aligned"]["per_animal"]) & set(rep["stereotype"]["per_animal"]))
-    t = M.animal_permutation_test([rep["aligned"]["per_animal"][k] for k in ks],
-                                  [rep["stereotype"]["per_animal"][k] for k in ks])
-    rep["test_aligned_vs_stereotype"] = t
-    print(f"aligned vs stereotype: diff={t['mean_diff']:+.3f} p={t['p']:.3f} (n={t['n']})")
+    for nm in ("aligned", "aligned_rotation_only"):
+        ks = sorted(set(rep[nm]["per_animal"]) & set(rep["stereotype"]["per_animal"]))
+        t = M.animal_permutation_test([rep[nm]["per_animal"][k] for k in ks],
+                                      [rep["stereotype"]["per_animal"][k] for k in ks])
+        rep[f"test_{nm}_vs_stereotype"] = t
+        print(f"{nm:22s} vs stereotype: diff={t['mean_diff']:+.3f} "
+              f"p={t['p']:.3f} (n={t['n']})")
 
     out = Path(f"results/alignment_baseline_{args.tag}.json")
     out.parent.mkdir(parents=True, exist_ok=True)
