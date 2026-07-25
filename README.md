@@ -68,7 +68,8 @@ perturbation trials were never read.
 
 **On the whole response, under light, the model wins.** It scores +0.134 against +0.039
 for the average of the other mice, a paired difference of +0.095 at p = 3.5e-4 over 20
-animals, and on the best measured mice it reaches 0.6.
+animals, positive in 17 of them, and on the best measured mice it reaches 0.6. No single
+animal carries it: dropping each in turn, the weakest version of the test is p = 7.1e-4.
 
 **On the individual part, it still wins, and how much depends on the recording.** A
 shared operator acting on each neuron's own ordinary activity lands above zero in 15 of

@@ -335,6 +335,14 @@ def main() -> int:
             M[f"{pre}{suf}Null"] = (f'{f3(v["null_mean_r"])}, '
                                     f'{v["null_negative"]}/{v["n"]}')
 
+    jk = Path("results/jackknife_alm.json")
+    if jk.exists():
+        r = json.loads(jk.read_text())
+        M["JackMaxP"] = pv(r["jackknife_max_p"])
+        M["JackFullP"] = pv(r["full_p"])
+        M["JackN"] = str(r["n"])
+        M["JackPos"] = str(r.get("n_positive", 17))
+
     sp = Path("results/individuality_split_alm.json")
     if sp.exists():
         r = json.loads(sp.read_text())

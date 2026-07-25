@@ -217,6 +217,13 @@ which follows from trial counts and firing rates, and how much independently see
 copies of the network disagree with each other. Neither reads a perturbation trial from
 the held out animal.
 
+Run on the whole light cohort, \AllOpModelN{} animals including the two later releases
+whose recordings are smaller, the model gives $\AllOpModel$ against $\AllOpStereo$,
+above zero in \AllOpModelPos{} of \AllOpModelN{} animals, a difference of
+$\AllOpModelVsStereoDiff$ at $p = \AllOpModelVsStereoP$. Adding animals with a dozen
+neurons each does not raise the average, and Section~\ref{sec:individual} explains why:
+what an animal contributes is limited by how well its own response can be resolved.
+
 In the microstimulation cohort the same machinery gives $\IcmsOpModel$ against
 $\IcmsOpStereo$ for the stereotype, a difference of $\IcmsOpModelVsStereoDiff$ at
 $p = \IcmsOpModelVsStereoP$, which with six animals is nothing.
@@ -659,6 +666,11 @@ control we now run alongside every fit: replace the perturbed trials with a seco
 of control trials, so the answer is known to be zero, and confirm the procedure returns
 zero. It does, at $\AlmIndNull$ under light and $\IcmsIndNull$ under current. Before
 the split it did not.
+
+No single animal carries the main result. Dropping each of the \JackN{} animals in
+turn and repeating the paired test, the weakest version of it is $p = \JackMaxP$,
+against $\JackFullP$ for the full cohort. The paired difference is positive in
+\JackPos{} of \JackN{} animals.
 
 The split half ceiling estimator was validated against simulations with known signal
 and noise across six regimes of noise level and trial count, agreeing with the
