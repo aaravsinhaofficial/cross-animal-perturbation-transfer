@@ -72,6 +72,11 @@ animals, positive in 17 of them, and on the four animals it does best in it reac
 +0.36 to +0.54 against a stereotype managing +0.06 to +0.31. No single
 animal carries it: dropping each in turn, the weakest version of the test is p = 7.1e-4.
 
+It replicates on the full 39-animal cohort, which adds two releases whose recordings are
+much smaller: +0.086 against +0.020, better in 26 of 39 animals, p = 0.013. The average
+does not rise when animals with a dozen neurons are added, for the reason the
+measurement-quality result below makes explicit.
+
 **On the individual part, it still wins, and how much depends on the recording.** A
 shared operator acting on each neuron's own ordinary activity lands above zero in 15 of
 20 mice (exact sign test, p = 0.041), against a measurable maximum of 0.57. Split the

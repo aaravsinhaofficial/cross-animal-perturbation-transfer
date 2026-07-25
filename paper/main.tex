@@ -494,13 +494,17 @@ not have found this effect and would have reported, with a straight face, that n
 transfers. The returns are still being collected at \CohortAllMaxN{} animals, which is
 an argument for cohorts over deeper recordings in a handful of animals.
 
-\ifhave{GrowModelLarge}{The same holds for the trained network, which cannot be
-refitted for every subset but can be compared between two runs that differ only in how
-many animals it had to learn from. Holding out the same \GrowModelN{} animals and
-scoring them identically, the network trained on \GrowLargeCohort{} other animals
-scores $\GrowModelLarge$ against $\GrowModelSmall$ for the one trained on
-\GrowSmallCohort{}, better in \GrowModelBetter{} of \GrowModelN{} of them
-($p = \GrowModelP$).}
+\ifhave{GrowModelLarge}{The trained network cannot be refitted for every subset, but it
+can be compared between two runs that differ only in how many animals it had to learn
+from. Holding out the same \GrowModelN{} animals and scoring them identically, the
+model trained on \GrowLargeCohort{} other animals scores $\GrowModelLarge$ against
+$\GrowModelSmall$ for the one trained on \GrowSmallCohort{}, better in
+\GrowModelBetter{} of \GrowModelN{} of them ($p = \GrowModelP$). The stereotype
+improves by a similar amount over the same animals, so what the extra animals buy is a
+better average response as much as a better operator, and the operator's margin over the
+stereotype is unchanged. The larger run also used fewer random seeds than the smaller
+one, which if anything works against it. We would not claim more than a direction from
+twenty test animals.}
 
 \section{Where the failure comes from}
 

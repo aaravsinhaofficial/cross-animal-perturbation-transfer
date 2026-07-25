@@ -276,8 +276,19 @@ def animal_sign_test(per_animal, mu: float = 0.0):
     return {"n": n, "n_positive": k, "p": p, "p_floor": 2.0 ** (-(n - 1))}
 
 
-def animal_permutation_test(per_animal_a, per_animal_b=None, seed: int = 0):
-    """Exact sign-flip permutation over animals (enumerated, not sampled)."""
+MAX_EXACT_ANIMALS = 20        # 2^20 sign flips is a second; 2^39 is not a lifetime
+
+
+def animal_permutation_test(per_animal_a, per_animal_b=None, seed: int = 0,
+                            n_draws: int = 200_000):
+    """Sign-flip permutation over animals.
+
+    Every assignment is enumerated while that is cheap, which is the case for the
+    cohort sizes this kind of experiment usually has. Beyond ``MAX_EXACT_ANIMALS`` the
+    enumeration is 2^n and quietly becomes impossible, so the flips are sampled
+    instead and the result is flagged as such. The alternative, silently waiting
+    forever, is worse.
+    """
     import itertools
 
     a = np.asarray(per_animal_a, float)
@@ -288,10 +299,20 @@ def animal_permutation_test(per_animal_a, per_animal_b=None, seed: int = 0):
     if n == 0:
         return {"mean_diff": float("nan"), "p": float("nan"), "n": 0}
     obs = float(d.mean())
-    null = [float(np.mean(np.array(s) * d)) for s in itertools.product([-1, 1], repeat=n)]
-    null = np.asarray(null)
+    if n <= MAX_EXACT_ANIMALS:
+        null = np.asarray([float(np.mean(np.array(s) * d))
+                           for s in itertools.product([-1, 1], repeat=n)])
+        exact = True
+    else:
+        rng = np.random.default_rng(seed)
+        signs = rng.choice(np.array([-1.0, 1.0]), size=(n_draws, n))
+        null = (signs * d).mean(axis=1)
+        exact = False
     p = float(np.mean(np.abs(null) >= abs(obs) - 1e-15))
-    return {"mean_diff": obs, "p": p, "n": n, "p_floor": 2.0 ** (-(n - 1)), "exact": True}
+    if not exact:
+        p = max(p, 1.0 / n_draws)          # a sampled p cannot be smaller than this
+    return {"mean_diff": obs, "p": p, "n": n, "p_floor": 2.0 ** (-(n - 1)),
+            "exact": exact, "n_draws": None if exact else n_draws}
 
 
 def mixed_effects_intercept(values, groups):
